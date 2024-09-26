@@ -23,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.variable}>
+        <main className="font-pretendard">
         <Header />
         {children}
         <Footer />
+        </main>
       </body>
     </html>
   );
