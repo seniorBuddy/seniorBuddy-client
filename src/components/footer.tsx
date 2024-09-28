@@ -1,9 +1,9 @@
 export default function Footer() {
-
     return (
         <div className="
-            w-full bg-blue flex items-center justify-center h-20 fixed bottom-0">
-            Footer
+            hidden sm:flex w-full fixed bottom-0 bg-blue h-16 text-white text-sm
+            items-center justify-center">
+            senior buddy © 2024
         </div>
     )
 }

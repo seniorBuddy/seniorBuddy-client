@@ -23,12 +23,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.variable}>
-        <main className="font-pretendard">
-        <Header />
-        {children}
-        <Footer />
+        <main className="font-pretendard min-h-screen flex flex-col">
+          <Header />
+          <div className="flex-grow p-2 mb-16 w-3/4 sm:w-1/2 m-auto mt-6">
+            {children}
+          </div>
+          <Footer />
         </main>
       </body>
     </html>
   );
 }
+
