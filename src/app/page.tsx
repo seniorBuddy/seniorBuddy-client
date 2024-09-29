@@ -1,33 +1,34 @@
 import { MdKeyboardVoice } from "react-icons/md";
 import { BiSolidSend } from "react-icons/bi";
+import Link from "next/link";
 
 export default function Home() {
   return (
    <>
    <div className="flex items-center justify-center">
-   <section className="mt-5 sm:mt-8 w-72 md:w-full bg-white rounded-xl shadow-lg px-4 py-2 m-4">
-      <div className="font-bold text-xl">
+   <section className="mt-5 sm:mt-8 w-72 md:w-full bg-white rounded-xl shadow-lg px-4 py-4 m-4">
+      <div className="font-bold text-lg leading-tight pb-3">
         나의 <span className="text-blue">삶을 더 편리</span>하게,<br /> 시작해 보세요
       </div>
       <div className="m-auto text-center px-5 sm:px-0 gap-2 sm:gap-5 m-3 grid grid-cols-2 md:grid-cols-4 font-extrabold text-xl md:text-2xl">
-          <button className="py-7 sm:py-12 rounded-lg bg-desc-bg-btn">
+          <Link href={'/menual'} className="py-7 sm:py-12 rounded-lg bg-desc-bg-btn">
             <span className="text-desc">설명서</span>
-          </button>
-          <button className="py-7 sm:py-12 rounded-lg bg-remind-bg-btn">
+          </Link>
+          <Link href={'/reminder'} className="py-7 sm:py-12 rounded-lg bg-remind-bg-btn">
             <span className="text-remind">알리미</span>
-          </button>
-          <button className="py-7 sm:py-12 rounded-lg bg-info-bg-btn">
+          </Link>
+          <Link href={'/my-info'} className="py-7 sm:py-12 rounded-lg bg-info-bg-btn">
             <span className="text-info">내 정보</span>
-          </button>
-          <button className="py-7 sm:y-12 rounded-lg bg-option-bg-btn">
-            <span className="text-option">설정</span>
-          </button>
+          </Link>
+          <Link href={'/setting'} className="py-7 sm:py-12 rounded-lg bg-option-bg-btn">
+            <span className="text-info">설정</span>
+          </Link>
       </div>
     </section>
    </div>
-   <div className="flex items-center justify-center flex-col md:flex-row gap-3 mx-4">
+   <div className="flex items-center justify-center flex-col md:flex-row gap-3">
     {/* AI 비서 캐릭터  */}
-    <div className="w-72 md:min-w-50 flex flex-row flex-1 sm:my-5 p-3 bg-blue rounded-xl justify-center gap-3 sm:gap-5">
+    <Link href={'/ai_chat/custom'} className="w-72 md:min-w-50 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5  bg-blue rounded-xl justify-center gap-3 sm:gap-5">
         <div className="md:hidden h-20 w-20 pt-1 m-auto bg-white rounded-full"></div>
         <div className="">
             <div className="text-info font-bold min-w-36 m-auto bg-white text-center mb-2 rounded-3xl ">
@@ -39,7 +40,7 @@ export default function Home() {
               보내고 계신가요?
             </div>
         </div>
-      </div>
+      </Link>
       {/* AI 채팅 시작하기*/}
       <div className="border-2 border-blue w-72 sm:w-full  flex flex-col flex-2 items-center p-3 bg-white shadow-xl rounded-xl ">
         <span className="text-info font-extrabold text-xl mb-5">Abby와 대화하기</span>
@@ -51,7 +52,9 @@ export default function Home() {
           <div className="px-1 py-1.5 border-2 bg-gray-100 text-gray-400 border-gray-300 rounded-md flex items-center">
           <MdKeyboardVoice className="w-5 h-5"/>
             <div className="flex-1 text-md pr-5 ">궁금한 것을 물어 보세요</div>
-          <BiSolidSend className="w-5 h-5"/>
+          <Link href={'/ai_chat'}>
+            <BiSolidSend className="w-5 h-5"/>
+          </Link>
           </div>
         </div>
       </div>    
