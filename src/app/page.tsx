@@ -1,27 +1,42 @@
 import { MdKeyboardVoice } from "react-icons/md";
 import { BiSolidSend } from "react-icons/bi";
 import Link from "next/link";
-
+import { BiSolidFoodMenu } from "react-icons/bi";
+import { MdMedicalInformation } from "react-icons/md";
+import { GrContactInfo } from "react-icons/gr";
+import { DiAptana } from "react-icons/di";
 export default function Home() {
   return (
    <>
    <div className="flex items-center justify-center">
-   <section className="mt-5 sm:mt-8 w-72 md:w-full bg-white rounded-xl shadow-lg px-4 py-4 m-4">
-      <div className="font-bold text-lg leading-tight pb-3">
+   <section className="p-4 mb-3 mt-5 sm:mt-8 w-72 md:w-full bg-white rounded-xl shadow-lg">
+      <div className="font-extrabold text-lg leading-tight pb-3">
         나의 <span className="text-blue">삶을 더 편리</span>하게,<br /> 시작해 보세요
       </div>
       <div className="m-auto text-center px-5 sm:px-0 gap-2 sm:gap-5 m-3 grid grid-cols-2 md:grid-cols-4 font-extrabold text-xl md:text-2xl">
-          <Link href={'/menual'} className="py-7 sm:py-12 rounded-lg bg-desc-bg-btn">
+          <Link href={'/menual'} className="py-3 sm:py-8 rounded-lg bg-desc-bg-btn">
+            <div className="flex flex-col justify-center items-center">
+            <BiSolidFoodMenu className="text-desc w-12 h-12"/>
             <span className="text-desc">설명서</span>
+            </div>
           </Link>
-          <Link href={'/reminder'} className="py-7 sm:py-12 rounded-lg bg-remind-bg-btn">
-            <span className="text-remind">알리미</span>
+          <Link href={'/reminder'} className="py-3 sm:py-8 rounded-lg bg-remind-bg-btn">
+            <div className="flex flex-col justify-center items-center">
+              <MdMedicalInformation className="text-remind w-12 h-12"/>
+              <span className="text-remind">알리미</span>
+            </div>
           </Link>
-          <Link href={'/my-info'} className="py-7 sm:py-12 rounded-lg bg-info-bg-btn">
+          <Link href={'/my-info'} className="py-3 sm:py-8 rounded-lg bg-info-bg-btn">
+            <div className="flex flex-col justify-center items-center">
+            <GrContactInfo className="text-info w-12 h-12"/>
             <span className="text-info">내 정보</span>
+            </div>
           </Link>
-          <Link href={'/setting'} className="py-7 sm:py-12 rounded-lg bg-option-bg-btn">
-            <span className="text-info">설정</span>
+          <Link href={'/setting'} className="py-3 sm:py-8 rounded-lg bg-option-bg-btn">
+            <div className="flex flex-col justify-center items-center">
+            <DiAptana className="text-info w-12 h-12"/>
+            <span className="text-option">설정</span>
+            </div>
           </Link>
       </div>
     </section>
@@ -42,9 +57,9 @@ export default function Home() {
         </div>
       </Link>
       {/* AI 채팅 시작하기*/}
-      <div className="border-2 border-blue w-72 sm:w-full  flex flex-col flex-2 items-center p-3 bg-white shadow-xl rounded-xl ">
+      <div className="border-2 border-blue w-72 md:w-full  flex flex-col flex-2 items-center p-3 bg-white shadow-xl rounded-xl ">
         <span className="text-info font-extrabold text-xl mb-5">Abby와 대화하기</span>
-        <div className="mt-6 w-full flex gap-3 mt-3 sm:mt-10 my-3 sm:my-5 hidden sm:flex items-center justify-center">
+        <div className="mt-6 w-full flex gap-3 mt-3 sm:mt-10 my-3 sm:my-5 hidden md:flex items-center justify-center">
           <div className="px-1 py-1.5 border-2 text-blue border-blue rounded-md text-sm">오늘 날씨는 어때?</div>
           <div className="px-1 py-1.5 border-2 text-blue border-blue rounded-md text-sm">메뉴얼 사용법에 대해</div>
         </div>
