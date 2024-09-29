@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={pretendard.variable}>
         <main className="font-pretendard min-h-screen flex flex-col">
           <Header />
-          <div className="flex-grow px-8 sm:p-2 mb-16 w-full sm:w-1/2 m-auto">
+          <div className="flex-grow sm:w-1/2 m-auto mb-16 w-full">
             {children}
           </div>
           <Footer />
@@ -34,4 +34,3 @@ export default function RootLayout({
     </html>
   );
 }
-
