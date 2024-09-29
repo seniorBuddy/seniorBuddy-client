@@ -10,11 +10,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        blue: '#126aff',
+        desc: "#c84040",
+        remind: "#363030",
+        info: "#252737",
+        option: "#391D6C",
+      },
+
+      backgroundImage: {
+        'desc-bg-btn': 'linear-gradient(to bottom, #FF9398, #E2EA46)', 
+        'remind-bg-btn': 'linear-gradient(to bottom, #9ADF59, #3CCABA)', 
+        'info-bg-btn': 'linear-gradient(to bottom, #6C79E5, #01EED2)', 
+        'option-bg-btn': 'linear-gradient(to bottom, #688EFF, #C06EFF)', 
       },
       fontFamily: {
-        pretendard: ['var(--font-pretendard)'],
+        pretendard: ["var(--font-pretendard)"],
       },
     },
   },

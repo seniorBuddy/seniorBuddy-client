@@ -1,100 +1,62 @@
-import Image from "next/image";
+import { MdKeyboardVoice } from "react-icons/md";
+import { BiSolidSend } from "react-icons/bi";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm text-center sm:text-left">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div>
+    {/* 버튼 그룹 */}
+    <section className="min-w-60 m-5 p-5 flex flex-col gap-2 bg-white rounded-lg shadow-lg">
+      <div className="font-bold text-xl">
+        나의 <span className="text-blue ">삶을 더 편리</span>하게,<br /> 시작해 보세요
+      </div>
+      <div className="mx-5 text-center grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-5 font-extrabold text-xl sm:text-2xl">
+          <button className="w-full py-6 sm:py-14 m-auto rounded-lg bg-desc-bg-btn">
+            <span className="text-desc">설명서</span>
+          </button>
+          <button className="w-full py-6 sm:py-14 m-auto rounded-lg bg-remind-bg-btn">
+            <span className="text-remind">알리미</span>
+          </button>
+          <button className="w-full py-6 sm:py-14 m-auto rounded-lg bg-info-bg-btn">
+            <span className="text-info">내 정보</span>
+          </button>
+          <button className="w-full py-6 sm:py-14 m-auto rounded-lg bg-option-bg-btn">
+            <span className="text-option">설정</span>
+          </button>
+      </div>
+    </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+     {/* AI 그룹 */}
+     <section className="flex flex-col sm:flex-row justify-center items-center gap-5">
+      {/* AI 비서 캐릭터  */}
+      <div className=" min-w-36 max-w-64  flex flex-row flex-1 sm:m-5 p-3 bg-blue rounded-xl justify-center gap-3 sm:gap-5">
+        <div className="sm:hidden min-h-24 min-w-24 pt-1 m-auto bg-white rounded-full"></div>
+        <div className="max-w-">
+            <div className="text-info font-bold min-w-32 m-auto bg-white text-center p-1 mb-2 rounded-3xl ">
+              AI 비서 Abby
+              </div>
+            <div className="hidden sm:block h-24 w-24 m-auto bg-white rounded-full"></div>
+            <div className="text-white font-medium mt-2">
+              좋은 하루 보내고 계신가요?
+            </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file-text.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+      {/* AI 채팅 시작하기*/}
+      <div className="min-w-56  flex flex-col flex-2 items-center justify-center p-5 bg-white rounded-xl shadow-lg">
+        <span className="text-info font-extrabold text-xl">Abby와 대화하기</span>
+        <div className="mt-6 w-full flex gap-3 mt-10 my-5">
+          <div className="px-1 py-1.5 border-2 text-blue border-blue rounded-md text-sm">오늘 날씨는 어때?</div>
+          <div className="px-1 py-1.5 border-2 text-blue border-blue rounded-md text-sm">메뉴얼 사용법에 대해</div>
+        </div>
+        <div className="mt-2 w-full h-full">
+          <div className="px-1 py-1.5 border-2 bg-gray-100 text-gray-400 border-gray-300 rounded-md flex
+          items-center">
+          <MdKeyboardVoice className="w-5 h-5"/>
+            <div className="flex-1 text-sm pr-5">궁금한 것을 물어 보세요</div>
+          <BiSolidSend className="w-5 h-5"/>
+          </div>
+        </div>
+      </div>    
+     </section>
     </div>
   );
 }

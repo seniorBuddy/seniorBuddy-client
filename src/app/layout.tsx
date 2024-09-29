@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 const pretendard = localFont({
-  src: "/fonts/PretendardVariable.woff2",
-  display: "swap",
-  weight: "45 920",
+  src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
 });
 
@@ -21,9 +21,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="font-pretendard">
-        {children}
+      <body className={pretendard.variable}>
+        <main className="font-pretendard min-h-screen flex flex-col">
+          <Header />
+          <div className="flex-grow px-8 sm:p-2 mb-16 w-full sm:w-1/2 m-auto">
+            {children}
+          </div>
+          <Footer />
+        </main>
       </body>
     </html>
   );
 }
+
