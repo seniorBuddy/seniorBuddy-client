@@ -9,11 +9,11 @@ export default function Home() {
   return (
    <>
    <div className="flex items-center justify-center">
-   <section className="p-4 mb-3 mt-5 sm:mt-8 w-72 md:w-full bg-white rounded-xl shadow-lg">
-      <div className="font-extrabold text-lg leading-tight pb-3">
+   <section className="p-5 mb-3 mt-5 sm:mt-8 w-full m-10 sm:m-0 bg-white rounded-xl shadow-lg">
+      <div className="font-bold text-xl leading-tight pb-3">
         나의 <span className="text-blue">삶을 더 편리</span>하게,<br /> 시작해 보세요
       </div>
-      <div className="m-auto text-center px-5 sm:px-0 gap-2 sm:gap-5 m-3 grid grid-cols-2 md:grid-cols-4 font-extrabold text-xl md:text-2xl">
+      <div className="m-auto text-center px-5 sm:px-0 gap-3 sm:gap-5 m-3 grid grid-cols-2 md:grid-cols-4 font-semibold text-lg md:text-2xl">
           <Link href={'/menual'} className="py-3 sm:py-8 rounded-lg bg-desc-bg-btn">
             <div className="flex flex-col justify-center items-center">
             <BiSolidFoodMenu className="text-desc w-12 h-12"/>
@@ -45,7 +45,7 @@ export default function Home() {
     {/* AI 비서 캐릭터  */}
     <Link href={'/ai_chat/custom'} className="w-72 md:min-w-50 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5  bg-blue rounded-xl justify-center gap-3 sm:gap-5">
         <div className="md:hidden h-20 w-20 pt-1 m-auto bg-white rounded-full"></div>
-        <div className="">
+        <div>
             <div className="text-info font-bold min-w-36 m-auto bg-white text-center mb-2 rounded-3xl ">
               AI 비서 Abby
               </div>
