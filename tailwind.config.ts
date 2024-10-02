@@ -15,6 +15,7 @@ const config: Config = {
         remind: "#363030",
         info: "#252737",
         option: "#391D6C",
+        darkblue: "#002D78",
       },
 
       backgroundImage: {
