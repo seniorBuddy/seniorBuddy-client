@@ -1,5 +1,3 @@
-
-
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -26,6 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={pretendard.variable}>
         <main className="font-pretendard min-h-screen flex flex-col">
+          {/* 헤더 */}
           <header>
             <Link href={'/'} className="w-full bg-white shadow-md flex items-center justify-center z-0">
               <div className="my-3 max-w-10 m-auto">
@@ -33,16 +32,19 @@ export default function RootLayout({
               </div>
             </Link>
           </header>
-          
-          <div className="flex-grow sm:w-1/2 m-auto mb-16 w-full">
+          <div className="flex-grow max-w-[800px] m-auto mb-16 w-full">
             {children}
           </div>
-          
-          <footer className="
-            hidden sm:flex w-full fixed bottom-0 bg-blue h-16 text-white text-sm
-            items-center justify-center">
-            senior buddy © 2024
-          </footer>
+          {/* Footer */}
+          <div className="sm:hidden fixed bottom-0 bg-blue w-full h-16 rounded-xl font-medium
+          text-white flex items-center">
+            <div className="flex justify-between w-full mx-5 ">
+                <div className="text-center ">설명서</div>
+                <div className="h-full text-center">알리미</div>
+                <div className="h-full text-center">내 정보</div>
+                <div className="h-full text-center">설정</div>
+            </div>
+          </div>
         </main>
       </body>
     </html>
