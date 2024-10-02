@@ -8,7 +8,7 @@ const ManualPage: React.FC = () => {
   return (
     <ManualLayout>
       <div className="min-w-60 w-full m-5 p-5 bg-white rounded-lg shadow-lg text-center text-[#136BFF] text-2xl font-bold">
-        설명서
+        설명
       </div>
 
       <div className="flex justify-between mx-5 mt-5 overflow-hidden"> 
