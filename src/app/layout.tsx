@@ -1,8 +1,11 @@
+
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Header from "../components/header";
-import Footer from "../components/footer";
+import Image from 'next/image';
+import LogoSvg from '../app/assets/logo.svg';
+import Link from 'next/link';
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -23,11 +26,23 @@ export default function RootLayout({
     <html lang="en">
       <body className={pretendard.variable}>
         <main className="font-pretendard min-h-screen flex flex-col">
-          <Header />
+          <header>
+            <Link href={'/'} className="w-full bg-white shadow-md flex items-center justify-center z-0">
+              <div className="my-3 max-w-10 m-auto">
+                <Image src={LogoSvg} alt="logo"/>
+              </div>
+            </Link>
+          </header>
+          
           <div className="flex-grow sm:w-1/2 m-auto mb-16 w-full">
             {children}
           </div>
-          <Footer />
+          
+          <footer className="
+            hidden sm:flex w-full fixed bottom-0 bg-blue h-16 text-white text-sm
+            items-center justify-center">
+            senior buddy © 2024
+          </footer>
         </main>
       </body>
     </html>

@@ -1,6 +1,23 @@
-import CustomImage from "@/components/customimage"
 import Link from "next/link";
 import { IoArrowBackCircle } from "react-icons/io5";
+import Image from 'next/image';
+import Dummy from '@/app/assets/custom-dummy.svg';
+
+function CustomImage() {
+    return (
+    <div className="min-w-[300px] px-2 py-5 overflow-auto flex gap-3">
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+            <Image src={Dummy} alt='dummy'></Image>
+    </div>
+    )
+}
 
 export default function Page() {
     return (
