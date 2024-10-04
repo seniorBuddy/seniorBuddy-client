@@ -28,11 +28,11 @@ export default function RootLayout({
         <main className="font-pretendard min-h-screen">
         {/* Header */}
           <header className="sticky top-0 z-50 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
-          <Link href={'/'} className="bg-white flex items-center justify-center bg-opacity-30">
-              <div className="my-3 max-w-10 m-auto">
-                <Image src={LogoSvg} alt="logo"/>
-              </div>
-            </Link>
+          <div className="bg-white flex items-center justify-center bg-opacity-30">
+                <Link href={'/'}>
+                <Image src={LogoSvg} alt="logo" className="my-3 max-w-10 m-auto"/>
+                </Link>
+            </div>
           </header>
         {/* Main Section */}
           <section className="min-h-screen flex-grow max-w-[700px] m-auto">

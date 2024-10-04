@@ -4,12 +4,12 @@ import Link from "next/link";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { MdMedicalInformation } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
-import mainMenuItem from "@/types";
+import { mainMenuItem } from "@/types";
 import Image from 'next/image';
 import Dummy from '@/app/assets/custom-dummy.svg';
 
 const MainNavigate = () => {
-  const menuItems  = [
+  const menuItems: mainMenuItem[]  = [
     { href: '/menual', bgColor: 'bg-grd-red', iconColor: 'text-sigred', Icon: BiSolidFoodMenu, text: '설명서', content: '설명서로 조작을 배워요'},
     { href: '/reminder',  bgColor: 'bg-grd-yellow', iconColor: 'text-sigyellow', Icon: MdMedicalInformation, text: '알리미', content: '복용과 병원 정보를 관리해요' },
     { href: '/settings', bgColor: 'bg-grd-blue', iconColor: 'text-sigblue', Icon: GrContactInfo, text: '내 정보', content: '현재 나의 정보를 확인해요' },
@@ -18,9 +18,9 @@ const MainNavigate = () => {
     <section>
       <div className="m-auto grid grid-cols-1 sm:grid-cols-3 font-semibold text-lg gap-3 md:text-xl max-w-1.50">
           {menuItems.map(({ href, bgColor, iconColor, Icon, text, content}: mainMenuItem, idx) => (
-          <Link key={idx} href={href}>
+          <Link key={idx} href={href} className="cursor-pointer ">
             <div className={` w-full p-7 rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start text-white ${bgColor}`}>
-              <Icon className={`${iconColor} w-14 h-14`}/>
+              <Icon className={`${iconColor} w-14 h-14 `}/>
               <div className="flex flex-col">
               <span className='font-bold text-2xl'>{text}</span>
               <span className='text-md sm:text-sm'>{content}</span>
