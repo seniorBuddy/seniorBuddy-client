@@ -4,6 +4,8 @@ import "./globals.css";
 import Image from 'next/image';
 import LogoSvg from '../app/assets/logo.svg';
 import Link from 'next/link';
+import Footer from "@/components/footer";
+
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -23,28 +25,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.variable}>
-        <main className="font-pretendard min-h-screen flex flex-col">
-          {/* 헤더 */}
-          <header>
-            <Link href={'/'} className="w-full bg-white shadow-md flex items-center justify-center z-0">
+        <main className="font-pretendard min-h-screen">
+        {/* Header */}
+          <header className="sticky top-0 z-50 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
+          <Link href={'/'} className="bg-white flex items-center justify-center bg-opacity-30">
               <div className="my-3 max-w-10 m-auto">
                 <Image src={LogoSvg} alt="logo"/>
               </div>
             </Link>
           </header>
-          <div className="flex-grow max-w-[800px] m-auto mb-16 w-full">
+        {/* Main Section */}
+          <section className="min-h-screen flex-grow max-w-[700px] m-auto">
             {children}
-          </div>
-          {/* Footer */}
-          <div className="sm:hidden fixed bottom-0 bg-blue w-full h-16 rounded-xl font-medium
-          text-white flex items-center">
-            <div className="flex justify-between w-full mx-5 ">
-                <div className="text-center ">설명서</div>
-                <div className="h-full text-center">알리미</div>
-                <div className="h-full text-center">내 정보</div>
-                <div className="h-full text-center">설정</div>
-            </div>
-          </div>
+          </section>
+        {/* Footer */}
+         <Footer />
         </main>
       </body>
     </html>

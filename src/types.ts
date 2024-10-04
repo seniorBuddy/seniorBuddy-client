@@ -6,5 +6,6 @@ export default interface mainMenuItem {
     iconColor: string
     Icon: IconType
     text: string
+    content: string
   }
   
