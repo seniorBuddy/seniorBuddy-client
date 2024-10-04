@@ -27,7 +27,7 @@ export default function RootLayout({
       <body className={pretendard.variable}>
         <main className="font-pretendard min-h-screen">
         {/* Header */}
-          <header className="sticky top-0 z-50 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
+          <header className="sticky top-0 z-10 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
           <div className="bg-white flex items-center justify-center bg-opacity-30">
                 <Link href={'/'}>
                 <Image src={LogoSvg} alt="logo" className="my-3 max-w-10 m-auto"/>
