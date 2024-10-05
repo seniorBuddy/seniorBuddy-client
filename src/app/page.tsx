@@ -10,7 +10,7 @@ import Dummy from '@/app/assets/custom-dummy.svg';
 
 const MainNavigate = () => {
   const menuItems: mainMenuItem[]  = [
-    { href: '/menual', bgColor: 'bg-grd-red', iconColor: 'text-sigred', Icon: BiSolidFoodMenu, text: '설명서', content: '설명서로 조작을 배워요'},
+    { href: '/manual', bgColor: 'bg-grd-red', iconColor: 'text-sigred', Icon: BiSolidFoodMenu, text: '설명서', content: '설명서로 조작을 배워요'},
     { href: '/reminder',  bgColor: 'bg-grd-yellow', iconColor: 'text-sigyellow', Icon: MdMedicalInformation, text: '알리미', content: '복용과 병원 정보를 관리해요' },
     { href: '/settings', bgColor: 'bg-grd-blue', iconColor: 'text-sigblue', Icon: GrContactInfo, text: '내 정보', content: '현재 나의 정보를 확인해요' },
   ];
@@ -35,10 +35,10 @@ const MainNavigate = () => {
 
 const AIAssistant = () => (
   <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5  bg-blue rounded-2xl justify-center gap-8 sm:gap-5">
-    <div className="md:hidden h-24 w-24 pt-1 bg-white rounded-full overflow-hidden">
+    <div className="md:hidden h-28 w-28 pt-1 bg-white rounded-full overflow-hidden">
       <Image src={Dummy} alt='dummy'></Image>
       </div>
-    <div>
+    <div className="pt-2">
         <div className="text-info font-bold min-w-36 m-auto bg-white text-center mb-2 rounded-3xl ">
           AI 비서 Abby
           </div>
