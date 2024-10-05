@@ -7,6 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: 'class', // 'class' 모드로 다크 모드 활성화
   theme: {
     extend: {
       colors: {
@@ -16,6 +17,8 @@ const config: Config = {
         sigblue: "#252737",
         sigpurple: "#391D6C",
         darkblue: "#002D78",
+        background: "var(--background)",
+        foreground: "var(--foreground)"
       },
 
       backgroundImage: {

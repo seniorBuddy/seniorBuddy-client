@@ -33,7 +33,7 @@ export default function Page() {
             </div>
             {modal && (
                 <div className="flex items-center justify-center fixed inset-0 backdrop-filter backdrop-blur-sm z-20">
-                    <div className="absolute w-50% px-7 py-10 rounded-md shadow-lg bg-blue flex flex-col items-center justify-between">
+                    <div className="absolute w-70% px-7 py-10 rounded-md shadow-lg bg-blue flex flex-col items-center justify-between">
                         <div className="font-semibold text-xl text-white pb-8">계정 권한을 변경하시겠습니까?</div>
                         <div className="flex flex-col font-semibold text-md gap-3">
                             <button 
