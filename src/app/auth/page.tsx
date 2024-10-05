@@ -1,4 +1,5 @@
 import { CiMail } from "react-icons/ci";
+import Link from "next/link";
 
 export default function Login() {
   return (
@@ -19,17 +20,17 @@ export default function Login() {
             className="flex-[8] border-2 border-darkblue rounded-lg p-3"
           />
         </div>
-        <div className="flex justify-center w-full text-xl bg-darkblue rounded-lg px-4 py-3">
+        <Link href="/" className="flex justify-center w-full text-xl bg-darkblue rounded-lg px-4 py-3">
           <span className="text-white">로그인</span>
-        </div>
+        </Link>
         <div className="flex flex-row items-center justify-center w-full gap-8 px-6 text-xl border-2 rounded-lg py-2">
           < CiMail size="35"/>
           <span>이메일 로그인</span>
         </div>
         <div className="flex flex-row justify-center w-full sm:gap-5 p-2 text-blue">
-          <h1 className="flex justify-end flex-[3]">비밀번호 찾기</h1>
+          <Link href="/pwfind" className="flex justify-end flex-[3] hover:text-darkblue">비밀번호 찾기</Link>
           <h1 className="flex flex-[1] justify-center">|</h1>
-          <h1 className="flex justify-start flex-[3]">회원가입</h1>
+          <Link href="/signup" className="flex justify-start flex-[3] hover:text-darkblue">회원가입</Link>
         </div>
       </div>
     </div>
