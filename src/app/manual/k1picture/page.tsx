@@ -1,5 +1,5 @@
 import React from "react";
-import ManualLayout from "../layout";
+import ManualLayout from "../../layout";
 import ImageSlider from "@/components/ImageSlider";
 import image1 from "@/app/manual/k1picture/images/1.png"; 
 import image2 from "@/app/manual/k1picture/images/2.png"; 
