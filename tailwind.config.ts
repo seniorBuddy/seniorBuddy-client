@@ -5,22 +5,26 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
         blue: '#126aff',
-        desc: "#c84040",
-        remind: "#363030",
-        info: "#252737",
-        option: "#391D6C",
+        sigred: "#c84040",
+        sigyellow: "#363030",
+        sigblue: "#252737",
+        sigpurple: "#391D6C",
+        darkblue: "#002D78",
       },
 
       backgroundImage: {
-        'desc-bg-btn': 'linear-gradient(to bottom, #FF9398, #E2EA46)', 
-        'remind-bg-btn': 'linear-gradient(to bottom, #9ADF59, #3CCABA)', 
-        'info-bg-btn': 'linear-gradient(to bottom, #6C79E5, #01EED2)', 
-        'option-bg-btn': 'linear-gradient(to bottom, #688EFF, #C06EFF)', 
+        'grd-red': 'linear-gradient(to bottom, #FF9398, #E2EA46)', 
+        'grd-pink': 'linear-gradient(to bottom, #D489FF, #FF3F78)', 
+        'grd-yellow': 'linear-gradient(to bottom, #9ADF59, #3CCABA)', 
+        'grd-blue': 'linear-gradient(to bottom, #6C79E5, #01EED2)', 
+        'grd-purple': 'linear-gradient(to bottom, #688EFF, #C06EFF)', 
+        'grd-bg': 'bg-gradient-to-r from-indigo-400 to-sky-600', 
       },
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
