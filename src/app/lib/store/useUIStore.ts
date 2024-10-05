@@ -18,6 +18,7 @@ export const useUIStore = create((set) => ({
         if(!savedSettings) {
             set({ settings: JSON.parse(savedSettings)})
         }
-    } ,
+    },
+    s
    
 }))

@@ -1,16 +1,16 @@
 'use client'
+import { useUIStore } from "@/app/lib/store/useUIStore";
 import { useEffect, useState } from "react";
 import { MdOutlineDarkMode, MdLightMode } from "react-icons/md";
 
 export default function Page() {
-    const [fontSize, setFontSize] = useState(16);
+    // const {
+    //     font,
+    //     theme,
+    //     contrast,
+    //     brightness
+    // } = useUIStore(16);
 
-    useEffect(() => {
-        console.log(fontSize)
-      return () => {
-        
-      }
-    }, [fontSize])
     
 
     return (
@@ -22,10 +22,10 @@ export default function Page() {
             <span className="font-bold text-lg">글자 크기</span>
             <input 
                 type="range"
-                min="10"
-                max="20"
-                value={fontSize}
-                onChange={(e) => setFontSize(Number(e.target.value))}
+                min="12"
+                max="24"
+                value={16}
+                // onChange={(e) => setFontSize(Number(e.target.value))}
                 />
             </div>
             {/* 테마 설정 */}
@@ -47,8 +47,8 @@ export default function Page() {
                     type="range"
                     min="10"
                     max="20"
-                    value={fontSize}
-                    onChange={(e) => setFontSize(Number(e.target.value))}
+                    value={16}
+                    // onChange={(e) => setFontSize(Number(e.target.value))}
                     />
             </div>
     </section>

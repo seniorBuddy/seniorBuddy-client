@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   const icons = [
-    { Icon: BiSolidFoodMenu, label: '설명서', href: "/menual" },
+    { Icon: BiSolidFoodMenu, label: '설명서', href: "/manual" },
     { Icon: MdMedicalInformation, label: '알리미', href: "/reminder"},
     { Icon: IoHomeSharp, label: '홈', href: "/" },
     { Icon: GrContactInfo, label: '내 정보', href: "/settings" },
