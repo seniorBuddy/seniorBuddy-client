@@ -4,7 +4,7 @@ import { MdOutlineSettings } from "react-icons/md";
 import { TbHelp } from "react-icons/tb";
 import Link from "next/link";
 
-export default function SettingList() {
+export default function Page() {
     const settingList: settingItem[]  = [
         { listName: '계정 관리', href: "/settings",  Icon: BsPersonCircle },
         { listName: '화면 설정', href: "/settings/ui", Icon: MdOutlineSettings },
