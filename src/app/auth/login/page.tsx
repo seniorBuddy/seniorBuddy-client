@@ -28,9 +28,9 @@ export default function Login() {
           <span>이메일 로그인</span>
         </div>
         <div className="flex flex-row justify-center w-full sm:gap-5 p-2 text-blue">
-          <Link href="/pwfind" className="flex justify-end flex-[3] hover:text-darkblue">비밀번호 찾기</Link>
+          <Link href="/auth/find_pw" className="flex justify-end flex-[3] hover:text-darkblue">비밀번호 찾기</Link>
           <h1 className="flex flex-[1] justify-center">|</h1>
-          <Link href="/signup" className="flex justify-start flex-[3] hover:text-darkblue">회원가입</Link>
+          <Link href="/auth/register" className="flex justify-start flex-[3] hover:text-darkblue">회원가입</Link>
         </div>
       </div>
     </div>
