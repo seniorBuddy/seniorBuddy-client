@@ -35,14 +35,14 @@ const MainNavigate = () => {
 
 const AIAssistant = () => (
   <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5  bg-blue rounded-2xl justify-center gap-8 sm:gap-5">
-    <div className="md:hidden h-28 w-28 pt-1 bg-white rounded-full overflow-hidden">
+    <div className="sm:hidden h-28 w-28 pt-1 bg-white rounded-full overflow-hidden">
       <Image src={Dummy} alt='dummy'></Image>
       </div>
     <div className="pt-2">
         <div className="text-info font-bold min-w-36 m-auto bg-white text-center mb-2 rounded-3xl ">
           AI 비서 Abby
           </div>
-        <div className="hidden md:block h-24 w-24 m-auto bg-white rounded-full overflow-hidden">
+        <div className="hidden sm:block h-24 w-24 m-auto bg-white rounded-full overflow-hidden">
           <Image src={Dummy} alt='dummy'></Image>
         </div>
         <div className=" text-white font-medium mt-4 text-md">
