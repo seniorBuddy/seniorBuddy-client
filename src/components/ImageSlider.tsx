@@ -24,7 +24,8 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full min-w-[600px] h-[500px] mx-auto bg-white rounded-lg shadow-lg flex flex-col gap-2 p-5">
+    <div className="relative w-full max-w-4xl h-auto mx-auto bg-white rounded-lg shadow-lg flex flex-col gap-2 p-5">
+      {/* 이미지 슬라이드 섹션 */}
       <div className="flex justify-between items-center h-full">
         <button 
           onClick={prevSlide}
@@ -32,7 +33,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
         >
           &lt;
         </button>
-        <div className="relative flex-grow h-full">
+        <div className="relative flex-grow h-64 md:h-96">
           <Image
             src={images[currentIndex].src}
             alt={`Slide ${currentIndex + 1}`}
@@ -48,7 +49,9 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
           &gt;
         </button>
       </div>
-      <div className="text-center mt-2 text-lg font-semibold">
+
+      {/* 이미지 설명 */}
+      <div className="text-center mt-2 text-sm md:text-lg font-semibold">
         {images[currentIndex].description}
       </div>
     </div>
