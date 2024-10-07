@@ -15,10 +15,3 @@ export interface settingItem {
   href: string
   Icon: IconType
 }
-
-export interface uiItem {
-  font: number,
-  theme: string,
-  contrast: boolean,
-  brightness: number
-}
