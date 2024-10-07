@@ -20,10 +20,10 @@ const MainNavigate = () => {
           {menuItems.map(({ href, bgColor, iconColor, Icon, text, content}: mainMenuItem, idx) => (
           <Link key={idx} href={href} className="cursor-pointer">
             <div className={`w-full p-7 rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor}`}>
-              <Icon className={`${iconColor} w-14 h-14`}/>
+              <Icon className={`${iconColor} size-10 sm:size-14`}/>
               <div className="flex flex-col">
               <span className={`font-bold text-2xl ${iconColor}`} >{text}</span>
-              <span className={`text-md sm:text-sm ${iconColor}`} >{content}</span>
+              <span className={`text-sm ${iconColor}`} >{content}</span>
               </div>
             </div>
           </Link>
@@ -34,23 +34,23 @@ const MainNavigate = () => {
 }
 
 const AIAssistant = () => (
-  <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5 bg-blue dark:bg-blue-700 rounded-2xl justify-center gap-8 sm:gap-5">
-    <div className="sm:hidden h-28 w-28 pt-1 bg-white dark:bg-gray-200 rounded-full overflow-hidden">
-      <Image src={Dummy} alt='dummy'></Image>
-      </div>
-    <div className="pt-2">
-        <div className="text-info font-bold min-w-36 m-auto text-slate-800 bg-white text-center mb-2 rounded-3xl">
-          AI 비서 Abby
+    <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5 bg-blue dark:bg-blue-700 rounded-2xl justify-center gap-8 sm:gap-5">
+      <div className="sm:hidden size-24 pt-1 bg-white dark:bg-gray-200 rounded-full overflow-hidden">
+        <Image src={Dummy} alt='dummy'></Image>
+        </div>
+      <div className="pt-2 pr-4 sm:pr-0">
+          <div className="text-info font-bold min-w-36 m-auto text-slate-800 bg-white text-center mb-2 rounded-3xl">
+            AI 비서 Abby
+            </div>
+          <div className="hidden sm:block size-24 m-auto rounded-full overflow-hidden">
+            <Image src={Dummy} alt='dummy'></Image>
           </div>
-        <div className="hidden sm:block h-24 w-24 m-auto rounded-full overflow-hidden">
-          <Image src={Dummy} alt='dummy'></Image>
-        </div>
-        <div className="font-medium mt-4 text-md">
-          좋은 하루 보내고 계신가요?
-        </div>
-    </div>
-  </Link>
-)
+          <div className="font-medium mt-4 text-md">
+            좋은 하루 보내고 계신가요?
+          </div>
+      </div>
+    </Link>
+  )
 
 const ChatInput = () => (
   <div className="border-2 border-blue dark:border-blue-500 w-full flex flex-col flex-2 items-center p-3 bg-white text-slate-800 dark:bg-gray-800 shadow-xl rounded-xl">
