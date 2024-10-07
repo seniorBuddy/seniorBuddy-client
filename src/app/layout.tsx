@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Image from 'next/image';
-import LogoSvg from '../app/assets/logo.svg';
-import Link from 'next/link';
 import Footer from "@/components/footer";
+import Header from "@/components/header";
 
 
 const pretendard = localFont({
@@ -25,15 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.variable}>
-        <main className="font-pretendard min-h-screen">
+        <main className="font-pretendard min-h-screen dark:bg-slate-800 text-white dark:text-slate-800">
         {/* Header */}
-          <header className="sticky top-0 z-10 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
-          <div className="bg-white flex items-center justify-center bg-opacity-30">
-                <Link href={'/'}>
-                <Image src={LogoSvg} alt="logo" className="my-3 max-w-10 m-auto"/>
-                </Link>
-            </div>
-          </header>
+          <Header />
         {/* Main Section */}
           <section className="min-h-screen flex-grow max-w-[700px] m-auto">
             {children}
