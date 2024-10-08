@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Sample from '../app/assets/images/sample.png';
+import Sample from '../../app/assets/images/sample.png';
 
 export default function madicineMain() {
   return (
