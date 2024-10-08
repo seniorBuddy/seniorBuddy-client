@@ -40,7 +40,7 @@ export default function GuardianRegister() {
 
   return (
     <div>
-      <div className="flex flex-col md:text-lg items-center justify-center w-full gap-1 md:gap-4">
+      <div className="flex flex-col md:text-lg items-center justify-center w-full h-[500px] md:h-[350px] gap-1 md:gap-4">
         <Input label="아이디" type="text">
           <span className="w-[100px] bg-slate-600 text-white rounded-md p-2 mx-1 text-center">중복 확인</span>
         </Input>
