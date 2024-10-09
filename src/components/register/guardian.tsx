@@ -1,36 +1,29 @@
 "use client";
 
+import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import React from 'react';
 import Link from "next/link";
+import EmailAuto from '../register/EmailAuto';
 
 interface InputProps {
   label: string;
-  type: string;
+  type?: string;
   children?: React.ReactNode;
-  onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-function formatPhoneNumber(value: string) {
-  return value
-    .replace(/[^0-9]/g, '')
-    .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/, "$1-$2-$3");
 }
 
 export default function GuardianRegister() {
-  const handlePhoneInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target;
-    target.value = formatPhoneNumber(target.value);
-  };
+  const defaultEmail = '';
 
-  const Input = ({ label, children, type, onInput }: InputProps) => (
+  const Input = ({ label, children, type }: InputProps) => (
     <div className="flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full gap-4 md:ml-[100px] mt-2">
       <span className="w-full md:w-[120px]">{label}</span>
       <div className="flex flex-row w-full gap-2">
-        <input 
-          type={type}
-          className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
-          onInput={onInput}
-        />
+        {type && (
+          <input 
+            type={type}
+            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+          />
+        )}
         {children && (
           <div>{children}</div>
         )}
@@ -38,18 +31,94 @@ export default function GuardianRegister() {
     </div>
   );
 
+  const EmailGroup: string[] = [
+    '@naver.com',
+    '@gmail.com',
+    '@daum.net',
+    '@hanmail.net',
+    '@nate.com',
+    '@kakao.com',
+  ];
+
+  const [email, setEmail] = useState<string>(defaultEmail);
+  const [emailList, setEmailList] = useState<string[]>(EmailGroup);
+  const [selected, setSelected] = useState<number>(-1);
+  const [isDropbox, setIsDropbox] = useState<boolean>(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setEmail(value);
+
+    if (value.includes('@')) {
+      const domainPart = value.split('@')[1] || '';
+      const filteredList = EmailGroup.filter((el) =>
+        el.includes(domainPart)
+      );
+      setEmailList(filteredList);
+      setIsDropbox(filteredList.length > 0);
+    } else {
+      setIsDropbox(false);
+      setSelected(-1);
+    }
+  };
+
+  const handleDropDownClick = (first: string, second: string) => {
+    setEmail(`${first.split('@')[0]}${second}`);
+    setIsDropbox(false);
+    setSelected(-1);
+    inputRef.current?.focus();
+  };
+
+  const handleKeyup = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (isDropbox) {
+      if (e.key === 'ArrowDown' && emailList.length - 1 > selected) {
+        setSelected(selected + 1);
+      }
+      if (e.key === 'ArrowUp' && selected > 0) {
+        setSelected(selected - 1);
+      }
+      if (e.key === 'Enter' && selected >= 0) {
+        handleDropDownClick(email, emailList[selected]);
+      }
+    }
+  };
+
   return (
     <div>
       <div className="flex flex-col md:text-lg items-center justify-center w-full h-[500px] md:h-[350px] gap-1 md:gap-4">
-        <Input label="아이디" type="text">
-          <span className="w-[100px] bg-slate-600 text-white rounded-md p-2 mx-1 text-center">중복 확인</span>
+        <Input label="이메일">
+          <EmailAuto />
+        { /*
+          <input
+            type="email"
+            value={email}
+            onChange={onChangeEmail}
+            onKeyUp={handleKeyup}
+            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            ref={inputRef}
+          />
+          {isDropbox && (
+            <div className="absolute bg-white border border-gray-400 rounded-md mt-1 max-h-40 overflow-auto">
+              {emailList.map((item, idx) => (
+                <div
+                  key={idx}
+                  onMouseOver={() => setSelected(idx)}
+                  onClick={() => handleDropDownClick(email, item)}
+                  className={`p-2 cursor-pointer ${selected === idx ? 'bg-gray-200' : ''}`}
+                >
+                  {email.split('@')[0]}
+                  {item}
+                </div>
+              ))}
+            </div>
+          )}
+            */ }
         </Input>
         <Input label="비밀번호" type="password" />
         <Input label="비밀번호 확인" type="password" />
         <Input label="이름" type="text" />
-        <Input label="전화번호" type="text" onInput={handlePhoneInput}>
-          <span className="w-[100px] bg-slate-600 text-white rounded-md p-2 mx-1 text-center">인증번호</span>
-        </Input>
+        
         <Input label="인증번호 확인" type="text" />
       </div>
       <div className="flex sm:flex-row">
