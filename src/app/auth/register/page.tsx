@@ -12,7 +12,7 @@ export default function Page() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-[30px]">
+    <div className="text-black flex flex-col justify-center items-center mt-[30px]">
       <div className="flex flex-col gap-2 sm:gap-5 px-4 md:px-20 h-[750px] md:h-[600px] w-[380px] sm:w-[600px] md:w-[850px] justify-center items-center bg-white font-bold rounded-[40px] border-4 border-blue">
         <div className="flex-[2] flex flex-col justify-center items-center gap-3">
           <span className="text-3xl">회원가입</span>

@@ -1,6 +1,7 @@
+'use client'
 import React, { useState } from 'react';
 
-const emailAuto: React.FC = () => {
+const EmailAuto: React.FC = () => {
   const [email, setEmail] = useState('');
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -53,4 +54,4 @@ const emailAuto: React.FC = () => {
   );
 };
 
-export default emailAuto;
+export default EmailAuto;
