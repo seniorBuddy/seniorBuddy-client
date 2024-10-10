@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   const icons = [
-    { Icon: BiSolidFoodMenu, label: '설명서', href: "/menual" },
+    { Icon: BiSolidFoodMenu, label: '설명서', href: "/manual" },
     { Icon: MdMedicalInformation, label: '알리미', href: "/reminder"},
     { Icon: IoHomeSharp, label: '홈', href: "/" },
     { Icon: GrContactInfo, label: '내 정보', href: "/settings" },
@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <footer className="sticky bottom-0 w-full flex items-center justify-center z-10">
       {/* Footer */}
-      <div className="max-w-[650px] bg-blue w-full h-16 rounded-t-xl font-medium text-white flex justify-around items-center">
+      <div className="max-w-[650px] bg-blue  w-full h-16 rounded-t-xl font-medium text-white dark:text-slate-800 flex justify-around items-center">
         {icons.map(({ Icon, label, href}, index) => (
           <Link href={href} key={index} className="flex cursor-pointer hover:scale-110
           transition-transform duration-200 hover:text-darkblue flex-col items-center">

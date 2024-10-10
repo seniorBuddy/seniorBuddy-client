@@ -1,12 +1,14 @@
-import SettingList from "@/components/settings/setting-list";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
-export default function Home({ children }: {
-    children: ReactNode
+export default function Home({ children, settinglist }: {
+    children: ReactNode,
+    settinglist: ReactNode
 }) {
+  
+
   return (
-    <div className="mx-7 my-10 flex flex-col justify-center bg-white p-7 shadow-md rounded-xl gap-5">
-    <SettingList />
+    <div className="mx-7 my-10 flex flex-col justify-center bg-white dark:bg-slate-900 p-7 shadow-md rounded-xl gap-5">
+    {settinglist}
     {children}
     </div>
   );
