@@ -7,6 +7,7 @@ import { GrContactInfo } from "react-icons/gr";
 import { mainMenuItem } from "@/types";
 import Image from 'next/image';
 import Dummy from '@/app/assets/custom-dummy.svg';
+import AiChatInput from "@/components/chat/ai-chat-input";
 
 const MainNavigate = () => {
   const menuItems: mainMenuItem[]  = [
@@ -62,14 +63,8 @@ const ChatInput = () => (
       <div className="px-1 py-1.5 border-2 text-blue dark:text-blue-300 border-blue dark:border-blue-500 rounded-md text-sm">메뉴얼 사용법에 대해</div>
     </div>
     <div className="w-full h-full">
-      <div className="px-1 py-1.5 border-2 bg-gray-100 dark:bg-gray-700 text-gray-400 border-gray-300 dark:border-gray-600 rounded-md flex items-center">
-      <MdKeyboardVoice className="w-5 h-5"/>
-        <div className="flex-1 text-md pr-5">궁금한 것을 물어 보세요</div>
-      <Link href={'/ai_chat'}>
-        <BiSolidSend className="w-5 h-5"/>
-      </Link>
-      </div>
-    </div>
+      <AiChatInput />
+  </div>    
   </div>    
 )
 
