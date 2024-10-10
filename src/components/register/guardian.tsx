@@ -3,7 +3,7 @@
 import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import React from 'react';
 import Link from "next/link";
-import EmailAuto from '../register/EmailAuto';
+import EmailAuto from '../register/emailAuto';
 
 interface InputProps {
   label: string;
@@ -25,12 +25,13 @@ export default function GuardianRegister() {
           />
         )}
         {children && (
-          <div>{children}</div>
+          <div className="flex flex-row items-center gap-2">{children}</div>
         )}
       </div>
     </div>
   );
 
+  /*
   const EmailGroup: string[] = [
     '@naver.com',
     '@gmail.com',
@@ -83,12 +84,14 @@ export default function GuardianRegister() {
       }
     }
   };
-
+*/
   return (
     <div>
       <div className="flex flex-col md:text-lg items-center justify-center w-full h-[500px] md:h-[350px] gap-1 md:gap-4">
+        <Input label="이름" type="text" />
         <Input label="이메일">
           <EmailAuto />
+          <span className="w-[100px] bg-slate-600 text-white rounded-md p-2 mx-1 text-center">인증번호</span>
         { /*
           <input
             type="email"
@@ -115,11 +118,9 @@ export default function GuardianRegister() {
           )}
             */ }
         </Input>
+        <Input label="인증번호 확인" type="text" />
         <Input label="비밀번호" type="password" />
         <Input label="비밀번호 확인" type="password" />
-        <Input label="이름" type="text" />
-        
-        <Input label="인증번호 확인" type="text" />
       </div>
       <div className="flex sm:flex-row">
         <Link href="/auth/login" className="flex justify-center items-center bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5">취소</Link>
