@@ -5,7 +5,7 @@ import Guardian from '../../../components/register/guardian';
 import Senior from '../../../components/register/senior';
 
 export default function signup() {
-  const [selected, setSelected] = useState('guardian');
+  const [selected, setSelected] = useState('senior');
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelected(event.target.value);
@@ -21,21 +21,21 @@ export default function signup() {
               <input
                 type="radio"
                 name="choose"
-                value="guardian"
-                checked={selected === 'guardian'}
-                onChange={handleRoleChange}
-              />
-              <span className="flex items-center justify-center">보호자</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="choose"
                 value="senior"
                 checked={selected === 'senior'}
                 onChange={handleRoleChange}
               />
               <span className="flex items-center justify-center">사용자</span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="choose"
+                value="guardian"
+                checked={selected === 'guardian'}
+                onChange={handleRoleChange}
+              />
+              <span className="flex items-center justify-center">보호자</span>
             </label>
           </div>
         </div>
