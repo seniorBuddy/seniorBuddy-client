@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 
-const emailAuto: React.FC = () => {
-  const [email, setEmail] = useState('');
+interface EmailAutoProps {
+  emailAddress: string; // 추가된 props 타입 정의
+  setEmailAddress: React.Dispatch<React.SetStateAction<string>>; // 추가된 props 타입 정의
+}
+
+const EmailAuto: React.FC<EmailAutoProps> = ({ emailAddress, setEmailAddress }) => {
+  const [email, setEmail] = useState(emailAddress); // 초기값을 props로 설정
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
   const emailDomains = ['naver.com', 'gmail.com', 'daum.net'];
@@ -9,6 +14,7 @@ const emailAuto: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setEmail(value);
+    setEmailAddress(value); // props로 전달된 상태 업데이트
 
     const atIndex = value.indexOf('@');
     if (atIndex > -1) {
@@ -24,14 +30,15 @@ const emailAuto: React.FC = () => {
 
   const handleSuggestionClick = (domain: string) => {
     const userId = email.split('@')[0];
-    setEmail(`${userId}@${domain}`);
+    const newEmail = `${userId}@${domain}`;
+    setEmail(newEmail);
+    setEmailAddress(newEmail); // props로 전달된 상태 업데이트
     setSuggestions([]);
   };
 
   return (
     <div className="relative">
       <input
-        type="text"
         value={email}
         onChange={handleChange}
         className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
@@ -53,4 +60,4 @@ const emailAuto: React.FC = () => {
   );
 };
 
-export default emailAuto;
+export default EmailAuto;
