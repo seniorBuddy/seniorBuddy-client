@@ -12,7 +12,7 @@ export default function MedicineRegister() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-[80px]">
+    <div className="flex flex-col justify-center items-center mt-[80px] h-[350px] w-[380px] sm:w-[600px]">
       <div className="flex flex-row gap-4">
         <Image src={Sample} alt="madicineSample" width="150" height="300" />
         <div className="flex flex-col gap-2 font-bold text-darkblue text-xl">
