@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Guardian from '../../../components/register/guardian';
 import Senior from '../../../components/register/senior';
 
-export default function signup() {
+export default function Page() {
   const [selected, setSelected] = useState('senior');
 
   const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -17,7 +17,7 @@ export default function AiChatInput () {
     }
     const onSubmit = async () => {
         console.log(text);
-        const res = fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/assistant/threads/${token}`)
+        // const res = fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/assistant/threads/${token}`)
         setText('');
     }
 
