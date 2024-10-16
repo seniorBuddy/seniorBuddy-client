@@ -3,13 +3,6 @@
 import { useState } from 'react';
 import { CiMail } from "react-icons/ci";
 import Link from "next/link";
-import axios from 'axios';
-
-interface UserData {
-  identifier: string;
-  password: string;
-}
-
 
 export default function Login() {
   const [identifier, setIdentifier] = useState('');
@@ -25,17 +18,11 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data: UserData = {
+    const data = {
       identifier,
       password,
     };
-
-    try {
-      const response = await axios.post('/auth/login', data);
-      console.log('로그인 성공 : ', response.data);
-    } catch (error) {
-      console.error('로그인 실패');
-    }
+    console.log(data);
   };
 
   return (
@@ -53,6 +40,7 @@ export default function Login() {
               <input 
                 type="text" placeholder="아이디를 입력해주세요." 
                 className="w-[280px] sm:w-[330px] border-2 border-darkblue rounded-lg p-3"
+                value={identifier}
                 onChange={handleIdInput}
               />
             </div>
@@ -61,6 +49,7 @@ export default function Login() {
               <input 
                 type="password" placeholder="비밀번호를 입력해주세요." 
                 className="w-[280px] sm:w-[330px] border-2 border-darkblue rounded-lg p-3"
+                value={password}
                 onChange={handlePasswordInput}
               />
             </div>
