@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { StaticImageData } from "next/image"; 
+import { StaticImageData } from 'next/image';
 
 interface ImageItem {
-  src: StaticImageData; // 이미지 소스 타입
-  description: string; // 이미지 설명
+  src: StaticImageData;
+  description: string;
 }
 
 interface ImageSliderProps {
-  images: ImageItem[]; // 이미지 배열
+  images: ImageItem[];
 }
 
 const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
@@ -24,36 +24,30 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full max-w-4xl h-auto mx-auto bg-white rounded-lg shadow-lg flex flex-col gap-2 p-5">
-      {/* 이미지 슬라이드 섹션 */}
-      <div className="flex justify-between items-center h-full">
-        <button 
-          onClick={prevSlide}
-          className="bg-[#136BFF] text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-        >
-          &lt;
-        </button>
-        <div className="relative flex-grow h-64 md:h-96">
+    <div className="flex gap-5 items-center">
+      <button 
+        onClick={prevSlide}
+        className="bg-[#136BFF] text-white max-h-full min-h-12 px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        &lt;
+      </button>
+      <div className="flex flex-col items-center w-full max-w-[420px] mx-auto">
+        <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px]"> 
           <Image
             src={images[currentIndex].src}
             alt={`Slide ${currentIndex + 1}`}
-            layout="fill"
-            objectFit="contain" 
-            className="rounded shadow-lg"
+            className="object-cover rounded-lg"
+            fill 
           />
         </div>
-        <button 
-          onClick={nextSlide}
-          className="bg-[#136BFF] text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-        >
-          &gt;
-        </button>
+        <p className="mt-2 text-center">{images[currentIndex].description}</p>
       </div>
-
-      {/* 이미지 설명 */}
-      <div className="text-center mt-2 text-sm md:text-lg font-semibold">
-        {images[currentIndex].description}
-      </div>
+      <button 
+        onClick={nextSlide}
+        className="bg-[#136BFF] text-white max-h-full min-h-12 px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        &gt;
+      </button>
     </div>
   );
 };
