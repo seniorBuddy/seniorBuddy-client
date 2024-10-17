@@ -7,7 +7,7 @@ import { manualItems } from '../manual/mock/manual-item';
 
 const ManualPage: React.FC = () => {
   return (
-    <section className="mx-5 py-10 bg-gray-100 dark:bg-[#0F172A]">
+    <section className="mx-5 py-10 bg-gray-100 dark:bg-[#1e293b]">
       {/* 설명서 타이틀 */}
       <div className="w-full p-5 bg-[#136BFF] rounded-lg shadow-lg text-center text-white text-3xl dark:bg-[#136BFF] font-bold mb-0">
         설명서
