@@ -3,6 +3,7 @@ import Image from 'next/image';
 import image1 from '../assets/images/m-m-1.png';
 import image2 from '../assets/images/m-m-2.png';
 import Link from 'next/link';
+import { manualItems } from '../manual/mock/manual-item'; 
 
 const ManualPage: React.FC = () => {
   return (
@@ -34,18 +35,15 @@ const ManualPage: React.FC = () => {
           </div>
           <p className="mt-2 text-2xl text-white font-bold">카카오톡</p>
           <div className="w-48 h-1 bg-white my-1" /> 
-          
-          <Link href="/manual/k1picture">
-            <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-              사진 보내기
-            </div>
-          </Link>
-          
-          <Link href="/manual/k2groupchat">
-            <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-              단톡 생성하기
-            </div>
-          </Link>
+
+          {/* 카카오톡 항목 링크 생성 */}
+          {manualItems.filter(item => item.category === '카카오톡').map(item => (
+            <Link key={item.id} href={`/manual/${item.id}`}>
+              <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
+                {item.title}
+              </div>
+            </Link>
+          ))}
         </div>
 
         {/* 일상 섹션 */}
@@ -61,30 +59,15 @@ const ManualPage: React.FC = () => {
           </div>
           <p className="mt-2 text-2xl text-white font-bold">일상</p>
           <div className="w-48 h-1 bg-white my-1" /> 
-          
-          <Link href="/manual/d1number">
-            <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-              전화번호 등록하기
-            </div>
-          </Link>
-          
-          <Link href="/manual/d2capture">
-            <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-              캡처하기
-            </div>
-          </Link>
-          
-          <Link href="/manual/d3light">
-            <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-              밝기 조절하기
-            </div>
-          </Link>
-          
-          <Link href="/manual/d4livechat">
-            <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-              영상 통화하기
-            </div>
-          </Link>
+
+          {/* 일상 항목 링크 생성 */}
+          {manualItems.filter(item => item.category === '일상').map(item => (
+            <Link key={item.id} href={`/manual/${item.id}`}>
+              <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
+                {item.title}
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
