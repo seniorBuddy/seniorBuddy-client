@@ -7,9 +7,9 @@ import { manualItems } from '../manual/mock/manual-item';
 
 const ManualPage: React.FC = () => {
   return (
-    <section className="mx-5 py-10 bg-gray-100">
+    <section className="mx-5 py-10 bg-gray-100 dark:bg-[#0F172A]">
       {/* 설명서 타이틀 */}
-      <div className="w-full p-5 bg-[#136BFF] rounded-lg shadow-lg text-center text-white text-3xl font-bold mb-0">
+      <div className="w-full p-5 bg-[#136BFF] rounded-lg shadow-lg text-center text-white text-3xl dark:bg-[#136BFF] font-bold mb-0">
         설명서
       </div>
 
@@ -34,12 +34,12 @@ const ManualPage: React.FC = () => {
             />
           </div>
           <p className="mt-2 text-2xl text-white font-bold">카카오톡</p>
-          <div className="w-48 h-1 bg-white my-1" /> 
+          <div className="w-48 h-1 bg-white dark:bg-[#0F172A] my-1" /> 
 
           {/* 카카오톡 항목 링크 생성 */}
           {manualItems.filter(item => item.category === '카카오톡').map(item => (
             <Link key={item.id} href={`/manual/${item.id}`}>
-              <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
+              <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white dark:bg-[#1E293B]  dark:text-white">
                 {item.title}
               </div>
             </Link>
@@ -58,12 +58,12 @@ const ManualPage: React.FC = () => {
             />
           </div>
           <p className="mt-2 text-2xl text-white font-bold">일상</p>
-          <div className="w-48 h-1 bg-white my-1" /> 
+          <div className="w-48 h-1 bg-white dark:bg-[#0F172A] my-1" /> 
 
           {/* 일상 항목 링크 생성 */}
           {manualItems.filter(item => item.category === '일상').map(item => (
             <Link key={item.id} href={`/manual/${item.id}`}>
-              <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
+              <div className="mt-2 w-48 h-12 bg-white text-[#136BFF] rounded-lg text-center text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white dark:bg-[#1E293B] dark:text-white">
                 {item.title}
               </div>
             </Link>
