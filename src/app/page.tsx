@@ -4,7 +4,7 @@ import { MdMedicalInformation } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { mainMenuItem } from "@/types";
 import Image from 'next/image';
-import Dummy from '@/app/assets/custom-dummy.svg';
+import Dummy from '@/app/assets/dummy_ai/ai_1.svg'
 import AiChatInput from "@/components/chat/ai-chat-input";
 
 const MainNavigate = () => {
@@ -35,18 +35,18 @@ const MainNavigate = () => {
 }
 
 const AIAssistant = () => (
-    <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 py-5 sm:py-3 px-5 sm:my-5 bg-blue dark:bg-blue-700 rounded-2xl justify-center gap-8 sm:gap-5">
-      <div className="sm:hidden size-24 pt-1 bg-white dark:bg-gray-200 rounded-full overflow-hidden">
-        <Image src={Dummy} alt='dummy'></Image>
+    <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 bg-blue dark:bg-blue-700 rounded-2xl justify-evenly py-3">
+      <div className="sm:hidden bg-white dark:bg-gray-200 rounded-full overflow-hidden">
+        <Image  width={100} height={100} src={Dummy} alt='dummy'></Image>
         </div>
-      <div className="pt-2 pr-4 sm:pr-0">
-          <div className="text-info font-bold min-w-36 m-auto text-slate-800 bg-white text-center mb-2 rounded-3xl">
+      <div className="flex flex-col items-center justify-evenly sm:gap-3">
+          <div className="text-info font-bold min-w-40  text-slate-800 bg-white text-center rounded-3xl">
             AI 비서 Abby
             </div>
-          <div className="hidden sm:block size-24 m-auto rounded-full overflow-hidden">
-            <Image src={Dummy} alt='dummy'></Image>
+          <div className="hidden sm:block m-auto rounded-full overflow-hidden">
+            <Image width={100} height={100} src={Dummy} alt='dummy'></Image>
           </div>
-          <div className="font-medium mt-4 text-md">
+          <div className="font-medium text-md pb-3 sm:pb-0">
             좋은 하루 보내고 계신가요?
           </div>
       </div>
