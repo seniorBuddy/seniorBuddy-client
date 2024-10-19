@@ -13,7 +13,7 @@ export function ThemeProviders({ initTheme, children }: {
     }, [])
     
     if(!clientTheme) {
-        return null;
+        return ;
     }
 
     return (

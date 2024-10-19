@@ -30,7 +30,6 @@ export const useUIStore = create<UIStore>((set, get) => ({
       Cookies.set('contrast', String(updatedSettings.contrast));
       // Cookies.set('brightness', String(updatedSettings.brightness));
       // Cookies.set('fontSize', String(updatedSettings.fontSize));
-
       return { settings: updatedSettings };
     });
   },
