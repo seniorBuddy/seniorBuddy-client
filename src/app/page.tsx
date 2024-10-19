@@ -1,5 +1,3 @@
-import { MdKeyboardVoice } from "react-icons/md";
-import { BiSolidSend } from "react-icons/bi";
 import Link from "next/link";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { MdMedicalInformation } from "react-icons/md";
@@ -15,6 +13,8 @@ const MainNavigate = () => {
     { href: '/reminder',  bgColor: 'bg-grd-yellow', iconColor: 'text-sigyellow', Icon: MdMedicalInformation, text: '알리미', content: '복용과 병원 정보를 관리해요' },
     { href: '/settings', bgColor: 'bg-grd-blue', iconColor: 'text-sigblue', Icon: GrContactInfo, text: '내 정보', content: '현재 나의 정보를 확인해요' },
   ];
+
+  
   return (
     <section>
       <div className="m-auto grid grid-cols-1 sm:grid-cols-3 font-semibold text-lg gap-3 md:text-xl max-w-1.50">
@@ -92,3 +92,5 @@ export default function Home() {
    </main>
   );
 }
+
+

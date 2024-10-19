@@ -13,6 +13,7 @@
     "@capacitor/cli": "^6.1.2",
     "@capacitor/core": "^6.1.2",
     "@capacitor/ios": "^6.1.2",
+    "@types/dom-speech-recognition": "^0.0.4",
     "install": "^0.13.0",
     "js-cookie": "^3.0.5",
     "next": "^14.2.14",

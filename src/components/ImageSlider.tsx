@@ -34,6 +34,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
       <div className="flex flex-col items-center justify-center w-full max-h-[400px] max-w-[420px] mx-auto">
         <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center"> 
           <Image
+            priority
             width={280} 
             height={200}
             src={images[currentIndex].src}
