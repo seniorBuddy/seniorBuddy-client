@@ -18,7 +18,6 @@ export function ThemeProviders({ initTheme, children }: {
 
     return (
     <ThemeProvider
-        enableSystem={false}
         attribute="class"
         defaultTheme={initTheme} >
         {children}

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import React from 'react';
 import Link from "next/link";
 import EmailAuto from '../register/emailAuto';
@@ -15,13 +14,13 @@ export default function Guardian() {
   const defaultEmail = '';
 
   const Input = ({ label, children, type }: InputProps) => (
-    <div className="flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full gap-4 md:ml-[100px] mt-2">
-      <span className="w-full md:w-[120px]">{label}</span>
+    <div className="px-10 flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full mt-2">
+      <span className="w-full">{label}</span>
       <div className="flex flex-row w-full gap-2">
         {type && (
           <input 
             type={type}
-            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            className="border-2 border-gray-400 rounded-xl p-1"
           />
         )}
         {children && (
@@ -33,11 +32,11 @@ export default function Guardian() {
 
   return (
     <div>
-      <div className="flex flex-col md:text-lg items-center justify-center w-full h-[500px] md:h-[350px] gap-1 md:gap-4">
+      <div className="flex flex-col md:text-lg items-center justify-center w-full gap-1 md:gap-4">
         <Input label="이름" type="text" />
         <Input label="이메일">
           <EmailAuto />
-          <span className="w-[100px] bg-slate-600 text-white rounded-md p-2 mx-1 text-center">인증번호</span>
+          <span className=" bg-slate-600 text-white rounded-md p-2 mx-1 text-center">인증번호</span>
         </Input>
         <Input label="인증번호 확인" type="text" />
         <Input label="비밀번호" type="password" />

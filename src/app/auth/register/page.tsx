@@ -15,10 +15,9 @@ export default function Page() {
     <div className="flex flex-col justify-center items-center mt-[60px]">
       {/* 전체 내용 묶음 */}
       <div className=
-            "flex flex-col gap-2 px-4 h-[550px] w-[380px] sm:w-[600px] justify-center items-center\
-            bg-white font-bold text-black rounded-[40px] border-4 border-blue">
+            "flex flex-col gap-2 px-4 max-w-sm justify-center items-center dark:bg-slate-700 dark:text-white bg-white font-bold text-black rounded-[40px] border-4 border-blue">
         {/* 회원가입 제목, 사용자 선택 버튼 묶음 */}
-        <div className="flex-[2] flex flex-col justify-center items-center gap-6 pt-[50px]">
+        <div className=" flex flex-col justify-center items-center gap-6 pt-[50px]">
           <span className="text-3xl">회원가입</span>
           {/* 사용자 선택 라디오버튼 */}
           <div className="flex flex-row gap-10">
@@ -45,8 +44,8 @@ export default function Page() {
           </div>
         </div>
         {/* 사용자에 따른 인적사항 입력창 컴포넌트 */}
-        <div className="flex-[8]">
-          {selected === 'guardian' && <Guardian />}
+        <div>
+            {selected === 'guardian' && <Guardian />}
           {selected === 'senior' && <Senior />}
         </div>
       </div>

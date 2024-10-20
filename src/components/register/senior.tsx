@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from "next/link";
-import registerUser from '@/app/action/registerAction';
 
 export function RegisterForm() {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -43,48 +41,40 @@ export function RegisterForm() {
     };
 
     console.log(data)
-    
-    // try {
-    //   const result = await registerUser(data);
-    //   console.log("회원가입 결과:", result);
-    // } catch (error) {
-    //   console.error("회원가입 오류:", error);
-    // }
   };
   
   return (
     <form onSubmit={handleRegister}>
-      <div className="flex flex-col md:text-lg items-center justify-center w-full h-[500px] md:h-[350px] gap-1 md:gap-4">
-      <div className="flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full gap-4 md:ml-[100px] mt-2">
-          <span className="w-full md:w-[120px]">이름</span>
+      <div className="flex flex-col md:text-lg items-center justify-between gap-1 md:gap-4 min-w-72">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-4">
+          <span>이름</span>
           <input
-            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            className="border-2 border-gray-400 rounded-xl p-1 dark:bg-white dark:text-black"
             value={name}
             onChange={handleNameInput}
           />
         </div>
-        <div className="flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full gap-4 md:ml-[100px] mt-2">
-          <span className="w-full md:w-[120px]">전화번호</span>
+        <div className="flex flex-col sm:flex-row w-full mt-2 justify-between gap-4">
+          <span>전화번호</span>
           <input
-            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            className="border-2 border-gray-400 rounded-xl p-1 dark:bg-white dark:text-black"
             value={phoneNumber}
             onChange={handlePhoneInput}
           />
         </div>
-        <div className="flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full gap-4 md:ml-[100px] mt-2">
-          <span className="w-full md:w-[120px]">비밀번호</span>
+        <div className="flex flex-col md:flex-row w-full mt-2  gap-4">
+          <span>비밀번호</span>
           <input
-            type='password'
-            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            type="password"
+            className="border-2 border-gray-400 rounded-xl p-1 dark:bg-white dark:text-black"
             value={password}
             onChange={handlePasswordInput}
           />
         </div>
-        
-        <div className="flex flex-col md:flex-row gap-4">
-          <span className="w-full md:w-[120px]">성별</span>
-          <div className="flex flex-row gap-2">
-            <div className="flex w-[150px] border-2 border-gray-400 rounded-sm">
+        <div className="w-full flex flex-col md:flex-row gap-4 justify-between">
+          <span>성별</span>
+          <div className="flex flex-row gap-2 ">
+            <div className="flex  border-2 border-gray-400 rounded-sm">
               <input
                 id="female"
                 type="radio"
@@ -100,7 +90,7 @@ export function RegisterForm() {
                 여성
               </label>
             </div>
-            <div className="flex w-[150px] border-2 border-gray-400 rounded-sm">
+            <div className="flex border-2 border-gray-400 rounded-sm">
               <input
                 id="male"
                 type="radio"
@@ -119,10 +109,10 @@ export function RegisterForm() {
           </div>
         </div>
       </div>
-      <div className="flex sm:flex-row">
+      <div className="flex">
         <button
           type="submit"
-          className="flex justify-center items-center bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5"
+          className="bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5"
         >
           가입
         </button>

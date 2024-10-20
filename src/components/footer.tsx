@@ -12,7 +12,7 @@ export default function Footer() {
     { Icon: MdMedicalInformation, label: '알리미', href: "/reminder"},
     { Icon: IoHomeSharp, label: '홈', href: "/" },
     { Icon: GrContactInfo, label: '내 정보', href: "/settings" },
-    { Icon: IoChatbubblesSharp, label: 'AI', href: "./ai_chat" },
+    { Icon: IoChatbubblesSharp, label: 'AI', href: "/ai_chat" },
   ];
 
   return (

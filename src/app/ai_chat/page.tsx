@@ -1,57 +1,64 @@
 "use client"
+import Dummy from '@/app/assets/dummy_ai/ai_5.svg';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { MdKeyboardVoice } from "react-icons/md";
 
-import { useState } from 'react';
 
 export default function Page() {
     const [listening, setListening] = useState(false);
-    const [transcript, setTranscript] = useState('');
-    const [error, setError] = useState('');
-
-    const recordHandler = () => {
+    const [transcript, setTranscript] = useState('궁금한 것을 물어 보세요');
+    
+    function onRecord () {
+        // 브라우저 API에 따른 API 설정
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-            setError("Speech recognition is not supported in this browser.");
-            return;
-        }
-
         const recognition = new SpeechRecognition();
         recognition.lang = 'ko-KR';  // Korean language
 
         setListening(true);
+        // 인스턴스 시작하기
         recognition.start();
 
-        recognition.onresult = function(event) {
-            const speechTranscript = event.results[0][0].transcript;
-            console.log('Transcript:', speechTranscript);
-            setTranscript(speechTranscript);
+        // 인스턴스 결과 출력하기
+        recognition.onresult = async function (e) {
+            const transcript = e.results[0][0].transcript;
+            console.log(transcript)
+            setTranscript(transcript); // 먼저 transcript 상태를 업데이트
             setListening(false);
         };
-
-        recognition.onerror = function(event) {
-            console.error('Error occurred in speech recognition:', event.error);
-            setError("An error occurred during speech recognition.");
-            setListening(false);
-        };
-
-        recognition.onspeechend = function() {
-            recognition.stop();  // Stop recognition when speech ends
-            setListening(false);
-        };
-    };
+    }
 
     return (
-        <div className="bg-stone-700 text-white p-4">
-            <div>여긴 채팅 페이지입니다</div>
-            {error && <div className="text-red-500">{error}</div>}
-            <button
-                className={`font-bold p-2 rounded-md ${listening ? 'bg-green-500' : 'bg-blue-500'}`}
-                onClick={recordHandler}
-                disabled={listening}
-            >
-                {listening ? 'Listening...' : '음성 시작'}
-            </button>
-
-            {transcript && <div className="mt-4">음성 인식 결과: {transcript}</div>}
-        </div>
+        <div className="text-white pt-10 flex gap-10 flex-col items-center justify-center max-w-72 sm:max-w-lg m-auto">
+            <div className="bg-blue flex flex-col rounded-md items-center justify-center min-w-full gap-5 p-5">
+            {/* 비서 영역 */}
+                <div className="text-info font-bold min-w-40  text-slate-800 bg-white text-center rounded-3xl">
+                    AI 비서 Abby</div>
+                <div className="m-auto rounded-full overflow-hidden">
+                    <Image width={200} height={200} src={Dummy} alt='dummy' priority></Image>
+                </div>
+                <div className='flex w-full'>
+                    <div className='bg-slate-100 text-darkblue font-bold text-sm rounded-full px-7 py-2 max-w-72'>
+                    안녕하세요! 궁금한 게 있으신가요? </div>
+                </div>
+               
+            {/* 사용자 영역 */}
+                <div className='flex items-center justify-end w-full '>
+                {/* 음성 인식 시작을 위한 핸들러 */}
+                <button 
+                    className="cursor-pointer pr-1 sm:pr-2 transition-transform duration-200 hover:text-darkblue" 
+                    onClick={onRecord}
+                    >
+                <MdKeyboardVoice className="w-7 h-7 text-darkblue hover:text-white"/>
+                </button>
+                <div className='bg-darkblue text-white font-bold text-sm rounded-full px-7 py-2 max-w-72'>
+                {listening ? '...' : transcript}
+                </div>
+                </div>
+            </div>
+        
+        {/* 질문하기 section */}
+       
+    </div>
     );
 }
