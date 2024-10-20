@@ -12,7 +12,7 @@ export default function MedicineRegister() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-[80px]">
+    <div className="flex flex-col justify-center items-center mt-[80px] h-[350px] w-[380px] sm:w-[600px]">
       <div className="flex flex-row gap-4">
         <Image src={Sample} alt="madicineSample" width="150" height="300" />
         <div className="flex flex-col gap-2 font-bold text-darkblue text-xl">
@@ -26,7 +26,7 @@ export default function MedicineRegister() {
           </div>
           <div className="flex flex-row items-center justify-between w-full gap-1">
             <span className="flex-[2]">시간</span>
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-7">
               <label className="flex flex-row gap-2">
                 <input
                   type="checkbox"
@@ -52,6 +52,9 @@ export default function MedicineRegister() {
                 <span>저녁</span>
               </label>
             </div>
+          </div>
+          <div className="flex flex-row items-center justify-between w-full gap-1">
+            <span className="flex-[2]">이름</span>
           </div>
         </div>
       </div>
