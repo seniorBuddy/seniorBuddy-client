@@ -26,6 +26,7 @@ function CustomImage({ changeAI }: { changeAI: (image: any) => void }) {
                     alt={image.alt}
                     onClick={() => changeAI(image)}
                     className="cursor-pointer transition hover:scale-110"
+                    priority
                 />
             ))}
         </div>
