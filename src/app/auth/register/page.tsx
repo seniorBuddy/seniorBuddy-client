@@ -47,7 +47,7 @@ export default function Page() {
         {/* 사용자에 따른 인적사항 입력창 컴포넌트 */}
         <div className="flex-[8]">
           {selected === 'guardian' && <Guardian />}
-          {selected === 'senior' && <Senior />}
+          {selected === 'senior' && <Senior selected={selected}/>}
         </div>
       </div>
     </div>

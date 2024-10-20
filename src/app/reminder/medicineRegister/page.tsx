@@ -26,7 +26,7 @@ export default function MedicineRegister() {
           </div>
           <div className="flex flex-row items-center justify-between w-full gap-1">
             <span className="flex-[2]">시간</span>
-            <div className="flex flex-row gap-2">
+            <div className="flex flex-row gap-7">
               <label className="flex flex-row gap-2">
                 <input
                   type="checkbox"
@@ -52,6 +52,9 @@ export default function MedicineRegister() {
                 <span>저녁</span>
               </label>
             </div>
+          </div>
+          <div className="flex flex-row items-center justify-between w-full gap-1">
+            <span className="flex-[2]">이름</span>
           </div>
         </div>
       </div>

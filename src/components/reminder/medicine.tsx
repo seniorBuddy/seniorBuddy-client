@@ -1,14 +1,14 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import Sample from '../../app/assets/images/sample.png';
+import Link from 'next/link';
 import { FaPlusCircle } from "react-icons/fa";
 
 export default function madicineMain() {
   return (
     <div className="bg-blue h-[350px] w-[380px] sm:w-[600px] rounded-lg">
       {/* 그리드 */}
-      <div className="grid grid-cols-1 gap-4 items-center p-[15px]">
-        <div className="min-h-[150px] bg-white rounded-lg flex flex-row">
+      <div className="flex flex-col gap-4 items-center p-[15px]">
+        <div className="w-full bg-white rounded-lg flex flex-row">
           {/* 약 정보 */}
           <div className="flex flex-row gap-5 justify-center items-center">
             <Image src={Sample} alt="madicineSample" width="150" height="150" className="hidden sm:block" />
@@ -29,8 +29,7 @@ export default function madicineMain() {
             </div>
           </div>
         </div>
-        {/* grid 제대로 작동하는지 확인하기 위한 임시 */}
-        <Link href="/reminder/medicineRegister" className="min-h-[150px] bg-white rounded-lg flex flex-col items-center justify-center">
+        <Link href="/reminder/medicineRegister" className="min-h-[150px] w-full bg-white rounded-lg flex flex-col items-center justify-center">
           <FaPlusCircle size="70" className="text-blue"/>
         </Link>
       </div>

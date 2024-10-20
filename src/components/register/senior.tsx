@@ -1,11 +1,13 @@
 'use client';
-
 import { useState } from 'react';
-
-export default function RegisterForm() {
+import { useRouter } from 'next/navigation';
+export default function Senior({selected}:
+  {selected: string}
+) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const router = useRouter();
 
   function formatPhoneNumber(value: string) {
     return value
@@ -27,21 +29,39 @@ export default function RegisterForm() {
   };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(selected)
     e.preventDefault(); // 기본 폼 제출 방지
     const data = {
-      phoneNumber,
-      password,
-      name,
-    };
+      "user_real_name": name,
+      "password": password,
+      "user_type": selected,
+      "phone_number": phoneNumber,
+    }
+      
 
-    console.log(data)
-    
-    // try {
-    //   const result = await registerUser(data);
-    //   console.log("회원가입 결과:", result);
-    // } catch (error) {
-    //   console.error("회원가입 오류:", error);
-    // }
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        console.log(res)
+        alert('회원가입에 실패했습니다');
+      } else {
+        const responseData = await res.json();
+        alert('회원가입이 완료되었습니다');
+        router.push('/auth/login')
+      }
+
+
+    } catch (error) {
+      console.error('회원가입 에러 : ', error);
+    }
   };
   
   return (

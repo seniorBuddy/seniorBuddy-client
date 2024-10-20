@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react';
 
-<<<<<<< HEAD
 interface EmailAutoProps {
   emailAddress: string; // 추가된 props 타입 정의
   setEmailAddress: React.Dispatch<React.SetStateAction<string>>; // 추가된 props 타입 정의
@@ -9,10 +8,6 @@ interface EmailAutoProps {
 
 const EmailAuto: React.FC<EmailAutoProps> = ({ emailAddress, setEmailAddress }) => {
   const [email, setEmail] = useState(emailAddress); // 초기값을 props로 설정
-=======
-const EmailAuto: React.FC = () => {
-  const [email, setEmail] = useState('');
->>>>>>> main
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
   const emailDomains = ['naver.com', 'gmail.com', 'daum.net'];
