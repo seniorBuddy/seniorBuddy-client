@@ -1,10 +1,6 @@
-import Link from 'next/link';
-import { FaPlusCircle } from "react-icons/fa";
-
 export default function Hospital() {
   return(
-    <div className="bg-blue h-[420px] w-[380px] sm:w-[600px] rounded-lg">
-      {/* 그리드 */}
+    <div className="bg-blue w-[370px] sm:w-[500px] lg:w-[1000px] rounded-lg">
       <div className="flex flex-col gap-4 items-center p-[15px]">
         <div className="w-full bg-white rounded-lg p-4 flex flex-col gap-5 text-2xl text-darkblue font-bold">
           <div className="flex flex-col lg:flex-row gap-5 lg:gap-[100px]">
@@ -29,9 +25,6 @@ export default function Hospital() {
             <span className="text-slate-600">기타사항 아무거나</span>
           </div>
         </div>
-        <Link href="/reminder/medicineRegister" className="min-h-[150px] w-full bg-white rounded-lg flex flex-col items-center justify-center">
-          <FaPlusCircle size="70" className="text-blue"/>
-        </Link>
       </div>
     </div>
   );

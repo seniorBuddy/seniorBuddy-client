@@ -18,7 +18,7 @@ function CustomImage({ changeAI }: { changeAI: (image: any) => void }) {
     ];
     
     return (
-        <div className="min-w-[300px] overflow-x-auto no-scrollbar px-2 py-5 flex gap-3">
+        <div className="min-w-[300px] overflow-auto px-2 py-5 flex gap-3">
             {AiImage.map((image, index) => (
                 <Image
                     key={index}
