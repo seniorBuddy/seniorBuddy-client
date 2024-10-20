@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 export default function Senior({selected}:
   {selected: string}
 ) {
@@ -101,7 +102,7 @@ export default function Senior({selected}:
       <div className="flex jutify-center">
         <button
           type="submit"
-          className="flex justify-center items-center bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5"
+          className="bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5"
         >
           가입
         </button>

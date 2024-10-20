@@ -42,7 +42,7 @@ const EmailAuto: React.FC<EmailAutoProps> = ({ emailAddress, setEmailAddress }) 
       <input
         value={email}
         onChange={handleChange}
-        className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+        className=" border-2 border-gray-400 rounded-xl p-1"
       />
       {suggestions.length > 0 && (
         <ul className="absolute bg-white border border-gray-300 w-full mt-1 rounded">
