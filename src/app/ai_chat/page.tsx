@@ -29,14 +29,17 @@ export default function Page() {
     }
 
     return (
-        <div className="text-white pt-10 flex gap-10 flex-col items-center justify-center max-w-72 sm:max-w-lg m-auto">
-            <div className="bg-blue flex flex-col rounded-md items-center justify-center min-w-full gap-5 p-5">
+        <div className="text-white pt-10 flex flex-col items-center justify-center w-[80%] m-auto">
+            <div className="bg-blue flex flex-col rounded-md items-center justify-center min-w-full gap-10 px-5 pt-7 pb-10">
             {/* 비서 영역 */}
-                <div className="text-info font-bold min-w-40 py-1 text-slate-800 bg-white text-center rounded-3xl">
-                    AI 비서 Abby</div>
-                <div className="m-auto rounded-full overflow-hidden">
-                    <Image width={200} height={200} src={Dummy} alt='dummy' priority></Image>
+                <div className='flex flex-col gap-5'>
+                    <div className="text-info font-bold min-w-40 py-2 text-slate-800 bg-white text-center rounded-3xl">
+                        AI 비서 Abby</div>
+                    <div className="m-auto rounded-full overflow-hidden">
+                        <Image width={200} height={200} src={Dummy} alt='dummy' priority></Image>
+                    </div>
                 </div>
+               
                 <div className='flex w-full'>
                     <div className='bg-slate-100 text-darkblue text-sm rounded-full px-7 py-2 max-w-72'>
                     안녕하세요! 궁금한 게 있으신가요? </div>
