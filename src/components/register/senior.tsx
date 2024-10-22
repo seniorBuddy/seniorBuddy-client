@@ -55,6 +55,8 @@ export default function Senior({selected}:
         alert('회원가입에 실패했습니다');
       } else {
         const responseData = await res.json();
+        console.log(responseData);
+        
         alert('회원가입이 완료되었습니다');
         router.push('/auth/login')
       }

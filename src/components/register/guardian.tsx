@@ -23,8 +23,6 @@ export default function Guardian() {
       password,
       name,
     };
-
-    console.log(data);
   };
 
   return (
