@@ -40,7 +40,35 @@ export function RegisterForm() {
       gender,
     };
 
+<<<<<<< HEAD
     console.log(data)
+=======
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'include',
+      });
+
+      if (!res.ok) {
+        console.log(res)
+        alert('회원가입에 실패했습니다');
+      } else {
+        const responseData = await res.json();
+        console.log(responseData);
+        
+        alert('회원가입이 완료되었습니다');
+        router.push('/auth/login')
+      }
+
+
+    } catch (error) {
+      console.error('회원가입 에러 : ', error);
+    }
+>>>>>>> 8452a51 (FEAT: tokenStore 추가)
   };
   
   return (

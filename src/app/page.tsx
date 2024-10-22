@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Dummy from '@/app/assets/dummy_ai/ai_1.svg'
 import AiChatInput from "@/components/chat/ai-chat-input";
 
+
+
+
 const MainNavigate = () => {
   const menuItems: mainMenuItem[]  = [
     { href: '/manual', bgColor: 'bg-grd-red', iconColor: 'text-sigred', Icon: BiSolidFoodMenu, text: '설명서', content: '설명서로 조작을 배워요'},
@@ -21,7 +24,7 @@ const MainNavigate = () => {
             <div className={`w-full p-7 rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor}`}>
               <Icon className={`${iconColor} size-10 sm:size-14`}/>
               <div className="flex flex-col">
-              <span className={`font-bold text-2xl ${iconColor}`} >{text}</span>
+              <span className={`text-2xl sm:font-bold ${iconColor}`} >{text}</span>
               <span className={`text-sm ${iconColor}`} >{content}</span>
               </div>
             </div>
@@ -69,16 +72,7 @@ const ChatInput = () => (
 export default function Home() {
   return (
    <main className="flex flex-col mx-5 gap-5 py-10 dark:text-slate-800">
-        {/* 상위 섹션 */}
-        <section>
-          <div className="relative rounded-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-blue"></div>
-            <div className="relative z-10 px-8 py-10">
-              <h2 className="text-3xl font-bold mb-3">반가워요! 이수연 님</h2>
-              <p className="text-lg font-semibold">Abby와 함께 하루를 시작하세요</p>
-            </div>
-            </div>
-        </section>
+      {/* 상위 섹션 */}
       {/* 네비게이션 */}
         <MainNavigate />
       <div className="flex items-center justify-center flex-col md:flex-row gap-5">

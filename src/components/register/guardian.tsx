@@ -13,6 +13,7 @@ interface InputProps {
 export default function Guardian() {
   const defaultEmail = '';
 
+<<<<<<< HEAD
   const Input = ({ label, children, type }: InputProps) => (
     <div className="px-10 flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full mt-2">
       <span className="w-full">{label}</span>
@@ -29,6 +30,24 @@ export default function Guardian() {
       </div>
     </div>
   );
+=======
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = {
+      emailAddress,
+      password,
+      name,
+    };
+  };
+>>>>>>> 8452a51 (FEAT: tokenStore 추가)
 
   return (
     <div>

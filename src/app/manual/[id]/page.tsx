@@ -7,7 +7,7 @@ import { manualItems } from "@/app/manual/mock/manual-item";
 import { StaticImageData } from "next/image";
 
 const ManualPage: React.FC = () => {
-    const pathname = usePathname();
+    const pathname = usePathname() as string;
     const id = pathname.split("/").pop();
     const item = id ? manualItems.find((item) => item.id === id) : null;
 
