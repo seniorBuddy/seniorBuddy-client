@@ -50,7 +50,6 @@ export default function Guardian({selected}:{selected: string}) {
       "password": password,
       "user_type": selected,
       "email": emailAddress,
-      "phone_number": null,
     }
 
     try {

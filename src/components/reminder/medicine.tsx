@@ -1,10 +1,18 @@
 import Image from 'next/image';
 import Sample from '../../app/assets/images/sample.png';
-import Link from 'next/link';
+import Register from './medicineRegist';
 import { FaPlusCircle } from "react-icons/fa";
+import { useState } from 'react';
 
 export default function madicineMain() {
+  const [addMedicine, setAddmedicine] = useState<boolean>(false);
+
+  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    setAddmedicine(!addMedicine);
+  }
+
   return (
+    <>
     <div className="bg-blue h-[350px] w-[380px] sm:w-[600px] rounded-lg">
       {/* 그리드 */}
       <div className="flex flex-col gap-4 items-center p-[15px]">
@@ -29,10 +37,19 @@ export default function madicineMain() {
             </div>
           </div>
         </div>
-        <Link href="/reminder/medicineRegister" className="min-h-[150px] w-full bg-white rounded-lg flex flex-col items-center justify-center">
+        <div
+          onClick={handleClick}
+          className="min-h-[150px] w-full bg-white rounded-lg flex flex-col items-center justify-center"
+        >
           <FaPlusCircle size="70" className="text-blue"/>
-        </Link>
+        </div>
       </div>
     </div>
+    {addMedicine === true && (
+      <div className="fixed inset-0 flex items-center justify-center">
+        <Register prop={addMedicine}/>
+      </div>
+    )}
+    </>
   );
 }
