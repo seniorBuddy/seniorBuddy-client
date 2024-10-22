@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { CiMail } from "react-icons/ci";
+import { CiPhone } from "react-icons/ci";
 import Link from "next/link";
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
@@ -9,7 +10,7 @@ import { useRouter } from 'next/navigation';
 export default function Login() {
   const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
-  const [changeEmail, setChangeEmail] = useState(false);
+  const [changeEmail, setChangeEmail] = useState(true);
   const router = useRouter();
 
   const changeEmailHandler = () => {
@@ -63,37 +64,36 @@ export default function Login() {
         bg-white font-bold text-black rounded-[40px] border-4 border-blue">
         {/* 타이틀, 입력창 묶음 */}
         <form onSubmit={handleLogin}>
-          <div className="flex flex-col justify-center items-center gap-6 pt-[20px] w-full">
+          <div className="flex flex-col justify-center items-center gap-6 pt-[20px] w-full px-6">
             <span className="my-4 text-3xl flex justify-center">로그인</span>
-            <div className="flex flex-col sm:flex-row text-lg items-center justify-center w-full gap-1">
+            <div className="flex flex-row text-lg items-center justify-center w-full gap-1">
               {changeEmail ? (
                 <>
-                <span className="hidden sm:block w-full">전화번호</span>
+                <span className="hidden sm:block w-[250px]">전화번호</span>
                 <input 
                 type="text" placeholder="전화번호를 입력해주세요." 
-                className="w-[280px] sm:w-[330px] border-2 border-darkblue rounded-lg p-3"
+                className="w-[280px] sm:w-full border-2 border-darkblue rounded-lg p-3"
                 value={identifier}
                 onChange={handleIdInput}
                 />
                 </>
-                ) : (
-                  <>
-                  <span className="hidden sm:block w-full">이메일</span>
-                  <input 
-                  type="text" placeholder="이메일을 입력해주세요." 
-                  className="w-[280px] sm:w-[330px] border-2 border-darkblue rounded-lg p-3"
-                  value={identifier}
-                  onChange={handleIdInput}
-                  />
-                  </>
-                )}
-              
+              ) : (
+                <>
+                <span className="hidden sm:block w-[250px]">이메일</span>
+                <input 
+                type="text" placeholder="이메일을 입력해주세요." 
+                className="w-[280px] sm:w-full border-2 border-darkblue rounded-lg p-3"
+                value={identifier}
+                onChange={handleIdInput}
+                />
+                </>
+              )}
             </div>
             <div className="flex flex-col sm:flex-row text-lg items-center justify-center w-full mb-4 gap-1">
-              <span className="hidden sm:block w-full">비밀번호</span>
+              <span className="hidden sm:block w-[250px]">비밀번호</span>
               <input 
                 type="password" placeholder="비밀번호를 입력해주세요." 
-                className="w-[280px] sm:w-[330px] border-2 border-darkblue rounded-lg p-3"
+                className="w-[280px] sm:w-full border-2 border-darkblue rounded-lg p-3"
                 value={password}
                 onChange={handlePasswordInput}
               />
@@ -109,8 +109,17 @@ export default function Login() {
             <div 
                 onClick={changeEmailHandler}
                 className="flex flex-row items-center justify-center w-full gap-8 px-6 text-xl border-2 rounded-lg py-2">
-              < CiMail size="35"/>
-              <span>이메일 로그인</span>
+                {changeEmail ? (
+                  <>
+                  < CiMail size="35"/>
+                  <span>이메일 로그인</span>
+                  </>
+                ) : (
+                  <>
+                  < CiPhone size="35"/>
+                  <span>전화번호 로그인</span>
+                  </>
+                )}
             </div>
             <div className="flex flex-row justify-center w-full sm:gap-5 p-2 text-blue">
               <Link href="/auth/find_pw" className="flex justify-end flex-[3] hover:text-darkblue">비밀번호 찾기</Link>

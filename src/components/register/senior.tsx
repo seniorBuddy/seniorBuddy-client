@@ -2,9 +2,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Senior({selected}:
-  {selected: string}
-) {
+export default function Senior({selected}:{selected: string}) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
