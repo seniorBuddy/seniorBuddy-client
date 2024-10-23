@@ -7,7 +7,7 @@ import { manualItems } from "@/app/manual/mock/manual-item";
 import { StaticImageData } from "next/image";
 
 const ManualPage: React.FC = () => {
-    const pathname = usePathname() as string; // usePathname에 타입을 명시함
+    const pathname = usePathname();
     const id = pathname.split("/").pop();
     const item = id ? manualItems.find((item) => item.id === id) : null;
 
