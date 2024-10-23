@@ -2,41 +2,47 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import { ThemeProvider } from "next-themes";
+import { ThemeProviders } from "@/components/theme-providers";
 import { cookies } from "next/headers";
 
+// 폰트 설정
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
 });
 
+// Metadata API 사용
+export const metadata = {
+  title: 'Senior Buddy',  // 페이지 타이틀 설정
+};
+
+// viewport는 metadata 밖에서 따로 정의
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 서버 사이드에서 쿠키를 읽어옴
   const theme = cookies().get("theme")?.value || "light";
+  const token = cookies().get('access_token')?.value;
 
   return (
     <html lang="en">
       <body className={pretendard.variable}>
-      <ThemeProvider 
-        enableSystem={false}
-        attribute="class"
-        defaultTheme={theme}
-        >
-        <main className="font-pretendard min-h-screen dark:bg-slate-800 text-white dark:text-slate-800">
-        {/* Header */}
-          <Header />
-        {/* Main Section */}
-          <section className="min-h-screen flex-grow max-w-[700px] m-auto">
-            {children}
-          </section>
-        {/* Footer */}
-         <Footer />
-        </main>
-      </ ThemeProvider>
+        <ThemeProviders initTheme={theme}>
+          <main className="font-pretendard min-h-screen dark:bg-slate-800 text-white dark:text-slate-800">
+            <Header />
+            <section className="min-h-screen flex-grow max-w-[700px] m-auto">
+              {children}
+            </section>
+            {token && <Footer />}
+          </main>
+        </ThemeProviders>
       </body>
     </html>
   );

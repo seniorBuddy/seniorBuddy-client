@@ -1,52 +1,63 @@
 "use client";
 
-import { useState, useRef, ChangeEvent, KeyboardEvent } from 'react';
-import React from 'react';
-import Link from "next/link";
+import { useState } from 'react';
 import EmailAuto from '../register/emailAuto';
 
-interface InputProps {
-  label: string;
-  type?: string;
-  children?: React.ReactNode;
-}
-
 export default function Guardian() {
-  const defaultEmail = '';
+  const [emailAddress, setEmailAddress] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
 
-  const Input = ({ label, children, type }: InputProps) => (
-    <div className="flex flex-col md:flex-row sm:gap-3 sm:items-center justify-start w-full gap-4 md:ml-[100px] mt-2">
-      <span className="w-full md:w-[120px]">{label}</span>
-      <div className="flex flex-row w-full gap-2">
-        {type && (
-          <input 
-            type={type}
-            className="w-[230px] md:w-[300px] border-2 border-gray-400 rounded-xl p-1"
-          />
-        )}
-        {children && (
-          <div className="flex flex-row items-center gap-2">{children}</div>
-        )}
-      </div>
-    </div>
-  );
+  const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = {
+      emailAddress,
+      password,
+      name,
+    };
+  };
 
   return (
-    <div>
-      <div className="flex flex-col md:text-lg items-center justify-center w-full h-[500px] md:h-[350px] gap-1 md:gap-4">
-        <Input label="이름" type="text" />
-        <Input label="이메일">
-          <EmailAuto />
-          <span className="w-[100px] bg-slate-600 text-white rounded-md p-2 mx-1 text-center">인증번호</span>
-        </Input>
-        <Input label="인증번호 확인" type="text" />
-        <Input label="비밀번호" type="password" />
-        <Input label="비밀번호 확인" type="password" />
+    <form onSubmit={handleRegister}>
+      <div className="flex flex-col sm:text-lg items-center justify-center w-full h-[280px] gap-1 sm:gap-6">
+        <div className="flex flex-col sm:flex-row sm:gap-3 sm:items-center gap-4 mt-2">
+          <span className="w-[120px]">이름</span>
+          <input 
+            className="w-[230px] sm:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            value={name}
+            onChange={handleNameInput}
+          />
+        </div>
+        <div className="flex flex-col sm:flex-row sm:gap-3 sm:items-center gap-4 mt-2">
+          <span className="w-[120px]">이메일</span>
+          <EmailAuto emailAddress={emailAddress} setEmailAddress={setEmailAddress} />
+        </div>
+        <div className="flex flex-col sm:flex-row sm:gap-3 sm:items-center gap-4 mt-2">
+          <span className="w-[120px]">비밀번호</span>
+          <input 
+            type='password'
+            className="w-[230px] sm:w-[300px] border-2 border-gray-400 rounded-xl p-1"
+            value={password}  // 수정된 부분
+            onChange={handlePasswordInput}
+          />
+        </div>
       </div>
-      <div className="flex sm:flex-row">
-        <Link href="/auth/login" className="flex justify-center items-center bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5">취소</Link>
-        <Link href="/auth/login" className="flex justify-center items-center bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5">가입</Link>
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          className="flex justify-center items-center bg-darkblue text-white text-xl mt-[40px] p-2 rounded-xl w-full m-5"
+        >
+          가입
+        </button>
       </div>
-    </div>
+    </form>
   );
 }

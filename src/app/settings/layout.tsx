@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 export default function Home({ children, settinglist }: {
     children: ReactNode,
