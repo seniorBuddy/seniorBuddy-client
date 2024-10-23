@@ -7,8 +7,10 @@ import { useState } from 'react';
 export default function madicineMain() {
   const [addMedicine, setAddmedicine] = useState<boolean>(false);
 
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    setAddmedicine(!addMedicine);
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setAddmedicine(false);
+    }
   }
 
   return (
@@ -38,7 +40,7 @@ export default function madicineMain() {
           </div>
         </div>
         <div
-          onClick={handleClick}
+          onClick={() => setAddmedicine(true)}
           className="min-h-[150px] w-full bg-white rounded-lg flex flex-col items-center justify-center"
         >
           <FaPlusCircle size="70" className="text-blue"/>
@@ -46,8 +48,11 @@ export default function madicineMain() {
       </div>
     </div>
     {addMedicine === true && (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <Register prop={addMedicine}/>
+      <div 
+        onClick={handleClick}
+        className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
+      >
+        <Register prop={addMedicine} onCancel={() => setAddmedicine(false)}/>
       </div>
     )}
     </>
