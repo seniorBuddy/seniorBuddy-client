@@ -25,7 +25,7 @@ const ManualPage: React.FC = () => {
                 </h1>
             </div>
 
-            <div className="flex flex-col lg:flex-row justify-between mt-4">
+            <div className="flex flex-col lg:flex-row justify-between mt-4 ">
                 <div className="lg:w-1/3 p-4 bg-white dark:bg-[#0F172A] shadow-md rounded mb-4 lg:mb-0 flex flex-col items-center">
                     <h2 className="font-bold text-lg text-[#136BFF] text-center mb-4">목차</h2>
                     <ul className="space-y-3 w-full">
