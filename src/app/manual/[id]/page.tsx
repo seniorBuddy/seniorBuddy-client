@@ -8,7 +8,7 @@ import { StaticImageData } from "next/image";
 
 const ManualPage: React.FC = () => {
     const pathname = usePathname();
-    const id = pathname.split("/").pop();
+    const id = pathname ? pathname.split("/").pop() : null; // pathname이 null이 아닐 때만 split 수행
     const item = id ? manualItems.find((item) => item.id === id) : null;
 
     if (!item) {
@@ -68,4 +68,4 @@ const ManualPage: React.FC = () => {
     );
 };
 
-export default ManualPage;
+export default ManualPage; 
