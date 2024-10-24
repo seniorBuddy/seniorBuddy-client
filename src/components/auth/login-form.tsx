@@ -24,18 +24,6 @@ export default function LoginForm() {
                 autoClose: 2000,
                 icon: <span>❌</span>,
             });
-            toast.error(result.message, {
-                autoClose: 2000,
-                icon: <span>❌</span>,
-            });
-            toast.info(result.message, {
-                autoClose: 2000,
-                icon: <span>❌</span>,
-            });
-            toast.dark(result.message, {
-                autoClose: 2000,
-                icon: <span>❌</span>,
-            });
 
         } else {
             router.push('/')
