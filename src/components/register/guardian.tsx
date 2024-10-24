@@ -45,7 +45,7 @@ export default function Guardian() {
           <input 
             type='password'
             className="w-[230px] sm:w-[300px] border-2 border-gray-400 rounded-xl p-1"
-            value={password}  // 수정된 부분
+            value={password}
             onChange={handlePasswordInput}
           />
         </div>
