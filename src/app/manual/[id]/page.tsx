@@ -26,33 +26,33 @@ const ManualPage: React.FC = () => {
             </div>
 
             <div className="flex flex-col lg:flex-row justify-between mt-4">
-                <div className="lg:w-1/3 p-4 bg-white shadow-md rounded mb-4 lg:mb-0 flex flex-col items-center">
-                    <h2 className="font-bold text-lg text-[#136BFF] text-center mb-4">목차</h2>
+                <div className="lg:w-1/3 p-4 bg-white dark:bg-gray-900 shadow-md rounded mb-4 lg:mb-0 flex flex-col items-center">
+                    <h2 className="font-bold text-lg text-[#136BFF] dark:text-[#0E4BFF] text-center mb-4">목차</h2>
                     <ul className="space-y-3 w-full">
-                        <li className="bg-gray-100 p-3 rounded-lg shadow transition duration-300 cursor-pointer">
-                            <span className="text-[#136BFF] font-bold">카카오톡</span>
+                        <li className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg shadow transition duration-300 cursor-pointer">
+                            <span className="text-[#136BFF] font-bold dark:text-[#0E4BFF]">카카오톡</span>
                             <ul className="pl-4 text-sm">
-                                <li className="transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
+                                <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/k1picture">1. 사진 보내기</Link>
                                 </li>
-                                <li className="transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
+                                <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/k2groupchat">2. 단톡 생성하기</Link>
                                 </li>
                             </ul>
                         </li>
-                        <li className="bg-gray-100 p-3 rounded-lg shadow transition duration-300 cursor-pointer">
-                            <span className="text-[#136BFF] font-bold">일상</span>
+                        <li className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg shadow transition duration-300 cursor-pointer">
+                            <span className="text-[#136BFF] font-bold dark:text-[#0E4BFF]">일상</span>
                             <ul className="pl-4 text-sm">
-                                <li className="transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
+                                <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/d1number">1. 전화번호 등록하기</Link>
                                 </li>
-                                <li className="transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
+                                <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/d2capture">2. 캡처하기</Link>
                                 </li>
-                                <li className="transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
+                                <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/d3light">3. 밝기 조절하기</Link>
                                 </li>
-                                <li className="transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
+                                <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/d4livechat">4. 영상 통화하기</Link>
                                 </li>
                             </ul>
@@ -68,4 +68,4 @@ const ManualPage: React.FC = () => {
     );
 };
 
-export default ManualPage; 
+export default ManualPage;

@@ -48,7 +48,7 @@ export const manualItems = [
     },
     {
       id: "k2groupchat",
-      title: "단톡 만들기",
+      title: "단톡 생성하기",
       category: "카카오톡",
       steps: [
         { id: 1, images: [{ src: k2_1, description: "1. 카카오톡 채팅방 목록에서 우측 상단 중앙에 있는 아이콘을 누른다" }] },
