@@ -4,7 +4,7 @@ import { manualItems } from '../manual/mock/manual-item';
 
 const ManualPage: React.FC = () => {
   return (
-    <section className="mx-5 py-10 bg-gray-100 dark:bg-[#1e293b]">
+    <section className="mx-5 bg-gray-100 dark:bg-[#1e293b]">
       {/* 설명서 타이틀 */}
       <div className="w-full p-5 bg-[#136BFF] rounded-lg shadow-lg text-center text-white text-2xl font-bold mb-5">
         내게 필요한 지식을 손쉽게 만나 보세요!
@@ -21,7 +21,7 @@ const ManualPage: React.FC = () => {
           <div className="flex flex-row justify-center w-full flex-wrap mb-2">
             {manualItems.filter(item => item.category === '카카오톡').map(item => (
               <Link key={item.id} href={`/manual/${item.id}`}>
-                <div className={`mt-2 mx-1 w-${item.title === '전화번호 등록하기' || item.title === '화면 캡처하기' || item.title === '밝기 조절하기' || item.title === '영상통화하기' ? '96' : '72'} h-10 ${item.title === '사진 보내기' || item.title === '단톡 만들기' ? 'bg-gradient-to-r from-yellow-400 to-yellow-500' : 'bg-[#136BFF]'} text-white rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5]`}>
+                <div className="mt-2 mx-1 w-72 h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5]">
                   {item.title}
                 </div>
               </Link>

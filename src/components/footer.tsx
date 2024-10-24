@@ -16,7 +16,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="sticky bottom-0 w-full flex items-center justify-center z-10">
+    <footer className="fixed bottom-0 w-full flex items-center justify-center z-10">
       {/* Footer */}
       <div className="max-w-[650px] bg-blue  w-full h-16 rounded-t-xl font-medium text-white dark:text-slate-800 flex justify-around items-center">
         {icons.map(({ Icon, label, href}, index) => (
