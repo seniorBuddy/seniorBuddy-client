@@ -13,9 +13,8 @@ const ManualPage: React.FC = () => {
       <div className="flex flex-col justify-center items-stretch">
         
         {/* 카카오톡 섹션 */}
-        <div className="flex flex-col items-start mb-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
+        <div className="grid items-start mb-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
           <p className="mt-2 text-2xl text-[#136BFF] font-bold">카카오톡</p>
-          <div className="w-48 h-1 bg-[#136BFF] my-1" /> 
 
           {/* 카카오톡 항목 링크 생성 */}
           <div className="flex flex-row justify-center w-full flex-wrap mb-2">
@@ -32,8 +31,7 @@ const ManualPage: React.FC = () => {
         {/* 일상 섹션 */}
         <div className="flex flex-col items-start mt-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
           <p className="mt-2 text-2xl text-[#136BFF] font-bold">일상</p>
-          <div className="w-48 h-1 bg-[#136BFF] my-1" /> 
-
+          
           {/* 일상 항목 링크 생성 (세로 중앙 정렬) */}
           <div className="flex flex-col items-center justify-center w-full">
             {manualItems.filter(item => item.category === '일상').map(item => (
