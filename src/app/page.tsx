@@ -125,7 +125,7 @@ export default function Home() {
   console.log(token);
 
   return (
-   <main className="flex flex-col mx-5 gap-5 py-10 dark:text-slate-800">
+   <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">
       {/* 상위 섹션 */}
         <HeaderSection token={token}/>
       {/* 네비게이션 */}

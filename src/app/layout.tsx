@@ -35,9 +35,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={pretendard.variable}>
         <ThemeProviders initTheme={theme}>
-          <main className="font-pretendard min-h-screen dark:bg-slate-800 text-white dark:text-slate-800">
-            <Header />
-            <section className="min-h-screen flex-grow max-w-[700px] m-auto">
+          <Header />
+          <main className="font-pretendard dark:bg-slate-800 text-white">
+            <section className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
               {children}
             </section>
             {token && <Footer />}

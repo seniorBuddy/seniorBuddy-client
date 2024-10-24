@@ -29,7 +29,7 @@ export default function Page() {
     }
 
     return (
-        <div className="text-white pt-10 flex flex-col items-center justify-center w-[80%] m-auto">
+        <div className="text-white flex flex-col items-center justify-center w-[80%] m-auto">
             <div className="bg-blue flex flex-col rounded-md items-center justify-center min-w-full gap-10 px-5 pt-7 pb-10">
             {/* 비서 영역 */}
                 <div className='flex flex-col gap-5'>
