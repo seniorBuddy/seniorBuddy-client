@@ -20,7 +20,7 @@ const ManualPage: React.FC = () => {
     return (
         <>
             <div className="text-center mt-4">
-                <h1 className="text-3xl font-bold p-2 bg-[#136BFF] text-white shadow-md rounded">
+                <h1 className="text-3xl font-bold p-2 bg-[#136BFF] dark:bg-[#0B3BA3] text-white shadow-md rounded">
                     {item.title}
                 </h1>
             </div>
