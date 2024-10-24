@@ -32,7 +32,7 @@ import d4_6 from '../../assets/images/d4-6.png';
 
 export const manualItems = [
     {
-      id: "k1picture",
+      id: "picture",
       title: "사진 보내기",
       category: "카카오톡",
       steps: [
@@ -47,7 +47,7 @@ export const manualItems = [
       ],
     },
     {
-      id: "k2groupchat",
+      id: "groupchat",
       title: "단톡 생성하기",
       category: "카카오톡",
       steps: [
@@ -60,7 +60,7 @@ export const manualItems = [
       ],
     },
     {
-      id: "d1number",
+      id: "number",
       title: "전화번호 등록하기",
       category: "일상",
       steps: [
@@ -71,7 +71,7 @@ export const manualItems = [
       ],
     },
     {
-      id: "d2capture",
+      id: "capture",
       title: "화면 캡처하기",
       category: "일상",
       steps: [
@@ -82,7 +82,7 @@ export const manualItems = [
       ],
     },
     {
-      id: "d3light",
+      id: "light",
       title: "밝기 조절하기",
       category: "일상",
       steps: [
@@ -92,7 +92,7 @@ export const manualItems = [
       ],
     },
     {
-      id: "d4livechat",
+      id: "livechat",
       title: "영상 통화하기",
       category: "일상",
       steps: [
