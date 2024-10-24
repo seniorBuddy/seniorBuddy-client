@@ -7,9 +7,11 @@ import PhoneInput from './phone-input';
 import { login } from '@/app/actions/auth';
 import { useRouter } from 'next/navigation';
 import { Toaster, toast } from '@/app/utils/toast';
+import useTokenStore from '@/app/lib/store/useTokenStore';
 
 
 export default function LoginForm() {
+    const { setToken, setRefreshToken } = useTokenStore();
     const [changeToggle, setChangeToggle] = useState(false);
     const router = useRouter();
 
@@ -26,6 +28,14 @@ export default function LoginForm() {
             });
 
         } else {
+            const access_token = result.data?.access_token;
+            const refresh_token= result.data?.refresh_token;
+
+            // zustand를 사용해 토큰 저장
+            setToken(access_token);
+            setRefreshToken(refresh_token);
+    
+            // 로그인 성공 후 페이지 이동
             router.push('/')
         }
     }

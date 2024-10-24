@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { ThemeProviders } from "@/components/theme-providers";
 import { cookies } from "next/headers";
+import Cookies from 'js-cookie';
 
 // 폰트 설정
 const pretendard = localFont({
@@ -27,9 +28,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 서버 사이드에서 쿠키를 읽어옴
-  const theme = cookies().get("theme")?.value || "light";
-  const token = cookies().get('access_token')?.value;
+  // 클라이언트 사이드에서 테마 쿠키를 읽어옴
+  const theme = typeof window !== 'undefined' ? Cookies.get("theme") || "light" : "light";
+
+  // 서버 사이드에서 액세스 토큰을 읽어옴
+  const cookieStore = cookies();
+  const token = cookieStore.get('access_token')?.value;
 
   return (
     <html lang="en">
