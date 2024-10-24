@@ -4,24 +4,23 @@ import { manualItems } from '../manual/mock/manual-item';
 
 const ManualPage: React.FC = () => {
   return (
-    <section className="mx-5 bg-gray-100 dark:bg-[#1e293b]">
+    <section className="mx-5">
       {/* 설명서 타이틀 */}
-      <div className="w-full p-5 bg-[#136BFF] rounded-lg shadow-lg text-center text-white text-2xl font-bold mb-5">
-        내게 필요한 지식을 손쉽게 만나 보세요!
+      <div className="text-left text-[#136BFF] text-3xl font-bold mb-5">
+        설명서
       </div>
 
       <div className="flex flex-col justify-center items-stretch">
         
         {/* 카카오톡 섹션 */}
-        <div className="flex flex-col items-start mb-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg">
+        <div className="grid items-start mb-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
           <p className="mt-2 text-2xl text-[#136BFF] font-bold">카카오톡</p>
-          <div className="w-48 h-1 bg-[#136BFF] my-1" /> 
 
           {/* 카카오톡 항목 링크 생성 */}
           <div className="flex flex-row justify-center w-full flex-wrap mb-2">
             {manualItems.filter(item => item.category === '카카오톡').map(item => (
               <Link key={item.id} href={`/manual/${item.id}`}>
-                <div className="mt-2 mx-1 w-72 h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5]">
+                <div className="mt-2 mx-1 w-72 h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 dark:from-yellow-500 dark:to-yellow-600 text-white rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5]">
                   {item.title}
                 </div>
               </Link>
@@ -30,15 +29,14 @@ const ManualPage: React.FC = () => {
         </div>
         
         {/* 일상 섹션 */}
-        <div className="flex flex-col items-start mt-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg">
+        <div className="flex flex-col items-start mt-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
           <p className="mt-2 text-2xl text-[#136BFF] font-bold">일상</p>
-          <div className="w-48 h-1 bg-[#136BFF] my-1" /> 
-
+          
           {/* 일상 항목 링크 생성 (세로 중앙 정렬) */}
           <div className="flex flex-col items-center justify-center w-full">
             {manualItems.filter(item => item.category === '일상').map(item => (
               <Link key={item.id} href={`/manual/${item.id}`}>
-                <div className="mt-2 mx-1 w-72 h-10 bg-gradient-to-r from-green-400 to-green-500 text-white rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
+                <div className="mt-2 mx-1 w-72 h-10 bg-gradient-to-r from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 text-white rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
                   {item.title}
                 </div>
               </Link>
