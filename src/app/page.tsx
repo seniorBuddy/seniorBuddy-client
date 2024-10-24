@@ -60,6 +60,9 @@ function HeaderSection({token}: {
 
 
 
+
+
+
 const MainNavigate = () => {
   const menuItems: mainMenuItem[]  = [
     { href: '/manual', bgColor: 'bg-grd-red', iconColor: 'text-sigred', Icon: BiSolidFoodMenu, text: '설명서', content: '설명서로 조작을 배워요'},

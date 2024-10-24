@@ -24,29 +24,28 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
   };
 
   return (
-    <div className="flex gap-5 items-center">
+    <div className="flex gap-10 items-center"> {/* gap 크기를 10으로 조정 */}
       <button 
         onClick={prevSlide}
-        className="bg-[#136BFF] text-white max-h-full min-h-12 px-4 py-2 rounded hover:bg-blue-600 transition"
+        className="bg-[#136BFF] text-white max-h-full min-h-12 px-4 py-2 rounded hover:bg-blue-600 transition ml-2"
       >
         &lt;
       </button>
-      <div className="flex flex-col items-center justify-center w-full max-h-[400px] max-w-[420px] mx-auto">
-        <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center"> 
+      <div className="flex flex-col items-center justify-center w-full max-w-[420px] h-[400px] mx-auto"> {/* 고정된 높이 및 최대 폭 설정 */}
+        <div className="relative w-full h-full flex items-center justify-center"> {/* div 크기를 고정 */}
           <Image
-            priority
-            width={280} 
-            height={200}
+            width={180} // div 크기에 맞춰 이미지 크기 설정
+            height={400}
             src={images[currentIndex].src}
             alt={`Slide ${currentIndex + 1}`}
             className="object-cover rounded-lg"
           />
         </div>
-        <p className="mt-2 text-center dark:text-white">{images[currentIndex].description}</p>
+        <p className="mt-2 text-center text-black dark:text-white">{images[currentIndex].description}</p>
       </div>
       <button 
         onClick={nextSlide}
-        className="bg-[#136BFF] text-white max-h-full min-h-12 px-4 py-2 rounded hover:bg-blue-600 transition"
+        className="bg-[#136BFF] text-white max-h-full min-h-12 px-4 py-2 rounded hover:bg-blue-600 transition mr-5"
       >
         &gt;
       </button>
