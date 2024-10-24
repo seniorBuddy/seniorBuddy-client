@@ -31,14 +31,15 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
       >
         &lt;
       </button>
-      <div className="flex flex-col items-center justify-center w-full max-w-[420px] h-[400px] mx-auto"> {/* 고정된 높이 및 최대 폭 설정 */}
+      <div className="flex flex-col items-center justify-center w-full max-w-[150px] h-[400px] mx-auto"> {/* 고정된 높이 및 최대 폭 설정 */}
         <div className="relative w-full h-full flex items-center justify-center"> {/* div 크기를 고정 */}
           <Image
-            width={180} // div 크기에 맞춰 이미지 크기 설정
-            height={400}
+            width={420} // 원하는 너비를 설정
+            height={400} // 원하는 높이를 설정
             src={images[currentIndex].src}
             alt={`Slide ${currentIndex + 1}`}
             className="object-cover rounded-lg"
+            style={{ width: "auto", height: "auto" }} // 비율 유지를 위해 auto 추가
           />
         </div>
         <p className="mt-2 text-center text-black dark:text-white">{images[currentIndex].description}</p>

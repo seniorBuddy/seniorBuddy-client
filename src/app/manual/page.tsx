@@ -4,16 +4,16 @@ import { manualItems } from '../manual/mock/manual-item';
 
 const ManualPage: React.FC = () => {
   return (
-    <section className="mx-5 bg-gray-100 dark:bg-[#1e293b]">
+    <section className="mx-5">
       {/* 설명서 타이틀 */}
-      <div className="w-full p-5 bg-[#136BFF] rounded-lg shadow-lg text-center text-white text-2xl font-bold mb-5">
-        내게 필요한 지식을 손쉽게 만나 보세요!
+      <div className="text-left text-[#136BFF] text-3xl font-bold mb-5">
+        설명서
       </div>
 
       <div className="flex flex-col justify-center items-stretch">
         
         {/* 카카오톡 섹션 */}
-        <div className="flex flex-col items-start mb-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg">
+        <div className="flex flex-col items-start mb-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
           <p className="mt-2 text-2xl text-[#136BFF] font-bold">카카오톡</p>
           <div className="w-48 h-1 bg-[#136BFF] my-1" /> 
 
@@ -30,7 +30,7 @@ const ManualPage: React.FC = () => {
         </div>
         
         {/* 일상 섹션 */}
-        <div className="flex flex-col items-start mt-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg">
+        <div className="flex flex-col items-start mt-5 h-full bg-white rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
           <p className="mt-2 text-2xl text-[#136BFF] font-bold">일상</p>
           <div className="w-48 h-1 bg-[#136BFF] my-1" /> 
 
