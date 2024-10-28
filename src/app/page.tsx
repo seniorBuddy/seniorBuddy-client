@@ -23,7 +23,6 @@ function HeaderSection({token}: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
           },
-          cache: 'force-cache',
         });
 
         if (!res.ok) {
@@ -31,8 +30,9 @@ function HeaderSection({token}: {
         }
 
         const data = await res.json();
+        console.log(data);
+
         setName(data.user_real_name)
-        console.log(data)
       } catch (error) {
         console.error(error);
       }
@@ -124,9 +124,6 @@ const ChatInput = () => (
 
 export default function Home() {
   const token = useTokenStore((state) => state.token) as string;
-
-  console.log(token);
-
   return (
    <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">
       {/* 상위 섹션 */}

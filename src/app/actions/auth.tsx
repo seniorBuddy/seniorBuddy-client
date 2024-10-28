@@ -1,8 +1,6 @@
 'use server';
-import { cookies } from 'next/headers';
 
 export async function login(formData: FormData) {
-  const cookieStore = cookies();
   const identifier = formData.get('identifier') as string;
   const password = formData.get('password') as string;
 
