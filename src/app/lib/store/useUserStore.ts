@@ -11,7 +11,7 @@ const UserInit: User = {
 
 const useUserStore = create<User & UserStore>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       ...UserInit,
 
     // 유저 정보 setting
