@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { BiSolidFoodMenu } from 'react-icons/bi'; // BiSolidFoodMenu 아이콘 import
+import { BiSolidFoodMenu } from 'react-icons/bi'; 
 import { manualItems } from '../manual/mock/manual-item'; 
 
 const ManualPage: React.FC = () => {
@@ -8,12 +8,12 @@ const ManualPage: React.FC = () => {
     <section className="mx-5">
       <div className="border border-gray-300 rounded-lg p-5 shadow-md dark:border-gray-600">
         <div className="flex items-center text-left text-[#136BFF] text-3xl font-bold mb-5">
-          <BiSolidFoodMenu className="mr-2 text-3xl" /> {/* 아이콘 추가 */}
+          <BiSolidFoodMenu className="mr-2 text-3xl" /> 
           설명서
         </div>
 
         <div className="flex flex-col justify-center items-stretch">
-          {/* 카카오톡 카드 */}
+          {/* 카카오톡 항목 */}
           <div className="grid items-start mb-5 h-full bg-slate-100 rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
             <p className="mt-2 text-2xl text-[#136BFF] font-bold">카카오톡</p>
             <div className="flex flex-wrap justify-center w-full mb-2">
@@ -27,7 +27,7 @@ const ManualPage: React.FC = () => {
             </div>
           </div>
 
-          {/* 일상 카드 */}
+          {/* 일상 항목 */}
           <div className="flex flex-col items-start mt-5 h-full bg-slate-100 rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
             <p className="mt-2 text-2xl text-[#136BFF] font-bold">일상</p>
             <div className="flex flex-wrap justify-center w-full">
