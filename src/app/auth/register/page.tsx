@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from 'react';
-import Guardian from '../../../components/register/guardian';
-import Senior from '../../../components/register/senior';
+import Guardian from '../../../components/auth/guardian';
+import Senior from '../../../components/auth/senior';
 
 export default function Page() {
   const [selected, setSelected] = useState('senior');

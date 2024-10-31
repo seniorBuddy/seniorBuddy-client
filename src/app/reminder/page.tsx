@@ -14,7 +14,7 @@ export default function Reminder() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center mt-[80px]">
+    <div className="flex flex-col justify-center items-center mt-[30px]">
       <div className="flex flex-col sm:flex-row gap-6 font-extrabold text-3xl items-center mb-[40px]">
         {/* 복용정보 페이지 이동 버튼 */}
         <label>
@@ -35,7 +35,7 @@ export default function Reminder() {
         </label>
         
 
-        <label className="min-h-[70px] min-w-60 flex flex-row gap-4 bg-blue rounded-lg items-center justify-center">
+        <label>
           <input
             type="radio"
             name="remind"
