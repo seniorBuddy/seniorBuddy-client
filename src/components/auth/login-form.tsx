@@ -41,7 +41,7 @@ export default function LoginForm() {
             // store 내 유저 이름 저장
             await fetchUser(access_token);
             // 로그인 성공 후 페이지 이동
-            router.push('/')
+            router.push('/');
         }
     }
   
