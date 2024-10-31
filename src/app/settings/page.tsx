@@ -1,8 +1,16 @@
 "use client"
 
 import { useState } from "react";
+import useUserStore from "../lib/store/useUserStore";
 
 export default function Page() {
+    const { email, name, phone_number, type } = useUserStore((state) => state);
+    const userInfo = [
+        { key: '이름', value: name },
+        { key: '전화번호', value: phone_number },
+        { key: '이메일', value: email },
+        { key: '사용자 권한', value: type },
+    ];
 
     const [modal, setModal] = useState(false);
 
@@ -11,14 +19,28 @@ export default function Page() {
     }
 
     return (
-        <section className="flex flex-col gap-3 text-slate-800 dark:text-white">
-            <h1 className="text-2xl font-bold text-darkblue dark:text-blue">계정 관리</h1>
-            {/* 나의 정보 */}
-            <div>
-              <h3 className="text-xl font-semibold p-2">나의 정보</h3>
-                <div className="bg-slate-100 dark:bg-slate-800 p-7 rounded-lg text-gray-700 dark:text-white">
-                    여기에 사용자 정보가 표시됩니다.
+    <section className="flex flex-col gap-3 text-slate-800 dark:text-white">
+        <h1 className="text-2xl font-bold text-darkblue dark:text-blue">계정 관리</h1>
+        {/* 나의 정보 */}
+        <div>
+            <h3 className="text-xl font-semibold p-2">나의 정보</h3>
+            <div className="bg-slate-100 dark:bg-slate-800 p-7 rounded-lg text-gray-700 dark:text-white">
+        <div className="flex flex-col gap-3">
+            {userInfo.filter((obj) => obj.value !== null).map((obj, idx) => (
+            <div
+                className="flex flex-col gap-1"
+                key={`${idx}`}>
+                <div className="text-darkblue font-semibold">
+                    {obj.key}
                 </div>
+                <div className="bg-white p-2 rounded-lg">
+                    {obj.value}
+                </div>
+            </div>
+            ))}
+        </div>
+    </div>
+               
             </div>
             {/* 사용자 전환 */}
             <div>

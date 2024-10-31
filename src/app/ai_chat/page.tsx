@@ -1,32 +1,45 @@
 "use client"
 import Dummy from '@/app/assets/dummy_ai/ai_5.svg';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import { MdKeyboardVoice } from "react-icons/md";
-
+import { IoSend } from "react-icons/io5";
+import useRecordVoice from '@/app/hooks/useRecordVoice';
+import useTokenStore from '@/app/lib/store/useTokenStore';
+import { getMessage, sendMessage } from '@/app/actions/assistant';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 
 export default function Page() {
-    const [listening, setListening] = useState(false);
-    const [transcript, setTranscript] = useState('궁금한 것을 물어 보세요');
-    
-    function onRecord () {
-        // 브라우저 API에 따른 API 설정
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'ko-KR';  // Korean language
+    const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
+    const token = useTokenStore((state) => state.token) as string;
+    const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
 
-        setListening(true);
-        // 인스턴스 시작하기
-        recognition.start();
 
-        // 인스턴스 결과 출력하기
-        recognition.onresult = async function (e) {
-            const transcript = e.results[0][0].transcript;
-            console.log(transcript)
-            setTranscript(transcript); // 먼저 transcript 상태를 업데이트
-            setListening(false);
-        };
+    const getMessageHandler = async(token: string) => {
+        const getRes = await getMessage(token);
+        console.log(getRes);
+
+        setAiMessage(getRes.content);
+        setTranscript("");
     }
+
+    const sendMessageHandler = async (formData: FormData) => {
+        const res = await sendMessage(formData, token);
+
+        if(!res.success) {
+            toast.error(res.message, {
+                autoClose: 2000,
+                icon: <span>❌</span>,
+            });
+        } else {
+            getMessageHandler(token);
+        }
+    }
+
+    const onChangeInput = (e: { target: { value: any; }; }) => {
+        setTranscript(e.target.value);
+    }
+
 
     return (
         <div className="text-white flex flex-col items-center justify-center w-[80%] m-auto">
@@ -40,9 +53,11 @@ export default function Page() {
                     </div>
                 </div>
                
+               {/* Ai Message */}
                 <div className='flex w-full'>
-                    <div className='bg-slate-100 text-darkblue text-sm rounded-full px-7 py-2 max-w-72'>
-                    안녕하세요! 궁금한 게 있으신가요? </div>
+                    <div className='bg-slate-100 text-darkblue text-sm rounded-lg px-4 py-2'>
+                            {aiMessage}
+                    </div>
                 </div>
                
             {/* 사용자 영역 */}
@@ -54,9 +69,20 @@ export default function Page() {
                     >
                 <MdKeyboardVoice className="w-7 h-7 text-darkblue hover:text-white"/>
                 </button>
-                <div className='bg-darkblue text-white text-sm rounded-full px-7 py-2 max-w-72'>
-                {listening ? '...' : transcript}
-                </div>
+                <form action={sendMessageHandler} className='flex gap-2'>
+                    <input
+                        value={listening ? "..." : transcript}
+                        onChange={onChangeInput}
+                        placeholder='메시지를 입력하세요'
+                        name='content'
+                        className='bg-darkblue text-white text-sm rounded-full px-7 py-2 max-w-72' />
+                    
+                    <button 
+                        className='bg-white text-blue font-bold px-3 rounded-md' 
+                        type='submit'>
+                        <IoSend className='size-4 text-darkblue'/>
+                    </button>
+                </form>
                 </div>
             </div>
         

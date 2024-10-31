@@ -7,44 +7,10 @@ import { mainMenuItem } from "@/types";
 import Image from 'next/image';
 import Dummy from '@/app/assets/dummy_ai/ai_1.svg'
 import AiChatInput from "@/components/chat/ai-chat-input";
-import useTokenStore from './lib/store/useTokenStore';
-import { useEffect, useState } from 'react';
+import useUserStore from '@/app/lib/store/useUserStore';
 
-function HeaderSection({token}: {
-  token: string
-}) {
-  const [name, setName] = useState('OOO');
-  useEffect(() => {
-    async function fetchUserData() {
-      try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          cache: 'force-cache',
-        });
-
-        if (!res.ok) {
-          throw new Error('정보 받기 실패');
-        }
-
-        const data = await res.json();
-        setName(data.user_real_name)
-        console.log(data)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    if (token) {
-      fetchUserData();
-    }
-  }, []);
-
+function HeaderSection({name}: {name: string}) {
   return (
-    <>
       <section>
           <div className="relative rounded-2xl overflow-hidden">
             <div className="absolute inset-0 bg-blue"></div>
@@ -54,7 +20,6 @@ function HeaderSection({token}: {
             </div>
             </div>
         </section>
-    </>
   )
 }
 
@@ -123,14 +88,12 @@ const ChatInput = () => (
 )
 
 export default function Home() {
-  const token = useTokenStore((state) => state.token) as string;
-
-  console.log(token);
+  const name = useUserStore((state) => state.name) as string;
 
   return (
    <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">
       {/* 상위 섹션 */}
-        <HeaderSection token={token}/>
+        <HeaderSection name={name}/>
       {/* 네비게이션 */}
         <MainNavigate />
       <div className="flex items-center justify-center flex-col md:flex-row gap-5">
