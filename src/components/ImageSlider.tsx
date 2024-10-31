@@ -31,7 +31,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
       >
         &lt;
       </button>
-      <div className="flex flex-col items-center justify-center w-full max-w-[150px] h-[400px] mx-auto"> {/* 고정된 높이 및 최대 폭 설정 */}
+      <div className="flex flex-col items-center justify-center w-full max-w-[170px] h-[400px] mx-auto"> {/* 고정된 높이 및 최대 폭 설정 */}
         <div className="relative w-full h-full flex items-center justify-center"> {/* div 크기를 고정 */}
           <Image
             width={420} // 원하는 너비를 설정
