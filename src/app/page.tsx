@@ -8,6 +8,9 @@ import Image from 'next/image';
 import Dummy from '@/app/assets/dummy_ai/ai_1.svg'
 import AiChatInput from "@/components/chat/ai-chat-input";
 import useUserStore from '@/app/lib/store/useUserStore';
+import { useEffect } from "react";
+import useTokenStore from "./lib/store/useTokenStore";
+import useAiCustom from "./hooks/useAiCustom";
 
 function HeaderSection({name}: {name: string}) {
   return (
@@ -89,6 +92,13 @@ const ChatInput = () => (
 
 export default function Home() {
   const name = useUserStore((state) => state.name) as string;
+  const token = useTokenStore((state) => state.token) as string;
+  const { getAiProfile } = useAiCustom();
+
+  useEffect(() => {
+    getAiProfile(token);
+  }, [])
+  
 
   return (
    <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">
