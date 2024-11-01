@@ -39,7 +39,7 @@ const MainNavigate = () => {
       <div className="m-auto grid grid-cols-1 sm:grid-cols-3 font-semibold text-lg gap-3 md:text-xl max-w-1.50">
           {menuItems.map(({ href, bgColor, iconColor, Icon, text, content}: mainMenuItem, idx) => (
           <Link key={idx} href={href} className="cursor-pointer">
-            <div className={`w-full p-8 sm:p-7 rounded-lg sm:rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor}`}>
+            <div className={`w-full p-8 sm:px-4 rounded-lg sm:rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor} h-full`}>
               <Icon className={`${iconColor} size-12 sm:size-14`}/>
               <div className="flex flex-col gap-0.5">
               <span className={`text-2xl sm:font-bold ${iconColor}`} >{text}</span>
