@@ -71,12 +71,11 @@ export default function Page() {
                 </button>
                 <form action={sendMessageHandler} className='flex gap-2'>
                     <input
-                        value={listening ? "..." : transcript}
+                        value={transcript}
                         onChange={onChangeInput}
-                        placeholder='메시지를 입력하세요'
+                        placeholder={listening ? "..." : transcript ? transcript : '메시지를 입력하세요'}
                         name='content'
                         className='bg-darkblue text-white text-sm rounded-full px-7 py-2 max-w-72' />
-                    
                     <button 
                         className='bg-white text-blue font-bold px-3 rounded-md' 
                         type='submit'>

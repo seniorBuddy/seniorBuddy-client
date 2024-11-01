@@ -5,7 +5,7 @@ import { FaPhone } from "react-icons/fa";
 import EmailAuto from './emailAuto';
 import PhoneInput from './phone-input';
 import { login } from '@/app/actions/auth';
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { Toaster, toast } from '@/app/utils/toast';
 import useTokenStore from '@/app/lib/store/useTokenStore';
 import useUserStore from '@/app/lib/store/useUserStore';
@@ -16,7 +16,7 @@ export default function LoginForm() {
     const [changeToggle, setChangeToggle] = useState(false);
     const { fetchUser } = useUserStore();
 
-    const router = useRouter();
+    // const router = useRouter();
 
     const onChangeToggle = () => {
         setChangeToggle(!changeToggle);
@@ -41,7 +41,8 @@ export default function LoginForm() {
             // store 내 유저 이름 저장
             await fetchUser(access_token);
             // 로그인 성공 후 페이지 이동
-            router.push('/')
+            // router.push('/');
+            window.location.href = '/';
         }
     }
   

@@ -31,18 +31,20 @@ export default function RootLayout({
   const theme = typeof window !== 'undefined' ? Cookies.get("theme") || "light" : "light";
 
   return (
-    <html lang="en">
-      <body className={pretendard.variable}>
+    <html lang="en" className='dark:bg-slate-700'>
+        <body className={pretendard.variable} >
         <ThemeProviders initTheme={theme}>
+          <main className="dark:bg-slate-700 dark:text-white">
           <Header />
-          <main className="font-pretendard dark:bg-slate-800 text-white">
-            <section className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
-              {children}
+            <section className="dark:bg-slate-800 text-white">
+              <div className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
+                {children}
+              </div>
+              <Footer />
             </section>
-            <Footer />
           </main>
-        </ThemeProviders>
-      </body>
+      </ThemeProviders>
+        </body>
     </html>
   );
 }
