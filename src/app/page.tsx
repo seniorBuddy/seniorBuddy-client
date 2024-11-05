@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import { BiSolidFoodMenu } from "react-icons/bi";
 import { MdMedicalInformation } from "react-icons/md";
@@ -6,6 +7,23 @@ import { mainMenuItem } from "@/types";
 import Image from 'next/image';
 import Dummy from '@/app/assets/dummy_ai/ai_1.svg'
 import AiChatInput from "@/components/chat/ai-chat-input";
+import useUserStore from '@/app/lib/store/useUserStore';
+
+function HeaderSection({name}: {name: string}) {
+  return (
+      <section>
+          <div className="relative rounded-2xl overflow-hidden">
+            <div className="absolute inset-0 bg-blue"></div>
+            <div className="relative z-10 px-8 py-10">
+              <h2 className="text-3xl font-bold mb-3">반가워요! {name} 님</h2>
+              <p className="text-lg font-semibold">Abby와 함께 하루를 시작하세요</p>
+            </div>
+            </div>
+        </section>
+  )
+}
+
+
 
 
 
@@ -21,9 +39,9 @@ const MainNavigate = () => {
       <div className="m-auto grid grid-cols-1 sm:grid-cols-3 font-semibold text-lg gap-3 md:text-xl max-w-1.50">
           {menuItems.map(({ href, bgColor, iconColor, Icon, text, content}: mainMenuItem, idx) => (
           <Link key={idx} href={href} className="cursor-pointer">
-            <div className={`w-full p-7 rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor}`}>
-              <Icon className={`${iconColor} size-10 sm:size-14`}/>
-              <div className="flex flex-col">
+            <div className={`w-full p-8 sm:p-7 rounded-lg sm:rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor}`}>
+              <Icon className={`${iconColor} size-12 sm:size-14`}/>
+              <div className="flex flex-col gap-0.5">
               <span className={`text-2xl sm:font-bold ${iconColor}`} >{text}</span>
               <span className={`text-sm ${iconColor}`} >{content}</span>
               </div>
@@ -36,7 +54,7 @@ const MainNavigate = () => {
 }
 
 const AIAssistant = () => (
-    <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 bg-blue dark:bg-blue-700 rounded-2xl justify-evenly py-3">
+    <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 bg-blue dark:bg-blue-700 rounded-xl justify-evenly py-4">
       <div className="sm:hidden bg-white dark:bg-gray-200 rounded-full overflow-hidden">
         <Image  width={100} height={100} src={Dummy} alt='dummy'></Image>
         </div>
@@ -70,9 +88,12 @@ const ChatInput = () => (
 )
 
 export default function Home() {
+  const name = useUserStore((state) => state.name) as string;
+
   return (
-   <main className="flex flex-col mx-5 gap-5 py-10 dark:text-slate-800">
+   <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">
       {/* 상위 섹션 */}
+        <HeaderSection name={name}/>
       {/* 네비게이션 */}
         <MainNavigate />
       <div className="flex items-center justify-center flex-col md:flex-row gap-5">

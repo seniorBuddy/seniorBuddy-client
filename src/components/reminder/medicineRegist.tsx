@@ -3,17 +3,26 @@ import { CiCalendar } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
+import useTokenStore from '@/app/lib/store/useTokenStore';
 
 interface Medicine {
-  name: string;
-  details: string;
-  times: string[];
-  period: string;
-  timing: string;
-  endDate: string | null;
+  name: string;   // 약 이름
+  details: string;   // 기타 사항
+  times: string[];   // 약 먹는 시간 (아침, 점심, 저녁 등)
+  period: string;   // 시작 날짜
+  timing: string;    // 식전, 식후
+  endDate: string | null;    // 종료 날짜(복용기간)
 }
 
-export default function MedicineRegister({prop, onCancel, onRegister}:{prop: boolean; onCancel: () => void; onRegister: (newMedicine: Medicine) => void}) {
+export default function MedicineRegister({
+  prop, onCancel, onRegister
+}:{
+  prop: boolean;
+  onCancel: () => void;
+  onRegister: (newMedicine: Medicine) => void
+}) {
+  const token = useTokenStore((state) => state.token) as string;
+  
 
   const [name, setName] = useState('');
   const [details, setDetails] = useState('');
@@ -34,16 +43,42 @@ export default function MedicineRegister({prop, onCancel, onRegister}:{prop: boo
     { id: 9, name: '1년 이상' },
   ]);
   const [selectedEndDate, setSelectedEndDate] = useState<string | null>(null);
-
   const [startDate, setStartDate] = useState<Date | null>(new Date());
-  //const [endDate, setEndDate] = useState<Date | null>(new Date());
+  
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await handleRegisterClick();
+  };
 
-  const handleRegisterClick = () => {
+  const handleRegisterClick = async () => {
     if(name && selectedTimes.length > 0) {
       const period = startDate?.toLocaleDateString('ko-KR') as string;
       const timing = chooseTime === "before" ? '식전' : '식후' as string;
-      onRegister({ name, details: details || "", times: selectedTimes, period, timing, endDate: selectedEndDate });
-      onCancel();
+      const newMedicine = { name, details: details || "", times: selectedTimes, period, timing, endDate: selectedEndDate };
+      
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(newMedicine),
+          credentials: 'include',
+        });
+  
+        if (!res.ok) {
+          console.log(res)
+          alert('등록에 실패했습니다.');
+        } else {
+          onRegister(newMedicine);
+          alert('등록이 완료되었습니다.');
+          onCancel();
+        }
+      } catch (error) {
+        alert('에러');
+        console.error('등록 에러 : ', error);
+      }
     } else {
       alert("모든 필드를 입력해주세요.");
     }
@@ -71,7 +106,7 @@ export default function MedicineRegister({prop, onCancel, onRegister}:{prop: boo
   }
 
   return (
-    <div>
+    <form onSubmit={handleRegister}>
       <div className="flex flex-col gap-12 items-center justify-center w-[600px] h-[550px] bg-white border-4 rounded-2xl border-darkblue">
         <span className="text-darkblue text-4xl font-bold">약 정보</span>
         <div className="flex flex-col gap-8 font-bold text-darkblue text-2xl">
@@ -207,6 +242,6 @@ export default function MedicineRegister({prop, onCancel, onRegister}:{prop: boo
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 }
