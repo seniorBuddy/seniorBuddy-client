@@ -1,4 +1,6 @@
 'use client';
+
+import UserFw from '@/components/auth/pwModal';
 import { useState } from 'react';
 import PhoneInput from './phone-input';
 import EmailAuto from './emailAuto';
@@ -7,6 +9,8 @@ export default function FindForm() {
   const [userChange, setUserChange] = useState('senior');
   const [certification, setCertification] = useState("");
   const [isCorrect, setIsCorrect] = useState<boolean>(false);
+  const [findPw, setFindPw] = useState<boolean>(false);
+  const [idMessage, setIdMessage] = useState<string>('');
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserChange(e.target.value);
@@ -14,14 +18,23 @@ export default function FindForm() {
 
   const correctNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCertification(e.target.value);
+    setIsCorrect(true);
   }
 
   const handleTest = () => {
-    if (certification === '1234') {
-      setIsCorrect(true);
+    if (isCorrect) {
+      if (certification === '1234') {
+        setIdMessage("인증되었습니다.");
+      }
+      else {
+        setIdMessage("인증에 실패하였습니다.");
+      }
     }
-    else {
-      setIsCorrect(false);
+  }
+
+  const handleNext = (e:React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      setFindPw(false);
     }
   }
   
@@ -73,18 +86,29 @@ export default function FindForm() {
             onClick={handleTest}
           >인증</button>
         </div>
-        {isCorrect ? (
-            <span className="text-lime-500">인증되었습니다.</span>
-          ) 
-          : <span className="text-red-600">인증에 실패했습니다.</span>}
+        <span 
+          className={`${
+            idMessage === "인증되었습니다." ? "text-lime-500" : "text-red-600"
+          }`}
+        >
+          {idMessage}
+        </span>
       </div>
-      <button
-        type="button"
+      <div
         className="flex justify-center items-center p-3 rounded-xl bg-blue text-white font-bold text-xl"
+        onClick={() => setFindPw(true)}
       >
         비밀번호 찾기
-      </button>
+      </div>
     </form>
+    {findPw === true && (
+      <div
+        onClick={handleNext}
+        className="fixed inset-0 flex items-center justify-center bg-white"
+      >
+        <UserFw />
+      </div>
+    )}
     </>
   );
 }

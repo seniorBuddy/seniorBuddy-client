@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CiCalendar } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -42,7 +42,7 @@ export default function HospitalRegister({
     <div>
       <div className="flex flex-col gap-12 items-center justify-center w-[600px] h-[550px] bg-white border-4 rounded-2xl border-darkblue">
         <span className="text-darkblue text-4xl font-bold">병원 정보</span>
-        <div className="flex flex-col gap-8 font-bold text-darkbold text-darkblue text-2xl">
+        <div className="flex flex-col gap-8 font-bold text-darkblue text-2xl">
           <div className="flex flex-row items-center w-full gap-1">
             <span className="w-[60px]">이름</span>
             <input

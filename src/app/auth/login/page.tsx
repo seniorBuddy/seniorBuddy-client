@@ -9,7 +9,7 @@ export default function Page() {
             <span className="text-2xl py-2 text-darkblue font-bold">로그인</span>
              <LoginForm />
             <div className="flex gap-3 mr-4">
-              <Link href="/auth/find_pw" className="hover:text-darkblue">비밀번호 찾기</Link>
+              <Link href="/auth/pwfind" className="hover:text-darkblue">비밀번호 찾기</Link>
               <h1 className="">|</h1>
               <Link href="/auth/register" className="hover:text-darkblue">회원가입</Link>
             </div>

@@ -1,4 +1,5 @@
 import Register from './medicineRegist';
+import RegisterModal from './modal/reminder-modal';
 import { FaPlusCircle } from "react-icons/fa";
 import { useState } from 'react';
 
@@ -11,7 +12,7 @@ interface Medicine {
   endDate: string | null;
 }
 
-export default function MadicineMain() {
+export default function MadicineMain({chooseOne}:{chooseOne: string}) {
   const [addMedicine, setAddmedicine] = useState<boolean>(false);
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -129,7 +130,8 @@ export default function MadicineMain() {
         onClick={handleClick}
         className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
       >
-        <Register prop={addMedicine} onCancel={() => setAddmedicine(false)} onRegister={handleRegister}/>
+        <RegisterModal division={chooseOne}/>
+        {/*<Register prop={addMedicine} onCancel={() => setAddmedicine(false)} onRegister={handleRegister}/>*/}
       </div>
     )}
     </>
