@@ -92,13 +92,7 @@ const ChatInput = () => (
 
 export default function Home() {
   const name = useUserStore((state) => state.name) as string;
-  const token = useTokenStore((state) => state.token) as string;
-  const { getAiProfile } = useAiCustom();
 
-  useEffect(() => {
-    getAiProfile(token);
-  }, [])
-  
 
   return (
    <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">

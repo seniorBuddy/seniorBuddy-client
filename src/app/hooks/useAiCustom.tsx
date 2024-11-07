@@ -3,7 +3,9 @@ import { useState } from "react";
 
 const useAiCustom = () => {
     const [profile, setProfile] = useState('');
+    
     const getAiProfile = async (token: string) => {
+    let res;
 
         try {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me/ai_profile`, {
@@ -15,9 +17,9 @@ const useAiCustom = () => {
                 credentials: 'include',
             });
             if(!res.ok) {
-                throw new Error('이미지 불러오기 실패');
+                console.log('미지 불러오기 실패', res);
             }
-            console.log(res);
+            console.log('이미지 불러오기 성공', res);
         } catch (error) {
             console.log(error);
         }
