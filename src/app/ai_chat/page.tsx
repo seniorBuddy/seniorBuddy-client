@@ -15,11 +15,18 @@ export default function Page() {
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
 
 
-    const getMessageHandler = async(token: string) => {
-        const getRes = await getMessage(token);
-        console.log(getRes);
 
-        setAiMessage(getRes.content);
+    const getMessageHandler = async(token: string) => {
+        console.log("실행")
+        const res = await getMessage(token);
+        console.log(res);
+        if(!res.success) {
+            toast.error(res.message, {
+                autoClose: 2000,
+                icon: <span>❌</span>,
+            });
+        }
+        setAiMessage(res.content);
         setTranscript("");
     }
 

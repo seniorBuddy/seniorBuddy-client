@@ -93,7 +93,7 @@ const ChatInput = () => (
 export default function Home() {
   const name = useUserStore((state) => state.name) as string;
 
-
+  console.log(name);
   return (
    <main className="flex flex-col mx-5 gap-5 dark:text-slate-800">
       {/* 상위 섹션 */}

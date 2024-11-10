@@ -30,7 +30,7 @@ export async function sendMessage(formData: FormData, token: string) {
             message: '메시지 전송 완료', 
          }
     } catch(error){
-        return { success: false, message: '서버 오류가 발생했습니다.' };
+        return { success: false, message: 'POST: 서버 오류가 발생했습니다.' };
     }
 }
 
@@ -48,9 +48,10 @@ export async function getMessage(token: string) {
             return { success: false, message: '메시지 불러오기 실패'}
         }
         const resData = await res.json();
+        console.log(resData)
         return resData;
   
     } catch(error){
-        return { success: false, message: '서버 오류가 발생했습니다.' };
+        return { success: false, message: 'GET: 서버 오류가 발생했습니다.' };
     }
 }

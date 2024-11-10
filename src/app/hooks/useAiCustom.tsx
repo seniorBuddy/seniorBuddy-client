@@ -8,7 +8,7 @@ const useAiCustom = () => {
     let res;
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me/ai_profile`, {
+            const res = await fetch(`/api/users/me/ai_profile`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

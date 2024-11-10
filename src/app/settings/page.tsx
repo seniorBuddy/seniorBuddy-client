@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import useUserStore from "../lib/store/useUserStore";
+import Cookies from 'js-cookie';
+import { useRouter } from "next/navigation";
 
 export default function Page() {
     const { email, name, phone_number, type } = useUserStore((state) => state);
@@ -12,10 +14,19 @@ export default function Page() {
         { key: '사용자 권한', value: type },
     ];
 
+    const router = useRouter();
+
     const [modal, setModal] = useState(false);
 
     const openModal = () => {
         setModal(!modal);
+    }
+
+
+    const logoutHandler = () => {
+        Cookies.remove('access_token');
+        Cookies.remove('refresh_token');
+        router.push('/login'); // 로그아웃 후 리다이렉트 예시
     }
 
     return (
@@ -44,26 +55,27 @@ export default function Page() {
             </div>
             {/* 사용자 전환 */}
             <div>
-              <h3 className="text-xl font-semibold p-2">사용자 전환</h3>
+              <h3 className="text-xl font-semibold p-2">로그아웃</h3>
                 <div className="bg-green-100 dark:bg-green-800 p-5 rounded-lg flex justify-between items-center gap-5">
-                    <span className="text-green-700 dark:text-green-200">여기에 사용자의 계정 권한이 전환됩니다</span>
+                    <span className="text-green-700 dark:text-green-200">사용자의 계정이 로그아웃됩니다</span>
                     <button 
                         onClick={openModal}
                         className="min-w-24 min-h-8 bg-green-500 text-white font-semibold sm:font-bold sm:p-2 sm:px-4 rounded-md ">
-                        보호자 전환
+                        로그아웃
                     </button>
                 </div>
             </div>
             {modal && (
                 <div className="flex items-center justify-center fixed inset-0 backdrop-filter backdrop-blur-sm z-20 text-white">
                     <div className="absolute w-70% px-7 py-10 rounded-md shadow-lg bg-blue flex flex-col items-center justify-between">
-                        <div className="font-semibold text-xl pb-8">계정 권한을 변경하시겠습니까?</div>
+                        <div className="font-semibold text-xl pb-8">로그아웃 하시겠습니까?</div>
                         <div className="flex flex-col font-semibold text-md gap-3">
                             <button 
                                 onClick={openModal}
                                 className="bg-white text-slate-600 py-2 px-4 rounded-md transition-transform duration-150 hover:bg-slate-200">아니요. 유지하겠습니다</button>
                             <button 
-                                className="bg-green-500  py-2 px-4 rounded-md transition-transform duration-150 hover:bg-green-600">네. 계정 유형을 변경합니다</button>
+                                onClick={logoutHandler}
+                                className="bg-green-500  py-2 px-4 rounded-md transition-transform duration-150 hover:bg-green-600">네. 로그아웃합니다</button>
                         </div>
                     </div>
                 </div>
