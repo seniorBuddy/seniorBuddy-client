@@ -1,4 +1,3 @@
-import Register from './medicineRegist';
 import RegisterModal from './modal/reminder-modal';
 import { FaPlusCircle } from "react-icons/fa";
 import { useState } from 'react';
@@ -130,7 +129,7 @@ export default function MadicineMain({chooseOne}:{chooseOne: string}) {
         onClick={handleClick}
         className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
       >
-        <RegisterModal division={chooseOne}/>
+        <RegisterModal division={chooseOne} onCancel={() => setAddmedicine(false)}/>
         {/*<Register prop={addMedicine} onCancel={() => setAddmedicine(false)} onRegister={handleRegister}/>*/}
       </div>
     )}

@@ -1,4 +1,4 @@
-import Register from './hospitalRegist';
+import RegisterModal from './modal/reminder-modal';
 import { FaPlusCircle } from "react-icons/fa";
 import { useState } from 'react';
 
@@ -8,7 +8,7 @@ interface Hospital {
   period: string;
 }
 
-export default function Hospital() {
+export default function Hospital({chooseOne}:{chooseOne: string}) {
   const [addHospital, setAddHospital] = useState<boolean>(false);
   const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -83,11 +83,7 @@ export default function Hospital() {
           onClick={handleClick}
           className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
         >
-          <Register
-            prop={addHospital}
-            onCancel={() => setAddHospital(false)}
-            onRegister={handleRegister}
-          />
+          <RegisterModal division={chooseOne} onCancel={() => setAddHospital(false)}/>
         </div>
       )}
     </>

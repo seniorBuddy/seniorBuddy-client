@@ -5,7 +5,6 @@ import { GiMedicines } from "react-icons/gi";
 import { CiHospital1 } from 'react-icons/ci';
 import Medicine from '../../components/reminder/medicine';
 import Hospital from '../../components/reminder/hospital';
-import ReminderModal from '@/components/reminder/modal/reminder-modal';
 
 export default function Reminder() {
   const [chooseOne, setChooseOne] = useState('medicine');
@@ -53,8 +52,8 @@ export default function Reminder() {
           </div>
         </label>
       </div>
-      {chooseOne === 'medicine' && <Medicine chooseOne={chooseOne} />}
-      {chooseOne === 'hospital' && <Hospital />}
+      {chooseOne === 'medicine' && <Medicine chooseOne={chooseOne}/>}
+      {chooseOne === 'hospital' && <Hospital chooseOne={chooseOne}/>}
     </div>
   );
 }

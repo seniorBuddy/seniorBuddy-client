@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
 
-export default function MedicineModal() {
+export default function MedicineModal({ onCancel }: {onCancel: () => void}) {
   const [chooseTime, setChooseTime] = useState<string>('before');  // 식전, 식후
   const [isOn, setIsOn] = useState<boolean>(false);  // 종료 시간 유무
   const [startDate, setStartDate] = useState<Date | null>(new Date());  // 시작 날짜
@@ -39,7 +39,7 @@ export default function MedicineModal() {
 
 
   return (
-    <form>
+    <div>
       <div className="flex flex-col gap-8 font-bold text-darkblue text-2xl">
         {/* 약 이름 */}
         <div className="flex flex-row items-center w-full gap-1">
@@ -157,20 +157,21 @@ export default function MedicineModal() {
         </div>
       </div>
       {/* 취소 등록 버튼 */}
-      <div className="flex flex-row justify-center w-full gap-[50px] text-darkblue text-xl font-bold">
-      <div
-            className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded-xl\
-            hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
-          >
-            취소
-          </div>
-          <div 
-            className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded\
-            hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
-          >
+      <div className="flex flex-row justify-center w-full pt-[20px] gap-[50px] text-darkblue text-xl font-bold">
+        <div
+          onClick={onCancel}
+          className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded-xl\
+          hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
+        >
+          취소
+        </div>
+        <div 
+          className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded\
+          hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
+        >
             등록
-          </div>
+        </div>
       </div>
-    </form>
+    </div>
   );
 }

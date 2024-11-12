@@ -4,8 +4,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
 
-export default function HospitalModal() {
-  const [reservationDate, setREserVationDate] = useState<Date | null>(new Date());  // 예약 날짜
+export default function HospitalModal({onCancel}: {onCancel: () => void}) {
+  const [reservationDate, setReserVationDate] = useState<Date | null>(new Date());  // 예약 날짜
 
   return (
     <div>
@@ -40,7 +40,7 @@ export default function HospitalModal() {
               timeFormat="HH시 mm분"
               timeIntervals={30}
               selected={reservationDate}
-              onChange={(date: Date | null) => setREserVationDate(date)}
+              onChange={(date: Date | null) => setReserVationDate(date)}
               className="w-[240px]"
             />
           </div>
@@ -49,6 +49,7 @@ export default function HospitalModal() {
       {/* 취소 등록 버튼 */}
       <div className="flex flex-row justify-center w-full gap-[50px] text-darkblue text-xl font-bold">
         <div
+          onClick={onCancel}
           className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded-xl\
           hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
         >
