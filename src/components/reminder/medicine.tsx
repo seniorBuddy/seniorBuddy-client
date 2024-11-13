@@ -1,40 +1,63 @@
 import RegisterModal from './modal/reminder-modal';
 import { FaPlusCircle } from "react-icons/fa";
 import { useState } from 'react';
+import { Toaster, toast } from '@/app/utils/toast';
 
 interface Medicine {
-  name: string;
-  details: string;
-  times: string[];
-  period: string;
-  timing: string;
-  endDate: string | null;
+  content: string;  // 약 이름
+  additional_info: string;  // 기타 사항
+  frequency: string[];  // 약 먹는 시간
+  //timing: string;  // 식전, 식후
+  start_date: string;  // 시작 날짜
+  day: number;  // 종료 날짜
 }
 
-export default function MadicineMain({chooseOne}:{chooseOne: string}) {
-  const [addMedicine, setAddmedicine] = useState<boolean>(false);
+interface MedicineProps {
+  chooseOne: string;
+}
+
+export default function MadicineMain({ chooseOne }: MedicineProps) {
+  const [addMedicine, setAddmedicine] = useState<boolean>(false);  // 등록 버튼 선택 유무
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const time = ['기상', '취침전', '아침 식전', '아침 식후', '점심 식전', '점심 식후', '저녁 식전', '저녁 식후'];
 
+  // 모달 외부를 클릭 시 모달 종료
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setAddmedicine(false);
     }
   }
 
-  const handleRegister = (newMedicine: Medicine) => {
-    setMedicines([...medicines, newMedicine]);
+  // 새로운 약 정보 등록
+  const handleRegister = (newData: Medicine) => {
+    setMedicines([...medicines, newData]);  // 기존의 약 정보에 새로운 약 정보를 추가
     setAddmedicine(false);
   }
 
+  // 수정, 삭제 버튼 나타내기
   const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
   }
 
   const handleMouseLeave = () => {
     setHoveredIndex(null);
+  }
+
+  // 결과값에 따라 toast 나타내기
+  const handleResult = (result: {success: boolean, message: string}) => {
+    if (!result.success) {
+      toast.error(result.message, {
+        autoClose: 2000,
+        icon: <span>❌</span>,
+      });
+    } else {
+      toast.success(result.message, {
+        autoClose: 2000,
+        icon: <span>✔️</span>,
+      });
+    }
   }
 
   return (
@@ -75,11 +98,11 @@ export default function MadicineMain({chooseOne}:{chooseOne: string}) {
             <div className="flex flex-row justify-between w-full gap-3 mx-4 font-bold text-2xl sm:text-3xl">
               <div className="flex flex-col gap-3">
                 {/* 약 이름 */}
-                <span>{medicine.name}</span>
+                <span>{medicine.content}</span>
                 {/* 추가 설명 */}
-                <span className="text-xl sm:text-2xl">{medicine.details}</span>
+                <span className="text-xl sm:text-2xl">{medicine.additional_info}</span>
                 <div className="flex items-center gap-4">
-                  {medicine.times.map((time) => (
+                  {medicine.frequency.map((time) => (
                     <label
                       key={time}
                       className="text-sm font-medium-bold text-xl"
@@ -88,13 +111,13 @@ export default function MadicineMain({chooseOne}:{chooseOne: string}) {
                       {time}
                     </label>
                   ))}
-                  <span className="text-sm font-medium-bold text-xl">{medicine.timing}</span>
+                  {/*<span className="text-sm font-medium-bold text-xl">{medicine.timing}</span>*/}
                 </div>
               </div>
               <div className="flex flex-col gap-2">
-                {medicine.period}
+                {medicine.start_date}
                 <br />
-                {medicine.endDate}
+                {medicine.day}
               </div>
             </div>
             {/* 수정/삭제 버튼 */}
@@ -124,15 +147,22 @@ export default function MadicineMain({chooseOne}:{chooseOne: string}) {
         </div>
       </div>
     </div>
+    {/* 모달 오픈 */}
     {addMedicine === true && (
       <div 
         onClick={handleClick}
         className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
       >
-        <RegisterModal division={chooseOne} onCancel={() => setAddmedicine(false)}/>
+        <RegisterModal 
+          division={chooseOne}
+          onCancel={() => setAddmedicine(false)}
+          onResult={handleResult}
+          onMedicineRegister={handleRegister}
+        />
         {/*<Register prop={addMedicine} onCancel={() => setAddmedicine(false)} onRegister={handleRegister}/>*/}
       </div>
     )}
+    <Toaster />
     </>
   );
 }
