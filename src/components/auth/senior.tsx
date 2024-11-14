@@ -39,7 +39,7 @@ export default function Senior({selected}:{selected: string}) {
       
 
     try {
-      const res = await fetch(`/api/auth/register`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

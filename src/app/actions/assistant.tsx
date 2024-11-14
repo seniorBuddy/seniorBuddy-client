@@ -55,3 +55,4 @@ export async function getMessage(token: string) {
         return { success: false, message: 'GET: 서버 오류가 발생했습니다.' };
     }
 }
+

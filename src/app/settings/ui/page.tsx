@@ -1,5 +1,6 @@
 'use client'
 import { useUIStore } from "@/app/lib/store/useUIStore";
+import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 
@@ -9,7 +10,7 @@ export default function Page() {
     const { settings, setSettings, getTheme } = useUIStore();
     // theme state 설정
     const [themeColor, setThemeColor] = useState(getTheme());
-
+    const { theme, setTheme } = useTheme()
 
     useEffect(() => {
         // 로컬 스토리지 내 theme 값 설정
@@ -32,14 +33,14 @@ export default function Page() {
             <div className="flex gap-2">
                 {/* Light 설정 */}
                 <button
-                    onClick={() => setSettings({ theme: 'light' })}
+                    onClick={() => setTheme('light')}
                     className="w-8 h-8 box-content" >
                 <MdLightMode className={`w-8 h-8 ${themeColor === 'light' && 'text-yellow-400'}`} />
                 </button>
 
                 {/* Dark 설정 */}
                 <button
-                    onClick={() => setSettings({ theme: 'dark'})}
+                    onClick={() => setTheme('dark')}
                     className="w-8 h-8 box-content" >
                 <MdDarkMode className={`w-8 h-8 ${themeColor === 'dark' && 'text-yellow-400'}`}/>
                 </button>

@@ -3,7 +3,6 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { ThemeProviders } from "@/components/theme-providers";
-import Cookies from 'js-cookie';
 
 // 폰트 설정
 const pretendard = localFont({
@@ -27,13 +26,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 클라이언트 사이드에서 테마 쿠키를 읽어옴
-  const theme = typeof window !== 'undefined' ? Cookies.get("theme") || "light" : "light";
 
   return (
     <html lang="en" className='dark:bg-slate-700'>
         <body className={pretendard.variable} >
-        <ThemeProviders initTheme={theme}>
+        <ThemeProviders>
           <main className="dark:bg-slate-700 dark:text-white">
           <Header />
             <section className="dark:bg-slate-800 text-white">

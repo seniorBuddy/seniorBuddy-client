@@ -13,11 +13,11 @@ export default function Page() {
     const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
     const token = useTokenStore((state) => state.token) as string;
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
+    const [content, setContent] = useState('');
 
 
 
     const getMessageHandler = async(token: string) => {
-        console.log("실행")
         const res = await getMessage(token);
         console.log(res);
         if(!res.success) {
@@ -27,20 +27,38 @@ export default function Page() {
             });
         }
         setAiMessage(res.content);
-        setTranscript("");
+    }
+
+    const setMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // 폼 기본 동작 방지
+
+        const formData = new FormData(e.currentTarget);
+        const content = formData.get('content') as string;
+
+        if (!content.trim()) {
+            toast.warn("메시지를 입력하세요.", { autoClose: 2000 });
+            return;
+        }
+
+        setContent(content);
+        setTranscript('');
+
+        await sendMessageHandler(formData);
+
     }
 
     const sendMessageHandler = async (formData: FormData) => {
-        const res = await sendMessage(formData, token);
+    const res = await sendMessage(formData, token);
+    console.log(res)
+    if(!res.success) {
+        toast.error(res.message, {
+            autoClose: 2000,
+            icon: <span>❌</span>,
+        });
+    } else {
+        getMessageHandler(token);
+    } 
 
-        if(!res.success) {
-            toast.error(res.message, {
-                autoClose: 2000,
-                icon: <span>❌</span>,
-            });
-        } else {
-            getMessageHandler(token);
-        }
     }
 
     const onChangeInput = (e: { target: { value: any; }; }) => {
@@ -67,6 +85,14 @@ export default function Page() {
                     </div>
                 </div>
                
+               {content !== '' && (
+                <div className='flex w-full justify-end'>
+                    <div className='bg-slate-100 text-darkblue text-sm rounded-lg px-4 py-2'>
+                        {content}
+                </div>
+                </div>
+               )}
+
             {/* 사용자 영역 */}
                 <div className='flex items-center justify-end w-full '>
                 {/* 음성 인식 시작을 위한 핸들러 */}
@@ -76,7 +102,7 @@ export default function Page() {
                     >
                 <MdKeyboardVoice className="w-7 h-7 text-darkblue hover:text-white"/>
                 </button>
-                <form action={sendMessageHandler} className='flex gap-2'>
+                <form onSubmit={setMessage} className='flex gap-2'>
                     <input
                         value={transcript}
                         onChange={onChangeInput}
@@ -91,9 +117,6 @@ export default function Page() {
                 </form>
                 </div>
             </div>
-        
-        {/* 질문하기 section */}
-       
     </div>
     );
 }
