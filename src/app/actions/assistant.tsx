@@ -1,9 +1,11 @@
 'use server';
 
-export async function sendMessage(formData: FormData, token: string) {
+import { getAccessToken } from "../lib/auth/token";
+
+export async function sendMessage(formData: FormData) {
     const content = formData.get('content') as string;
+    const token = getAccessToken();
     
-    console.log(content, token);
     if(!content) {
         return { success: false, message: '음성을 다시 시도하세요'}
     }
@@ -13,10 +15,10 @@ export async function sendMessage(formData: FormData, token: string) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({content: content}),
-            credentials: 'include',
+            credentials: 'same-origin',
         })
 
         const resData = await res.json();
@@ -24,6 +26,12 @@ export async function sendMessage(formData: FormData, token: string) {
         if(!res.ok) {
             return { success: false, message: resData.detail || '메시지 전송 실패' };
         }
+        // if (res.status === 401) {
+            // console.log("토큰 만료");
+            // const newToken = await getRefreshToken(token);
+            // await sendMessage(newToken);
+        //   }
+      
 
         return {
             success: true, 
@@ -34,14 +42,18 @@ export async function sendMessage(formData: FormData, token: string) {
     }
 }
 
-export async function getMessage(token: string) {
+export async function getMessage() {
+
+    const token = getAccessToken();
+    
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/assistant/messages/latest`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`
             },
+            credentials: 'same-origin',
         })
         
         if(!res.ok) {
@@ -56,3 +68,25 @@ export async function getMessage(token: string) {
     }
 }
 
+
+
+// const getRefreshToken = async () => {
+//     try {
+//         const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/refresh`, {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json',
+//             },
+//             credentials: 'include',
+//           });
+//           if(!res.ok) {
+//               throw new Error('토큰 갱신 실패');
+//           }
+//           const resData = await res.json();
+//           return resData.access_token;
+
+//     } catch (error) {
+//         console.error(error);
+//     }
+   
+//   }

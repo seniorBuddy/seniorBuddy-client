@@ -5,18 +5,15 @@ import { FaPhone } from "react-icons/fa";
 import EmailAuto from './emailAuto';
 import PhoneInput from './phone-input';
 import { login } from '@/app/actions/auth';
-// import { useRouter } from 'next/navigation';
 import { Toaster, toast } from '@/app/utils/toast';
-import useTokenStore from '@/app/lib/store/useTokenStore';
 import useUserStore from '@/app/lib/store/useUserStore';
+import { useRouter } from 'next/navigation';
 
 
 export default function LoginForm() {
-    const { setToken, setRefreshToken } = useTokenStore();
     const [changeToggle, setChangeToggle] = useState(false);
     const { fetchUser } = useUserStore();
-
-    // const router = useRouter();
+    const router = useRouter();
 
     const onChangeToggle = () => {
         setChangeToggle(!changeToggle);
@@ -24,27 +21,22 @@ export default function LoginForm() {
 
     const handleSubmit = async (formData: FormData) => {
         const result = await login(formData);
-        if (!result.success) {
+
+        if (result.success && result.redirectTo) {
+            const token = result?.token;
+            // store 내 유저 이름 저장
+            await fetchUser(token);
+            // 리다이렉트
+            router.push(result?.redirectTo);
+        }
+
+        else {
             toast.success(result.message, {
                 autoClose: 2000,
                 icon: <span>❌</span>,
             });
-
-        } else {
-            const access_token = result.data?.access_token;
-            const refresh_token= result.data?.refresh_token;
-
-            // zustand를 사용해 토큰 저장
-            setToken(access_token);
-            setRefreshToken(refresh_token);
-            
-            // store 내 유저 이름 저장
-            await fetchUser(access_token);
-            // 로그인 성공 후 페이지 이동
-            // router.push('/');
-            window.location.href = '/';
         }
-    }
+}
   
 
 return (

@@ -4,22 +4,21 @@ import Image from 'next/image';
 import { MdKeyboardVoice } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
 import useRecordVoice from '@/app/hooks/useRecordVoice';
-import useTokenStore from '@/app/lib/store/useTokenStore';
 import { getMessage, sendMessage } from '@/app/actions/assistant';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
 
 export default function Page() {
     const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
-    const token = useTokenStore((state) => state.token) as string;
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
     const [content, setContent] = useState('');
 
 
 
-    const getMessageHandler = async(token: string) => {
-        const res = await getMessage(token);
-        console.log(res);
+    const getMessageHandler = async () => {
+        const res = await getMessage();
+
         if(!res.success) {
             toast.error(res.message, {
                 autoClose: 2000,
@@ -48,7 +47,7 @@ export default function Page() {
     }
 
     const sendMessageHandler = async (formData: FormData) => {
-    const res = await sendMessage(formData, token);
+    const res = await sendMessage(formData);
     console.log(res)
     if(!res.success) {
         toast.error(res.message, {
@@ -56,9 +55,8 @@ export default function Page() {
             icon: <span>❌</span>,
         });
     } else {
-        getMessageHandler(token);
+        getMessageHandler();
     } 
-
     }
 
     const onChangeInput = (e: { target: { value: any; }; }) => {
