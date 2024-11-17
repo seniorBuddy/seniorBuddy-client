@@ -59,25 +59,25 @@ export async function login(formData: FormData) {
 
 
 export async function logout() {
-  const token = getRefreshToken();
-  let resData;
+  // const token = getRefreshToken();
+  // let resData;
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/logout`,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      credentials: 'same-origin',
-    })
+  // try {
+  //   const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/logout`,{
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${token}`
+  //     },
+  //     credentials: 'same-origin',
+  //   })
 
-    const resData = await res.json();
+  //   const resData = await res.json();
 
-    if(!res.ok) {
-      return { success: false, message: resData.detail }
+  //   if(!res.ok) {
+  //     return { success: false, message: resData.detail }
       
-    }
+  //   }
     // 토큰 제거
     removeToken()
 
@@ -86,10 +86,10 @@ export async function logout() {
       message: '로그아웃 되었습니다', 
       redirectTo: '/auth/login'
     }
-  } catch (error) {
-    return { 
-      success: false, 
-      // message: resData && typeof resData.detail === 'string' ? resData.detail : JSON.stringify(resData.detail) || '알 수 없는 오류가 발생했습니다.' 
-    };
-  }
+  // } catch (error) {
+  //   return { 
+  //     success: false, 
+  //     // message: resData && typeof resData.detail === 'string' ? resData.detail : JSON.stringify(resData.detail) || '알 수 없는 오류가 발생했습니다.' 
+  //   };
+  // }
 }

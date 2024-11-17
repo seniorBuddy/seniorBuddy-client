@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { ThemeProviders } from "@/components/theme-providers";
+import { getAccessToken } from "./lib/auth/token";
 
 // 폰트 설정
 const pretendard = localFont({
@@ -27,6 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  const token = getAccessToken();
+
   return (
     <html lang="en">
         <body className={pretendard.variable} >
@@ -37,7 +40,7 @@ export default function RootLayout({
               <div className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
                 {children}
               </div>
-              <Footer />
+              {token && (<Footer />)}
             </section>
           </main>
       </ThemeProviders>
