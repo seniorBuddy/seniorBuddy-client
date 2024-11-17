@@ -28,12 +28,12 @@ export default function RootLayout({
 }>) {
 
   return (
-    <html lang="en" className='dark:bg-slate-700'>
+    <html lang="en">
         <body className={pretendard.variable} >
-        <ThemeProviders>
-          <main className="dark:bg-slate-700 dark:text-white">
+        <ThemeProviders >
+          <main>
           <Header />
-            <section className="dark:bg-slate-800 text-white">
+            <section className="text-white">
               <div className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
                 {children}
               </div>

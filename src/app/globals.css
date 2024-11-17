@@ -3,23 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --bg-color-dark: #1e293b;
+  --tw-bg-opacity: 1;
   --text-color-dark: #ffffff;
 }
 
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%; /* 이 부분을 추가합니다 */
+  height: 100%; 
 }
 
 /* Light 모드 설정 */
 body {
-  background-color: rgba(255, 255, 255, 0.01); /* 기본 백그라운드 설정 */
+  background-color: rgba(255, 255, 255, 1); /* 기본 백그라운드 설정 */
 }
+
 
 /* 다크 모드 설정 */
 .dark body {
-  background-color: var(--bg-color-dark);
+  background-color: rgb(30 41 59 / var(--tw-bg-opacity));
   color: var(--text-color-dark);
 }

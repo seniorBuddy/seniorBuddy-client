@@ -29,10 +29,10 @@ export function getAccessToken() {
     return cookieStore.get('access_token')?.value || null
 }
 
-export function getRefreshToken() {
-    const cookieStore = cookies();
-    return cookieStore.get('refresh_token')?.value || null
-}
+// export function getRefreshToken() {
+//     const cookieStore = cookies();
+//     return cookieStore.get('refresh_token')?.value || null
+// }
 
 
 export function removeToken() {
@@ -50,4 +50,43 @@ export function removeToken() {
       path: '/',
     });
 
-  }
+}
+
+
+
+
+
+export async function getRefreshToken() {
+    const tokeStore = cookies();
+    const token = tokeStore.get('refresh_token')?.value
+
+    console.log("refresh 토큰:", token);
+
+    try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/refresh`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`,
+            },
+            credentials: 'include',
+          });
+
+          if(!res.ok) {
+              throw new Error(res.statusText);
+          }
+          const resData = await res.json();
+          console.log('새 토큰', resData);
+
+
+          setTokens({
+            access_token: resData.access_token,
+            refresh_token: resData.refresh_token
+          })
+
+          return resData.access_token;
+
+    } catch (error) {
+        console.error(error);
+    }
+}
