@@ -27,7 +27,7 @@ function SimpleSection() {
               <div className={`${bgColor} rounded-lg h-full flex flex-col gap-3 items-center justify-center`}>
                 <Icon className={`${iconColor} size-10 sm:size-14`}/>
                 <div className="flex flex-col gap-0.5">
-                <span className={`text-3xl font-bold ${iconColor}`} >{text}</span>
+                <span className={`text-2xl font-bold ${iconColor}`} >{text}</span>
                 </div>
               </div>
             </Link>
@@ -75,7 +75,7 @@ const MainNavigate = () => {
             <div className={`w-full p-8 sm:px-4 rounded-lg sm:rounded-xl shadow-md flex gap-5 sm:flex-col items-center sm:items-start ${bgColor} h-full`}>
               <Icon className={`${iconColor} size-12 sm:size-14`}/>
               <div className="flex flex-col gap-0.5">
-              <span className={`text-2xl sm:font-bold ${iconColor}`} >{text}</span>
+              <span className={`text-2xl font-bold ${iconColor}`} >{text}</span>
               <span className={`text-sm ${iconColor}`} >{content}</span>
               </div>
             </div>
