@@ -8,14 +8,14 @@ import { useEffect, useState } from 'react';
 
 
 export default function AssistantChat() {
+    const message = sessionStorage.getItem('chatMessage') as string;
 
     useEffect(() => {
-      const message = sessionStorage.getItem('chatMessage') as string;
-      mainMessage(message);
-       // 메시지 사용 후 삭제
-       sessionStorage.removeItem('chatMessage');
+        if(message) {
+            mainMessage(message);
+        }
         
-    }, [])
+    }, [message])
     
 
     const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
@@ -25,11 +25,14 @@ export default function AssistantChat() {
     const mainMessage = (message: string) => {
         // 메시지 설정
         setContent(message);
+        
         // 메시지 전송
-
         const formData = new FormData();
         formData.append('content', message);
         sendMessageHandler(formData);
+        
+        // 메시지 사용 후 삭제
+        sessionStorage.removeItem('chatMessage');
        
     }
 
