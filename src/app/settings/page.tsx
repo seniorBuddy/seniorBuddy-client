@@ -73,7 +73,7 @@ export default function Page() {
             {modal && (
                 <div className="flex items-center justify-center fixed inset-0 backdrop-filter backdrop-blur-sm z-20 text-white">
                     <div className="absolute w-70% px-7 py-10 rounded-md shadow-lg bg-blue flex flex-col items-center justify-between">
-                        <div className="font-semibold text-xl pb-8">정말 시니어 버디로부터 로그아웃하시겠습니까?</div>
+                        <div className="font-semibold text-xl pb-8 mx-3">로그아웃하시겠습니까?</div>
                         <div className="flex flex-col font-semibold text-md gap-3">
                             <button 
                                 onClick={openModal}

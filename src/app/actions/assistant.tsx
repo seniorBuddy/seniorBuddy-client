@@ -6,8 +6,7 @@ export async function sendMessage(formData: FormData) {
     const content = formData.get('content') as string;
     const token = getAccessToken();
     
-    // 토큰과 content 확인
-    console.log(token, content);
+    console.log("ai chat:POST 실행")
 
 
     if(!content) {
@@ -36,6 +35,7 @@ export async function sendMessage(formData: FormData) {
             const newToken = await getRefreshToken();
             await sendMessage(newToken);
           }
+          console.log("ai chat:POST 완료", res)
 
         return {
             success: true, 
@@ -48,6 +48,8 @@ export async function sendMessage(formData: FormData) {
 
 export async function getMessage() {
     const token = getAccessToken();
+    console.log("ai chat:GET 실행")
+
     // 토큰 확인
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/assistant/messages/latest`, {
@@ -64,6 +66,8 @@ export async function getMessage() {
             await getRefreshToken();
             await getMessage();
           }
+          console.log("ai chat:GET 완료")
+
         
         if(!res.ok) {
             return { success: false, message: '메시지 불러오기 실패'}

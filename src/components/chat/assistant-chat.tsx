@@ -1,20 +1,37 @@
 "use client"
-import Dummy from '@/app/assets/dummy_ai/ai_5.svg';
-import Image from 'next/image';
 import { MdKeyboardVoice } from "react-icons/md";
 import { IoSend } from "react-icons/io5";
 import useRecordVoice from '@/app/hooks/useRecordVoice';
 import { getMessage, sendMessage } from '@/app/actions/assistant';
 import { toast } from 'react-toastify';
-import { useState } from 'react';
-import useModeStore from '@/app/lib/store/useModeStore';
+import { useEffect, useState } from 'react';
 
 
 export default function AssistantChat() {
+
+    useEffect(() => {
+      const message = sessionStorage.getItem('chatMessage') as string;
+      mainMessage(message);
+       // 메시지 사용 후 삭제
+       sessionStorage.removeItem('chatMessage');
+        
+    }, [])
+    
+
     const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
     const [content, setContent] = useState('');
 
+    const mainMessage = (message: string) => {
+        // 메시지 설정
+        setContent(message);
+        // 메시지 전송
+
+        const formData = new FormData();
+        formData.append('content', message);
+        sendMessageHandler(formData);
+       
+    }
 
 
     const getMessageHandler = async () => {

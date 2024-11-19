@@ -21,7 +21,7 @@ export default function Header () {
             
             <CgArrowsExchange 
                 onClick={toggleMode}
-                className='size-10 text-darkblue cursor-pointer' />
+                className='size-10 text-blue dark:text-white cursor-pointer' />
             </div>
            
         </div>

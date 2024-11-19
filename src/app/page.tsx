@@ -5,7 +5,7 @@ import { MdMedicalInformation } from "react-icons/md";
 import { GrContactInfo } from "react-icons/gr";
 import { mainMenuItem } from "@/types";
 import Image from 'next/image';
-import AiChatInput from "@/components/chat/ai-chat-input";
+import AiChatInput from "@/components/chat/main-chat";
 import useUserStore from '@/app/lib/store/useUserStore';
 import useModeStore from "./lib/store/useModeStore";
 import AssistantChat from "@/components/chat/assistant-chat";
@@ -110,10 +110,6 @@ const ChatInput = () => (
     <span className="text-info font-extrabold text-xl mb-5 dark:text-slate-400">
       Abby와 대화하기
       </span>
-    <div className="mt-6 gap-3 sm:mt-10 my-3 sm:my-5 hidden md:flex items-center justify-center">
-      <div className="px-1 py-1.5 border-2 text-blue dark:text-blue-300 border-blue dark:border-blue-500 rounded-md text-sm">오늘 날씨는 어때?</div>
-      <div className="px-1 py-1.5 border-2 text-blue dark:text-blue-300 border-blue dark:border-blue-500 rounded-md text-sm">메뉴얼 사용법에 대해</div>
-    </div>
     <div className="w-full h-full">
       <AiChatInput />
   </div>    
