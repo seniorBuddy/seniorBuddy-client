@@ -35,7 +35,9 @@ export default function LoginForm() {
                 autoClose: 2000,
                 icon: <span>❌</span>,
             });
-
+        }
+}
+  
 
 return (
     <>
