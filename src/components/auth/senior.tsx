@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -28,7 +29,6 @@ export default function Senior({selected}:{selected: string}) {
   };
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(selected)
     e.preventDefault(); // 기본 폼 제출 방지
     const data = {
       "user_real_name": name,
@@ -58,8 +58,6 @@ export default function Senior({selected}:{selected: string}) {
         alert('회원가입이 완료되었습니다');
         router.push('/auth/login')
       }
-
-
     } catch (error) {
       console.error('회원가입 에러 : ', error);
     }
