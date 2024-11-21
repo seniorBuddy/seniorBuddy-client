@@ -86,24 +86,24 @@ const MainNavigate = () => {
   )
 }
 
-// const AIAssistant = () => (
-//     <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 bg-blue dark:bg-blue-700 rounded-xl justify-evenly py-4">
-//       <div className="sm:hidden bg-white dark:bg-gray-200 rounded-full overflow-hidden">
-//         <Image  width={100} height={100} src={Dummy} alt='dummy'></Image>
-//         </div>
-//       <div className="flex flex-col items-center justify-evenly sm:gap-3">
-//           <div className="text-info font-bold min-w-40  text-slate-800 bg-white text-center rounded-3xl">
-//             AI 비서 Abby
-//             </div>
-//           <div className="hidden sm:block m-auto rounded-full overflow-hidden">
-//             <Image width={100} height={100} src={Dummy} alt='dummy'></Image>
-//           </div>
-//           <div className="font-medium text-md pb-3 sm:pb-0 m-2">
-//             좋은 하루 보내고 계신가요?
-//           </div>
-//       </div>
-//     </Link>
-//   )
+const AIAssistant = () => (
+    <Link href={'/ai_chat/custom'} className="w-full min-w-56 flex flex-row flex-1 bg-blue dark:bg-blue-700 rounded-xl justify-evenly py-4">
+      <div className="sm:hidden bg-white dark:bg-gray-200 rounded-full overflow-hidden">
+        <Image  width={100} height={100} src={Dummy} alt='dummy'></Image>
+        </div>
+      <div className="flex flex-col items-center justify-evenly sm:gap-3">
+          <div className="text-info font-bold min-w-40  text-slate-800 bg-white text-center rounded-3xl">
+            AI 비서 Abby
+            </div>
+          <div className="hidden sm:block m-auto rounded-full overflow-hidden">
+            <Image width={100} height={100} src={Dummy} alt='dummy'></Image>
+          </div>
+          <div className="font-medium text-md pb-3 sm:pb-0 m-2">
+            좋은 하루 보내고 계신가요?
+          </div>
+      </div>
+    </Link>
+  )
 
 const ChatInput = () => (
   <div className="border-2 border-blue dark:border-blue-500 w-full flex flex-col flex-2 items-center p-3 bg-white text-slate-800 dark:bg-gray-800 shadow-xl rounded-xl">
@@ -134,7 +134,7 @@ export default function Home() {
           <MainNavigate />
         <div className="flex items-center justify-center flex-col md:flex-row gap-5">
         {/* AI 비서 캐릭터  */}
-          {/* <AIAssistant /> */}
+          <AIAssistant />
         {/* AI 채팅 시작하기*/}
           <ChatInput />
         </div>

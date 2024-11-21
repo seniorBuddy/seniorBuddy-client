@@ -33,8 +33,8 @@ const useUserStore = create<User & UserStore>()(
       fetchUser: async (token: string) => {
         try {
           // vercel 빌드 시 사용
-          // const res = await fetch(`/api/users/me`, {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`, {
+          const res = await fetch(`/api/users/me`, {
+          // const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
