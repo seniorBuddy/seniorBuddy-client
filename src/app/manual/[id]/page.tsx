@@ -8,7 +8,7 @@ import { StaticImageData } from "next/image";
 
 const ManualPage: React.FC = () => {
     const pathname = usePathname();
-    const id = pathname ? pathname.split("/").slice(-2).pop() : null; // pathname이 null이 아닐 때만 split 수행
+    const id = pathname ? pathname.split("/").slice(-2).pop() : null; 
     const item = id ? manualItems.find((item) => item.id === id) : null;
 
     if (!item) {
@@ -26,7 +26,6 @@ const ManualPage: React.FC = () => {
             </div>
 
             <div className="flex flex-col lg:flex-row justify-between mt-4">
-                {/* 목차 박스의 너비를 2/5로 설정 */}
                 <div className="p-4 bg-white dark:bg-gray-900 shadow-md mb-4 lg:mb-0 flex flex-col items-center lg:px-4 lg:w-2/5">
                     <h2 className="font-bold text-lg text-[#136BFF] dark:text-[#0E4BFF] text-center mb-4">목차</h2>
                     <ul className="space-y-3 w-full">
