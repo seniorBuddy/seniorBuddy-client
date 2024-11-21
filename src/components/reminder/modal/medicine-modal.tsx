@@ -119,16 +119,16 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   return (
     <>
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-8 font-bold text-darkblue text-2xl">
+      <div className="flex flex-col gap-4 sm:gap-8 font-bold text-darkblue text-2xl px-3">
         {/* 약 이름 */}
-        <div className="flex flex-row items-center w-full gap-1">
-          <span className="w-[60px]">이름</span>
+        <div className="flex flex-row items-center w-[280px] sm:w-full gap-1">
+          <span className="hidden sm:block sm:w-[60px]">이름</span>
           <input
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="약 이름 입력"
             value={name}
-            className="text-black"
+            className="w-[280px] sm:w-full border border-black text-black"
           />
         </div>
         {/* 기타사항 */}

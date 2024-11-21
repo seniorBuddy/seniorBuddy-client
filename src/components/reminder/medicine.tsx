@@ -61,12 +61,12 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   return (
     <>
     {/* 약 알람 설정 */}
-    <div className="flex flex-row gap-2">
-      <div className="flex flex-col gap-2 h-[185px] w-[100px] border-2 border-blue rounded-l-lg flex items-center justify-center">
+    <div className="flex flex-col sm:flex-row justify-center gap-2">
+      <div className="flex flex-row sm:flex-col gap-2 h-[50px] sm:h-[185px] w-[320px] sm:w-[100px] border-2 border-blue rounded-lg sm:rounded-l-lg flex items-center justify-center">
         <span className="text-blue text-3xl font-bold">알람</span>
         <span className="text-blue text-3xl font-bold">설정</span>
       </div>
-      <div className="h-full w-[500px] bg-blue rounded-r-lg mb-4 p-4 text-2xl">
+      <div className="h-full w-[320px] sm:w-[500px] bg-blue rounded-lg sm:rounded-r-lg mb-4 p-4 text-2xl">
         <div className="grid grid-cols-2 gap-2">
           {time.map((time, index) =>
             <label key={time} htmlFor={`time-${index}`}>
@@ -83,7 +83,7 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
     </div>
     
     {/* 필수 약 정보 */}
-    <div className="bg-blue h-full w-[380px] sm:w-[600px] rounded-lg">
+    <div className="bg-blue h-full w-[320px] sm:w-[600px] rounded-lg">
       <div className="flex flex-col gap-2 p-[15px]">
         {/* 새로 등록된 약 정보 */}
         {medicines.map((medicine) => (
