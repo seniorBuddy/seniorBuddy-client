@@ -1,27 +1,36 @@
 import { create } from 'zustand';
-import Cookies from 'js-cookie';
-import { UIStore } from '@/types';
+import { persist } from 'zustand/middleware';
 
+const DEFAULT_FONT_SIZE = 16;
 
-export const useUIStore = create<UIStore>((set, get) => ({
-  settings: {
-    theme: Cookies.get('theme') as 'light' | 'dark' || 'light', // 쿠키에서 테마를 가져옴
-    contrast: Cookies.get('contrast') === 'true', // 쿠키에서 contrast 가져오기
-    // brightness: Number(Cookies.get('brightness')) || 80, // 쿠키에서 brightness 가져오기
-    // fontSize: Number(Cookies.get('fontSize')) || 16, // 쿠키에서 fontSize 가져오기
-  },
-  setSettings: (newSettings) => {
-    set((state) => {
-      // 새로운 설정 값을 상태에 반영
-      const updatedSettings = { ...state.settings, ...newSettings };
+interface FontStoreState {
+  fontSize: number;
+  setFontSize: (size: number) => void;
+  resetFontSize: () => void;
+}
 
-      // 쿠키에 저장
-      Cookies.set('theme', updatedSettings.theme);
-      Cookies.set('contrast', String(updatedSettings.contrast));
-      // Cookies.set('brightness', String(updatedSettings.brightness));
-      // Cookies.set('fontSize', String(updatedSettings.fontSize));
-      return { settings: updatedSettings };
-    });
-  },
-  getTheme: () => get().settings.theme,
-}));
+const useFontStore = create<FontStoreState>() (
+  persist(
+    (set) => ({
+      fontSize: DEFAULT_FONT_SIZE,
+      setFontSize: (size) => {
+        document.documentElement.style.fontSize = `${size}px`;
+        set({ fontSize: size });
+      },
+      resetFontSize: () => {
+        document.documentElement.style.fontSize = `${DEFAULT_FONT_SIZE}px`;
+        set({ fontSize: DEFAULT_FONT_SIZE });
+      },
+    }),
+    {
+      name: 'font-settings', // 저장할 키 이름
+      onRehydrateStorage: () => (state) => {
+        if (state?.fontSize) {
+          document.documentElement.style.fontSize = `${state.fontSize}px`;
+        }
+      },
+    }
+  )
+);
+
+export default useFontStore;

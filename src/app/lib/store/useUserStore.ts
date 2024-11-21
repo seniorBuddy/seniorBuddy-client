@@ -32,12 +32,14 @@ const useUserStore = create<User & UserStore>()(
     // 유저 정보 fetching
       fetchUser: async (token: string) => {
         try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/users/me`, {
+          const res = await fetch(`/api/users/me`, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
+              'Authorization': `Bearer ${token}`
+
             },
+              credentials: 'include',
           });
 
           if (!res.ok) {
@@ -45,7 +47,6 @@ const useUserStore = create<User & UserStore>()(
           }
 
           const data = await res.json();
-            console.log(data);
           set({
             name: data.user_real_name,
             phone_number: data.phone_number,

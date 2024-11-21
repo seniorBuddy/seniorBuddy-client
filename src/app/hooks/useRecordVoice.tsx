@@ -15,8 +15,10 @@ const useRecordVoice = () => {
 
         recognition.onresult = function (e) {
             const transcriptResult = e.results[0][0].transcript;  // 결과 텍스트
-            setTranscript(transcriptResult);  // 텍스트 상태 업데이트
             setListening(false);
+            setTranscript(transcriptResult);  // 텍스트 상태 업데이트
+            console.log(transcript);
+
         };
 
         recognition.onerror = function () {

@@ -30,12 +30,15 @@ const EmailAuto: React.FC = () => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative"> <>
+  </>
       <input
         type="text"
+        name="identifier"
+        placeholder='이메일을 입력해주세요.'
         value={email}
         onChange={handleChange}
-        className=" border-2 border-gray-400 rounded-xl p-1"
+        className="font-medium p-1 rounded-sm px-4 py-2 dark:bg-white"
       />
       {suggestions.length > 0 && (
         <ul className="absolute bg-white border border-gray-300 w-full mt-1 rounded">
