@@ -10,6 +10,10 @@ import Dummy4 from '@/app/assets/dummy_ai/ai_4.svg';
 import { useState } from "react";
 
 function CustomImage({ changeAI }: { changeAI: (image: any) => void }) {
+    
+    
+    
+    
     const AiImage = [
         { src: Dummy1, alt: 'dummy1' },
         { src: Dummy2, alt: 'dummy2' },
@@ -17,6 +21,7 @@ function CustomImage({ changeAI }: { changeAI: (image: any) => void }) {
         { src: Dummy4, alt: 'dummy4' },
     ];
    
+    
    
     return (
         <div className="min-w-[300px] overflow-auto px-2 py-5 flex gap-3">
@@ -56,11 +61,13 @@ export default function Page() {
 
             {/* 선택된 이미지와 이미지 선택 영역 */}
             <div className="flex flex-col sm:flex-row justify-center items-center w-full ">
-                <div className="bg-white size-[140px] rounded-lg mr-2 flex justify-center items-center">
+                <div className="rounded-lg mr-2 flex justify-center items-center">
                     {selected ? (
-                        <Image src={selected.src} alt={selected.alt} width={140} height={140}/>
+                        <Image src={selected.src} alt={selected.alt} width={140} height={140} />
                     ) : (
                         <div></div>
+                        
+                        // <Image src={} alt={curImg.alt} width={140} height={140} />
                     )}
                 </div>
                 <CustomImage changeAI={changeAI} />

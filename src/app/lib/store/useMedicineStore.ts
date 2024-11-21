@@ -5,9 +5,9 @@ import { MedicineRegister } from '@/app/actions/medicine-information';
 interface medicineListState {
   medicines: MedicineInfo[];  // 약 정보 배열
   result: {success: boolean, message: string} | null;  // API 요청 결과
-  addMedicine: (newMedicine: Omit<MedicineInfo, 'id'>, token: string) =>
+  addMedicine: (newMedicine: Omit<MedicineInfo, 'id'>) =>
     Promise<{ success: boolean; message: string }>;  // 약 추가 메서드
-  updateMedicine: (updateMedicine: MedicineInfo, token: string) =>
+  updateMedicine: (updateMedicine: MedicineInfo) =>
     Promise<{ success: boolean; message: string }>;
 }
 
@@ -15,10 +15,10 @@ export const useMedicineStore = create<medicineListState>((set) => ({
   medicines: [],
   result: null,
 
-  addMedicine: async (newMedicine, token) => {
+  addMedicine: async (newMedicine) => {
     const medicineId = { id: Date.now(), ...newMedicine };  // 새로운 약 정보에 고유 id 추가
     try {
-      const results = await MedicineRegister(medicineId, token);  // 서버에 약 정보 저장
+      const results = await MedicineRegister(medicineId);  // 서버에 약 정보 저장
       set({result: results});
       if (results.success) {
         set((state) => ({
@@ -35,9 +35,9 @@ export const useMedicineStore = create<medicineListState>((set) => ({
     }
   },
 
-  updateMedicine: async (updateMedicine, token) => {
+  updateMedicine: async (updateMedicine) => {
     try {
-      const results = await MedicineRegister(updateMedicine, token);
+      const results = await MedicineRegister(updateMedicine);
       set({result: results});
       if (results.success) {
         set((state) => ({

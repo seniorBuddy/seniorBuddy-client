@@ -24,7 +24,7 @@ export default function PhoneInput() {
             name="identifier"
             type="tel"
             placeholder='전화번호를 입력해주세요.'
-            className="font-medium p-1 rounded-sm px-4 py-2 border border-blue"
+            className="font-medium p-1 rounded-sm px-4 py-2 dark:bg-white"
             onChange={onChangeNumber}
             value={number}
           />

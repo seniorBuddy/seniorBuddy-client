@@ -5,7 +5,7 @@ import { CiCalendar } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
-import useTokenStore from '@/app/lib/store/useTokenStore';
+//import useTokenStore from '@/app/lib/store/useTokenStore';
 import { useMedicineStore } from '@/app/lib/store/useMedicineStore';
 
 interface MedicineModalProps {
@@ -54,7 +54,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
     { id: 9, name: '1년 이상' },
   ]);  // 종료 기간 리스트 요소
 
-  const token = useTokenStore((state) => state.token) as string;
+  //const token = useTokenStore((state) => state.token) as string;
   const addMedicine = useMedicineStore((state) => state.addMedicine);
   const updateMedicine = useMedicineStore((state) => state.updateMedicine);
   const getMedicine = useMedicineStore((state) => state.medicines.find((medicine) => medicine.id === medicineId));
@@ -113,7 +113,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
     console.log(formData);
 
     if (!onUpdate) {
-      const result = await addMedicine(formData, token);
+      const result = await addMedicine(formData);
       onResult(result);
 
       if (result.success) {
@@ -121,7 +121,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
       }
     } else {
       const update = { ...formData, id: medicineId };
-      const result = await updateMedicine(update, token);
+      const result = await updateMedicine(update);
 
       if (result.success) {
         onCancel();

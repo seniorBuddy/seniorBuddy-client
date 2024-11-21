@@ -1,10 +1,14 @@
 'use server';
 
-export async function MedicineRegister(formData: any, token: string) {  
+import { getAccessToken } from '../lib/auth/token';
+
+export async function MedicineRegister(formData: any) {  
   if (!formData.content || formData.frequency.length < 0) {
     return {success: false, message: '모든 필드를 입력해주세요.'};
   }
 
+  const token = getAccessToken();
+  
   try {
     const url = formData.id ?
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication/${formData.id}` :
