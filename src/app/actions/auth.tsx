@@ -2,6 +2,50 @@
 
 import { getRefreshToken, removeToken, setTokens } from "@/app/lib/auth/token";
 
+export async function register(formData:FormData, type: string) {
+  const name = formData.get('name') as string;
+  const identifier = formData.get('identifier') as string;
+  const password = formData.get('password') as string;
+  
+  if (!identifier || !password) {
+    return { success: false, message: '모든 필드를 입력해주세요.' };
+  }
+  
+  let resData;
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user_real_name: name,
+        password: password,
+        user_type: type,
+        identifier: identifier,
+      }),
+      credentials: 'include',
+    });
+  
+    resData = await res.json();
+  
+  
+    if (!res.ok) {
+      return { success: false, message: resData.detail || '회원가입 실패' };
+    }
+    
+    return { success: true, message: '회원가입에 성공하였습니다'}
+
+  } catch (error) {
+    return { 
+      success: false, 
+      message: resData && typeof resData.detail === 'string' ? resData.detail : JSON.stringify(resData.detail) || '알 수 없는 오류가 발생했습니다.' 
+    };
+  }
+
+}
+
+
 export async function login(formData: FormData) {
   const identifier = formData.get('identifier') as string;
   const password = formData.get('password') as string;
