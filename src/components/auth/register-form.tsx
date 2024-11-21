@@ -26,10 +26,12 @@ export default function RegisterForm () {
 
     if (result.success) {
         toast.success(result.message, {
-          autoClose: 2000,
+          autoClose: 1000,
           icon: <span>⭕</span>,
+          onClose: () => {
+            router.push('/auth/login');
+          }
       });
-        router.push('/auth/login');
     }
 
     else {
