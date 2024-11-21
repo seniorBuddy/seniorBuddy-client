@@ -34,7 +34,6 @@ export default function Reminder() {
           </div>
         </label>
         
-
         <label>
           <input
             type="radio"

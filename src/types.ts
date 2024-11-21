@@ -39,3 +39,12 @@ export interface UserStore {
     setUser: (user: Partial<User>) => void;
     fetchUser: (token: string) => Promise<void>;
 }
+
+export interface MedicineInfo {
+  id: number | null;
+  content: string;
+  additional_info: string;
+  frequency: string[];
+  start_date: string;
+  day: string;
+}

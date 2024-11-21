@@ -6,8 +6,14 @@ export async function MedicineRegister(formData: any, token: string) {
   }
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication`, {
-      method: 'POST',
+    const url = formData.id ?
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication/${formData.id}` :
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication`;
+
+    const methods = formData.id ? 'PUT' : 'PUSH';
+
+    const res = await fetch(url, {
+      method: methods,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
@@ -17,12 +23,12 @@ export async function MedicineRegister(formData: any, token: string) {
     });
 
     const resData = await res.json();
-    //console.log("실패 테스트 : ", resData);
+    console.log("실패 테스트 : ", resData);
 
     if (!res.ok) {
       return { success: false, message: '등록 실패' };
     } else {
-        return { success: true, message: '등록 성공' };
+        return { success: true, message: formData.id ? '수정 성공' : '등록 성공' };
     }
   } catch (error) {
     return { success: false, message: '오류가 발생했습니다.' };

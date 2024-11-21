@@ -33,7 +33,7 @@ export default function HospitalModal({ onCancel, onResult, onRegister }: Hospit
     const formData = {
       'content': name,
       'additional_info': other,
-      'start_date': reservationDate ? format(reservationDate, 'yyyy-MM-dd HH:mm:ss') : '',
+      'start_date': reservationDate ? format(reservationDate, 'yyyy-MM-dd HH:mm:00') : '',
     };
 
     console.log(formData);

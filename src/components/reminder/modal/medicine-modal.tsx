@@ -1,29 +1,21 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CiCalendar } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
-import { MedicineRegister } from '@/app/actions/medicine-information';
 import useTokenStore from '@/app/lib/store/useTokenStore';
-
-interface Medicine {
-  content: string;  // 약 이름
-  additional_info: string;  // 기타 사항
-  frequency: string[];  // 약 먹는 시간
-  //timing: string;  // 식전, 식후
-  start_date: string;  // 시작 날짜
-  day: number;  // 종료 날짜
-}
+import { useMedicineStore } from '@/app/lib/store/useMedicineStore';
 
 interface MedicineModalProps {
   onCancel: () => void;
+  onUpdate: boolean;
+  medicineId: number | null;
   onResult: (result: {success: boolean, message: string}) => void;
-  onRegister: (newMedicine: Medicine) => void;
 }
 
-export default function MedicineModal({ onCancel, onResult, onRegister }: MedicineModalProps) {
+export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult }: MedicineModalProps) {
   const [name, setName] = useState<string>('');  // 약 이름
   const [other, setOther] = useState<string>('');  // 기타 사항
   const time  = [
@@ -32,7 +24,7 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
     "아침식후",
     "점심식전",
     "점심식후",
-    "저녁시전",
+    "저녁식전",
     "저녁식후",
     "취침전"
   ];
@@ -41,18 +33,34 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
   const [isOn, setIsOn] = useState<boolean>(false);  // 종료 시간 유무
   const [startDate, setStartDate] = useState<Date | null>(new Date());  // 시작 날짜
   const [showDateList, setShowDateList] = useState<boolean>(false);  // 달력
-  const [selectedEndDate, setSelectedEndDate] = useState<number>();  // 종료 날짜
-  const [endDate, setEndDate] = useState([
-    { id: 1, name: 3 },
-    { id: 2, name: 5 },
-    { id: 3, name: 7 },
-    // { id: 4, name: '2주' },
-    // { id: 5, name: '1개월' },
-    // { id: 6, name: '2개월' },
-    // { id: 7, name: '3개월' },
-    // { id: 8, name: '1년' },
-    // { id: 9, name: '1년 이상' },
+  const [selectedEndDate, setSelectedEndDate] = useState<string>();  // 종료 날짜
+  const [endDate] = useState([
+    { id: 1, name: '3' },
+    { id: 2, name: '5일' },
+    { id: 3, name: '7일' },
+    { id: 4, name: '2주' },
+    { id: 5, name: '1개월' },
+    { id: 6, name: '2개월' },
+    { id: 7, name: '3개월' },
+    { id: 8, name: '1년' },
+    { id: 9, name: '1년 이상' },
   ]);  // 종료 기간 리스트 요소
+
+  const token = useTokenStore((state) => state.token) as string;
+  const addMedicine = useMedicineStore((state) => state.addMedicine);
+  const updateMedicine = useMedicineStore((state) => state.updateMedicine);
+  const getMedicine = useMedicineStore((state) => state.medicines.find((medicine) => medicine.id === medicineId));
+
+  useEffect(() => {
+    if (onUpdate && getMedicine) {
+      const parsedDate = new Date(getMedicine.start_date);
+      setName(getMedicine.content);
+      setOther(getMedicine.additional_info);
+      setCheckedItems(getMedicine.frequency);
+      setStartDate(parsedDate);
+      setSelectedEndDate(getMedicine.day);
+    }
+  }, [onUpdate, getMedicine]);
 
   /* 종료 기간 설정 on/off */
   const toggleSwitch = () =>{
@@ -70,14 +78,12 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
   }
 
   /* 종료 날짜 선택 */
-  const handleChooseEndDate = (endDate: number) => {
+  const handleChooseEndDate = (endDate: string) => {
     if(isOn) {
       setSelectedEndDate(endDate);
       setShowDateList(false);
     }
   }
-
-  const token = useTokenStore((state) => state.token) as string;
 
   // 정보 전달
   const handleSubmit = async () => {
@@ -87,19 +93,26 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
       'frequency': checkedItems,
       //'timing': chooseTime,
       'start_date': startDate?.toISOString().split('T')[0] || '',
-      'day': selectedEndDate || 0,
+      'day': selectedEndDate || '',
     };
 
     console.log(formData);
 
-    const result = await MedicineRegister(formData, token);
-    console.log('Result from medicineRegister:', result);
+    if (!onUpdate) {
+      const result = await addMedicine(formData, token);
+      onResult(result);
 
-    onResult(result);
-    if (result.success) {
-      onCancel();
-      onRegister(formData);
-    }
+      if (result.success) {
+        onCancel();
+      }
+    } else {
+      const update = { ...formData, id: medicineId };
+      const result = await updateMedicine(update, token);
+
+      if (result.success) {
+        onCancel();
+      }
+    } 
   }
 
 
@@ -111,22 +124,22 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
         <div className="flex flex-row items-center w-full gap-1">
           <span className="w-[60px]">이름</span>
           <input
-            value={name}
+            onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="약 이름 입력"
+            value={name}
             className="text-black"
-            onChange={(e) => setName(e.target.value)}
           />
         </div>
         {/* 기타사항 */}
         <div className="flex flex-row items-center w-full gap-1">
           <span className="w-[60px]">기타</span>
           <input
-            value={other}
+            onChange={(e) => setOther(e.target.value)}
             type="text"
             placeholder="추가 정보"
+            value={other}
             className="text-black"
-            onChange={(e) => setOther(e.target.value)}
           />
         </div>
         {/* 알람 설정 */}
@@ -140,6 +153,8 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
                   <input
                     type="checkbox"
                     id={`time-${index}`}
+                    value={timeLabel}
+                    checked={checkedItems.includes(timeLabel)}
                     className="mr-2"
                     onChange={(e) => takingTime(e, timeLabel)}
                   />
@@ -195,7 +210,7 @@ export default function MedicineModal({ onCancel, onResult, onRegister }: Medici
                 <DatePicker
                   locale={ko}
                   dateFormat="yyyy.MM.dd"
-                  selected={startDate}
+                  selected={startDate ?? new Date()}
                   onChange={(date: Date | null) => setStartDate(date)}
                   className="w-[130px]"
                 />
