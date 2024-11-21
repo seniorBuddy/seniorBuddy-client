@@ -18,19 +18,27 @@ interface MedicineModalProps {
 export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult }: MedicineModalProps) {
   const [name, setName] = useState<string>('');  // 약 이름
   const [other, setOther] = useState<string>('');  // 기타 사항
+  // const time  = [
+  //   "기상",
+  //   "아침식전",
+  //   "아침식후",
+  //   "점심식전",
+  //   "점심식후",
+  //   "저녁식전",
+  //   "저녁식후",
+  //   "취침전"
+  // ];
   const time  = [
     "기상",
-    "아침식전",
-    "아침식후",
-    "점심식전",
-    "점심식후",
-    "저녁식전",
-    "저녁식후",
+    "아침",
+    "점심",
+    "저녁",
     "취침전"
   ];
   const [checkedItems, setCheckedItems] = useState<string[]>([]);  // 복용 시간 체크리스트
   const [chooseTime, setChooseTime] = useState<string>('before');  // 식전, 식후
   const [isOn, setIsOn] = useState<boolean>(false);  // 종료 시간 유무
+  const [updateFrequency, setUpdateFrequency] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<Date | null>(new Date());  // 시작 날짜
   const [showDateList, setShowDateList] = useState<boolean>(false);  // 달력
   const [selectedEndDate, setSelectedEndDate] = useState<string>();  // 종료 날짜
@@ -75,6 +83,12 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
       // 체크 해제 항목 제거
       setCheckedItems(checkedItems.filter(item => item !== timeLabel));
     }
+
+    frequency(checkedItems, chooseTime);
+  }
+
+  const frequency = (times: string[], time: string) => {
+    setUpdateFrequency([...times, time].filter(Boolean));
   }
 
   /* 종료 날짜 선택 */
@@ -119,35 +133,35 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   return (
     <>
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-4 sm:gap-8 font-bold text-darkblue text-2xl px-3">
+      <div className="flex flex-col gap-4 justify-center sm:gap-8 font-bold text-darkblue text-2xl px-3">
         {/* 약 이름 */}
-        <div className="flex flex-row items-center w-[280px] sm:w-full gap-1">
+        <div className="flex flex-row justify-center sm:justify-start items-center w-full gap-1">
           <span className="hidden sm:block sm:w-[60px]">이름</span>
           <input
             onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="약 이름 입력"
             value={name}
-            className="w-[280px] sm:w-full border border-black text-black"
+            className="w-[280px] sm:w-full border border-black text-black rounded-lg px-2"
           />
         </div>
         {/* 기타사항 */}
-        <div className="flex flex-row items-center w-full gap-1">
-          <span className="w-[60px]">기타</span>
+        <div className="flex flex-row justify-center sm:justify-start items-center w-full gap-1">
+          <span className="hidden sm:block sm:w-[60px]">기타</span>
           <input
             onChange={(e) => setOther(e.target.value)}
             type="text"
             placeholder="추가 정보"
             value={other}
-            className="text-black"
+            className="w-[280px] sm:w-full border border-black text-black rounded-lg px-2"
           />
         </div>
         {/* 알람 설정 */}
-        <div className="flex flex-row w-full gap-1">
-          <span className="w-[60px] pt-2 flex items-center">알람</span>
-          <div className="flex flex-col gap-2">
+        <div className="flex flex-row justify-center sm:justify-start w-full gap-1">
+          <span className="hidden sm:block sm:w-[60px] pt-2 flex items-center">알람</span>
+          <div className="flex flex-col sm:flex-col gap-2">
             {/* 약 먹는 시간 선택 */}
-            <div className="flex flex-row gap-3 items-center">
+            <div className="flex flex-row gap-3 items-center text-2xl">
               {time.map((timeLabel, index) =>
                 <label key={timeLabel} htmlFor={`time-${index}`}>
                   <input
@@ -155,14 +169,14 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                     id={`time-${index}`}
                     value={timeLabel}
                     checked={checkedItems.includes(timeLabel)}
-                    className="mr-2"
+                    className="flex flex-col mr-2"
                     onChange={(e) => takingTime(e, timeLabel)}
                   />
                   {timeLabel}
                 </label>
               )}
             </div>
-            {/* 식전 식후 선택 
+            {/* 식전 식후 선택 */}
             <div className="flex flex-row gap-3">
               <label>
                 <input
@@ -183,14 +197,13 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                 <span className="ml-3">식후</span>
               </label>
             </div>
-            */}
           </div>
         </div>
         {/* 약 복용 기간 */}
-        <div className="flex flex-row items-center w-full gap-1">
+        <div className="flex flex-row justify-center sm:justify-start items-center w-full gap-1">
           <div className="flex flex-col gap-2">
-            <span className="w-[60px]">종료</span>
-            <span className="w-[60px]">기간</span>
+            <span className="hidden sm:block sm:w-[60px]">종료</span>
+            <span className="hidden sm:block sm:w-[60px]">기간</span>
           </div>
           <div className="flex flex-col gap-2">
             <div
@@ -203,7 +216,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                   ${isOn ? 'translate-x-4': 'translate-x-0'}`}
               />
             </div>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-row sm:gap-3">
               {/* 시작 날짜 선택 */}
               <div className="flex flex-row gap-2 items-center borer borer-gray-600 px-2">
                 <CiCalendar />
@@ -244,17 +257,17 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
         </div>
       </div>
       {/* 취소 등록 버튼 */}
-      <div className="flex flex-row justify-center w-full pt-[20px] gap-[50px] text-darkblue text-xl font-bold">
+      <div className="flex flex-row justify-center w-full pt-[20px] gap-5 sm:gap-[50px] text-darkblue text-xl font-bold">
         <div
           onClick={onCancel}
-          className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded-xl\
+          className="w-[130px] sm:w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded-xl\
           hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
         >
           취소
         </div>
         <div
           onClick={handleSubmit}
-          className="w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded\
+          className="w-[130px] sm:w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded\
           hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
         >
             등록

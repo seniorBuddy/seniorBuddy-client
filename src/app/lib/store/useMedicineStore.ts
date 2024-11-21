@@ -62,6 +62,6 @@ export const useMedicineStore = create<medicineListState>((set) => ({
 //         ...medicine,               // 업데이트할 medicine 필드 덮어쓰기
 //       }));
 //     },
-// }));
+//}));
 
 // export default useMedicineStore;

@@ -33,10 +33,12 @@ export default function ReminderModal(
         <span className="text-darkblue text-3xl sm:text-4xl font-bold">
           {division === 'medicine' ? "약 정보" : "병원 정보"}
         </span>
-        {division === 'medicine' ?
-          <MedicineModal onCancel={onCancel} onUpdate={onUpdate} medicineId={medicineId} onResult={onResult} /> : 
-          <HospitalModal onCancel={onCancel} onResult={onResult} onRegister={handleHospitalRegister} />
-        }
+        <div className="flex justify-center">
+          {division === 'medicine' ?
+            <MedicineModal onCancel={onCancel} onUpdate={onUpdate} medicineId={medicineId} onResult={onResult} /> : 
+            <HospitalModal onCancel={onCancel} onResult={onResult} onRegister={handleHospitalRegister} />
+          }
+        </div>
       </div>
     </div>
   )
