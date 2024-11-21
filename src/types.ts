@@ -19,13 +19,11 @@ export interface settingItem {
 
 export interface UIStore {
   settings: {
-    theme: 'light' | 'dark';
     contrast: boolean;
-    // brightness: number;
-    // fontSize: number;
+    brightness: number;
+    fontSize: number;
   };
   setSettings: (newSettings: Partial<UIStore['settings']>) => void;
-  getTheme: () => string;
 }
 
 export interface User {
@@ -38,4 +36,12 @@ export interface User {
 export interface UserStore {
     setUser: (user: Partial<User>) => void;
     fetchUser: (token: string) => Promise<void>;
+}
+
+type Mode = 'normal' | 'simple'
+
+export interface ModeStore {
+  mode: Mode;
+  toggleMode: () => void;
+  setMode: (mode: Mode) => void;
 }

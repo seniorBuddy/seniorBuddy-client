@@ -3,7 +3,7 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { ThemeProviders } from "@/components/theme-providers";
-import Cookies from 'js-cookie';
+import { getAccessToken } from "./lib/auth/token";
 
 // 폰트 설정
 const pretendard = localFont({
@@ -27,22 +27,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 클라이언트 사이드에서 테마 쿠키를 읽어옴
-  const theme = typeof window !== 'undefined' ? Cookies.get("theme") || "light" : "light";
+
+  const token = getAccessToken();
 
   return (
     <html lang="en">
-      <body className={pretendard.variable}>
-        <ThemeProviders initTheme={theme}>
+        <body className={pretendard.variable} >
+        <ThemeProviders >
+          <main>
           <Header />
-          <main className="font-pretendard dark:bg-slate-800 text-white">
-            <section className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
-              {children}
+            <section className="text-white">
+              <div className="max-w-full w-full sm:max-w-[700px] sm:w-full m-auto px-0 sm:px-6 pt-10 pb-20">
+                {children}
+              </div>
+              {token && (<Footer />)}
             </section>
-            <Footer />
           </main>
-        </ThemeProviders>
-      </body>
+      </ThemeProviders>
+        </body>
     </html>
   );
 }
