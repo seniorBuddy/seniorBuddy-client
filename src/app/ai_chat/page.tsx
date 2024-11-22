@@ -2,8 +2,10 @@
 import Dummy from '@/app/assets/dummy_ai/ai_5.svg';
 import Image from 'next/image';
 import AssistantChat from "@/components/chat/assistant-chat";
+import useRecordVoice from '../hooks/useRecordVoice';
 
 export default function Page() {
+
     return (
         <section className="m-auto w-full px-5">
         <div className="bg-blue py-10 px-5 flex flex-col items-center justify-center rounded-lg">
