@@ -111,12 +111,11 @@ export default function Hospital({ chooseOne }: HospitalProps) {
           onClick={handleClick}
           className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
         >
-          <RegisterModal 
+          <RegisterModal
             division={chooseOne}
             onCancel={() => setAddHospital(false)}
             onResult={handleResult}
-            onHospitalRegister={handleRegister}
-          />
+            onHospitalRegister={handleRegister} onUpdate={false} medicineId={0}          />
         </div>
       )}
     <Toaster />

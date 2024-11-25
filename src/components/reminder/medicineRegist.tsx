@@ -3,7 +3,7 @@ import { CiCalendar } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/locale';
-import useTokenStore from '@/app/lib/store/useTokenStore';
+import { getAccessToken } from '@/app/lib/auth/token';
 
 interface Medicine {
   name: string;   // 약 이름
@@ -21,8 +21,7 @@ export default function MedicineRegister({
   onCancel: () => void;
   onRegister: (newMedicine: Medicine) => void
 }) {
-  const token = useTokenStore((state) => state.token) as string;
-  
+  const token = getAccessToken();
 
   const [name, setName] = useState('');
   const [details, setDetails] = useState('');

@@ -12,7 +12,6 @@ const useRecordVoice = () => {
             // voices 로드를 기다림
             window.speechSynthesis.onvoiceschanged = () => {
                 const voices = window.speechSynthesis.getVoices();
-                console.log("사용 가능한 음성:", voices); // 어떤 음성이 있는지 확인
                 
                 // 한국어 남성 음성 찾기
                 const koreanVoice = voices.find(voice => 
