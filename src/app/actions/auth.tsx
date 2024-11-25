@@ -49,6 +49,7 @@ export async function register(formData:FormData, type: string) {
 export async function login(formData: FormData) {
   const identifier = formData.get('identifier') as string;
   const password = formData.get('password') as string;
+  const fcmToken = formData.get('fcm_token') as string;
 
 
   if (!identifier || !password) {
@@ -63,6 +64,7 @@ export async function login(formData: FormData) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        fcm_token: fcmToken,
         identifier: identifier,
         password: password,
       }),
