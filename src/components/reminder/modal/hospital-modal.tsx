@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
 import { HospitalRegister } from '@/app/actions/hospital-information';
-import useTokenStore from '@/app/lib/store/useTokenStore';
+//import useTokenStore from '@/app/lib/store/useTokenStore';
 import { format } from 'date-fns';
 
 interface Hospital {
@@ -26,7 +26,7 @@ export default function HospitalModal({ onCancel, onResult, onRegister }: Hospit
   const [other, setOther] = useState<string>('');  // 기타 정보
   const [reservationDate, setReservationDate] = useState<Date | null>(new Date());  // 예약 날짜
 
-  const token = useTokenStore((state) => state.token) as string;
+  //const token = useTokenStore((state) => state.token) as string;
 
   // 정보 전달
   const handleSubmit = async () => {
@@ -38,7 +38,7 @@ export default function HospitalModal({ onCancel, onResult, onRegister }: Hospit
 
     console.log(formData);
 
-    const result = await HospitalRegister(formData, token);
+    const result = await HospitalRegister(formData);
     console.log('Result from hospitalRegister:', result);
 
     onResult(result);

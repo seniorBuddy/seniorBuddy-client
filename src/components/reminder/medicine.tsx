@@ -3,6 +3,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useState } from 'react';
 import { Toaster, toast } from '@/app/utils/toast';
 import { useMedicineStore } from '@/app/lib/store/useMedicineStore';
+import { TbTriangleInvertedFilled } from 'react-icons/tb';
 
 interface MedicineProps {
   chooseOne: string;
@@ -13,6 +14,7 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   const [updateMedicine, setUpdateMedicine] = useState<boolean>(false);  // 수정 버튼 선택 유무
   const [medicineId, setMedicineId] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   const medicines = useMedicineStore((state) => state.medicines);
 
@@ -23,14 +25,14 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
     if (e.target === e.currentTarget) {
       setAddmedicine(false);
       setUpdateMedicine(false);
-      setMedicineId(0);
+      //setMedicineId(0);
     }
   }
 
   const handleCancel = () => {
     setAddmedicine(false);
     setUpdateMedicine(false);
-    setMedicineId(0);
+    //setMedicineId(0);
   }
 
   // 수정, 삭제 버튼 나타내기
@@ -41,7 +43,6 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   const handleMouseLeave = () => {
     setHoveredIndex(null);
   }
-
 
   // 결과값에 따라 toast 나타내기
   const handleResult = (result: {success: boolean, message: string}) => {
@@ -61,23 +62,35 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   return (
     <>
     {/* 약 알람 설정 */}
-    <div className="flex flex-col sm:flex-row justify-center gap-2">
-      <div className="flex flex-row sm:flex-col gap-2 h-[50px] sm:h-[185px] w-[320px] sm:w-[100px] border-2 border-blue rounded-lg sm:rounded-l-lg flex items-center justify-center">
-        <span className="text-blue text-3xl font-bold">알람</span>
-        <span className="text-blue text-3xl font-bold">설정</span>
+    <div className="flex flex-col justify-center gap-2 mb-4">
+      <div className="flex flex-row gap-2 h-[50px] sm:h-[65px] w-[320px] sm:w-[600px] border-2 border-blue rounded-lg sm:rounded-l-lg flex items-center justify-center">
+        <span className="text-blue text-3xl font-bold">알람 설정</span>
       </div>
-      <div className="h-full w-[320px] sm:w-[500px] bg-blue rounded-lg sm:rounded-r-lg mb-4 p-4 text-2xl">
-        <div className="grid grid-cols-2 gap-2">
-          {time.map((time, index) =>
-            <label key={time} htmlFor={`time-${index}`}>
-              <input
-                type="checkbox"
-                id={`time-${index}`}
-                className="mr-3"
-              />
-              {time}
-            </label>
-          )}
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row gap-3 items-center">
+          <TbTriangleInvertedFilled
+            onClick={() => setToggle(!toggle)}
+            size="25" className={`text-blue duration-300 ${toggle ? 'rotate-0' : '-rotate-90'}`}
+          />
+          <span className="text-darkblue text-2xl font-bold">약 알람 설정</span>
+        </div>
+        <div 
+          className={
+            `w-[320px] sm:w-[600px] bg-blue rounded-lg sm:rounded-r-lg p-4 text-2xl duration-300 transition-all
+            ${toggle ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'}`}
+        >
+          <div className={`grid grid-cols-2 gap-2 ${toggle ? 'block' : 'hidden'}`}>
+            {time.map((time, index) =>
+              <label key={time} htmlFor={`time-${index}`}>
+                <input
+                  type="checkbox"
+                  id={`time-${index}`}
+                  className="mr-3"
+                />
+                {time}
+              </label>
+            )}
+          </div>
         </div>
       </div>
     </div>

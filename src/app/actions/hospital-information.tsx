@@ -1,9 +1,13 @@
 'use server';
 
-export async function HospitalRegister(formData: any, token: string) {
+import { getAccessToken } from '../lib/auth/token';
+
+export async function HospitalRegister(formData: any) {
   if (!formData.content) {
     return {success: false, message: '모든 필드를 입력해주세요.'};
   }
+
+  const token = getAccessToken();
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/hospital`, {

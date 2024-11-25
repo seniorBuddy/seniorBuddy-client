@@ -7,6 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
 //import useTokenStore from '@/app/lib/store/useTokenStore';
 import { useMedicineStore } from '@/app/lib/store/useMedicineStore';
+import { TbTriangleInvertedFilled } from 'react-icons/tb';
 
 interface MedicineModalProps {
   onCancel: () => void;
@@ -42,6 +43,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   const [startDate, setStartDate] = useState<Date | null>(new Date());  // 시작 날짜
   const [showDateList, setShowDateList] = useState<boolean>(false);  // 달력
   const [selectedEndDate, setSelectedEndDate] = useState<string>();  // 종료 날짜
+  const [toggle, setToggle] = useState<boolean>(false);
   const [endDate] = useState([
     { id: 1, name: '3' },
     { id: 2, name: '5일' },
@@ -110,10 +112,10 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
       'day': selectedEndDate || '',
     };
 
-    console.log(formData);
-
     if (!onUpdate) {
-      const result = await addMedicine(formData);
+      console.log("초반 id : ", medicineId);
+      console.log("저장할 내용 : ", formData);
+      const result = await addMedicine(formData, onUpdate);
       onResult(result);
 
       if (result.success) {
@@ -121,7 +123,10 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
       }
     } else {
       const update = { ...formData, id: medicineId };
-      const result = await updateMedicine(update);
+      console.log("수정된 내용 : ", update);
+      console.log("현재 id : ", medicineId);
+      const result = await updateMedicine(update, onUpdate);
+      onResult(result);
 
       if (result.success) {
         onCancel();
@@ -158,44 +163,53 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
         </div>
         {/* 알람 설정 */}
         <div className="flex flex-row justify-center sm:justify-start w-full gap-1">
-          <span className="hidden sm:block sm:w-[60px] pt-2 flex items-center">알람</span>
-          <div className="flex flex-col sm:flex-col gap-2">
-            {/* 약 먹는 시간 선택 */}
-            <div className="flex flex-row gap-3 items-center text-2xl">
-              {time.map((timeLabel, index) =>
-                <label key={timeLabel} htmlFor={`time-${index}`}>
-                  <input
-                    type="checkbox"
-                    id={`time-${index}`}
-                    value={timeLabel}
-                    checked={checkedItems.includes(timeLabel)}
-                    className="flex flex-col mr-2"
-                    onChange={(e) => takingTime(e, timeLabel)}
-                  />
-                  {timeLabel}
-                </label>
-              )}
+          <span className="hidden sm:block sm:w-[60px] flex items-center">알람</span>
+          <div className="flex flex-col gap-2 px-2">
+            <div className="flex flex-row gap-3 items-center">
+              <TbTriangleInvertedFilled
+                onClick={() => setToggle(!toggle)}
+                size="20" className={`text-blue duration-300 ${toggle ? 'rotate-0' : '-rotate-90'}`}
+              />
+              <span className="text-darkblue text-2xl font-bold">약 알람 설정</span>
             </div>
-            {/* 식전 식후 선택 */}
-            <div className="flex flex-row gap-3">
-              <label>
-                <input
-                  type="radio"
-                  value="before"
-                  checked={chooseTime === 'before'}
-                  onChange={(e) => setChooseTime(e.target.value)}
-                />
-                <span className="ml-3">식전</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="after"
-                  checked={chooseTime === 'after'}
-                  onChange={(e) => setChooseTime(e.target.value)}
-                />
-                <span className="ml-3">식후</span>
-              </label>
+            {/* 약 먹는 시간 선택 */}
+            <div className={`duration-300 relative ${toggle ? 'max-h-full opacity-100 z-10' : 'max-h-0 opacity-0 z-0'}`}>
+              <div className="flex flex-row gap-2 items-center text-2xl">
+                {time.map((timeLabel, index) =>
+                  <label key={timeLabel} htmlFor={`time-${index}`}>
+                    <input
+                      type="checkbox"
+                      id={`time-${index}`}
+                      value={timeLabel}
+                      checked={checkedItems.includes(timeLabel)}
+                      className="flex flex-col mr-2"
+                      onChange={(e) => takingTime(e, timeLabel)}
+                    />
+                    {timeLabel}
+                  </label>
+                )}
+              </div>
+              {/* 식전 식후 선택 */}
+              <div className="flex flex-row gap-3">
+                <label>
+                  <input
+                    type="radio"
+                    value="before"
+                    checked={chooseTime === 'before'}
+                    onChange={(e) => setChooseTime(e.target.value)}
+                  />
+                  <span className="ml-3">식전</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    value="after"
+                    checked={chooseTime === 'after'}
+                    onChange={(e) => setChooseTime(e.target.value)}
+                  />
+                  <span className="ml-3">식후</span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -233,7 +247,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                   ${isOn ? '' : 'bg-gray-200 text-gray-600 opacity-50'}`}
                   onClick={isOn ? () => setShowDateList(!showDateList) : undefined}
               >
-                <div className="flex flex-row w-[130px] gap-2 justify-center items-center border border-gray-600 px-2 cursor-pointer">
+                <div className="flex flex-row w-[130px] gap-2 justify-center items-center border border-gray-600 cursor-pointer">
                   <span>{selectedEndDate ? selectedEndDate : '기간 선택'}</span>
                 </div>
                 {/* 종료 기간 리스트 */}
