@@ -5,6 +5,8 @@ import useRecordVoice from '@/app/hooks/useRecordVoice';
 import { getMessage, sendMessage } from '@/app/actions/assistant';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+import Toaster from "@/app/utils/toast";
+import { getRefreshToken } from "@/app/lib/auth/token";
 
 
 export default function AssistantChat() {
@@ -18,7 +20,7 @@ export default function AssistantChat() {
     }, [message])
     
 
-    const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
+    const { listening, transcript, onRecord, setTranscript, onRead } = useRecordVoice();
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
     const [content, setContent] = useState('');
 
@@ -41,17 +43,20 @@ export default function AssistantChat() {
         const res = await getMessage();
 
         if(!res.success) {
-            toast.error(res.message, {
+            toast.success(res.message, {
                 autoClose: 2000,
                 icon: <span>❌</span>,
             });
         }
+
         setAiMessage(res.content);
+        onRead(res.content);
     }
 
     const setMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // 폼 기본 동작 방지
 
+        
         const formData = new FormData(e.currentTarget);
         const content = formData.get('content') as string;
 
@@ -68,18 +73,21 @@ export default function AssistantChat() {
 
     }
 
-    const sendMessageHandler = async (formData: FormData) => {
 
+
+    const sendMessageHandler = async (formData: FormData) => {
         const res = await sendMessage(formData);
+
         if(!res.success) {
-            toast.error(res.message, {
-                autoClose: 2000,
-                icon: <span>❌</span>,
-            });
-        } else {
-            getMessageHandler();
-        } 
+            if (res.status === 401) {
+                console.log("토큰 만료 후 재요청")
+                sendMessageHandler(formData);
+              }
+        }
+        // POST 후 메시지 GET
+        getMessageHandler();
     }
+    
 
     const onChangeInput = (e: { target: { value: any; }; }) => {
         setTranscript(e.target.value);
@@ -89,6 +97,7 @@ export default function AssistantChat() {
 
 return (
     <>
+    <Toaster />
     <div className='flex flex-col gap-4 min-w-full'>
     { /* Ai Message */}
     <div className="bg-slate-50/30 text-lg w-full rounded-2xl px-5 py-3">

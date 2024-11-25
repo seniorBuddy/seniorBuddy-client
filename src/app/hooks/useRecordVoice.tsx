@@ -4,6 +4,19 @@ const useRecordVoice = () => {
     const [listening, setListening] = useState(false);
     const [transcript, setTranscript] = useState('');
 
+    // const onRead = (text: string) => {
+    //     if('speechSynthesis' in window) {
+    //         const utterance = new SpeechSynthesisUtterance(text);
+    //         utterance.lang = 'Ko-KR'
+    //         utterance.rate = 1;
+    //         utterance.pitch = 1;
+    //         speechSynthesis.speak(utterance);
+    //     } else {
+    //         alert('이 브라우저는 음성을 지원하지 않습니다')
+    //     }
+
+    // }
+
     const onRecord = () => {
         // 브라우저의 SpeechRecognition API 사용 설정
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -26,7 +39,7 @@ const useRecordVoice = () => {
         };
     };
 
-    return { listening, transcript, onRecord, setTranscript };
+    return { listening, transcript, onRecord, setTranscript, onRead };
 };
 
 export default useRecordVoice;

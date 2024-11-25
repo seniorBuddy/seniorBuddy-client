@@ -29,11 +29,6 @@ export function getAccessToken() {
     return cookieStore.get('access_token')?.value || null
 }
 
-// export function getRefreshToken() {
-//     const cookieStore = cookies();
-//     return cookieStore.get('refresh_token')?.value || null
-// }
-
 
 export function removeToken() {
     const cookieStore = cookies();
@@ -58,27 +53,28 @@ export function removeToken() {
 
 export async function getRefreshToken() {
     const tokeStore = cookies();
-    const token = tokeStore.get('refresh_token')?.value
+    const refresh_token = tokeStore.get('refresh_token')?.value as string
+    const access_token = tokeStore.get('access_token')?.value as string
 
-    console.log("refresh 토큰:", token);
-
+    // 새 토큰 요청
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/auth/refresh`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'access-token': access_token,
+                'refresh-token': refresh_token
             },
-            credentials: 'include',
-          });
-
+            credentials: 'same-origin',
+        })
+        
           if(!res.ok) {
-              throw new Error(res.statusText);
+              console.log(res.statusText);
           }
+
           const resData = await res.json();
-          console.log('새 토큰', resData);
 
-
+        // 토큰 재설정
           setTokens({
             access_token: resData.access_token,
             refresh_token: resData.refresh_token
