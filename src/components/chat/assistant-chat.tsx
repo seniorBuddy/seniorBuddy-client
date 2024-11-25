@@ -6,7 +6,6 @@ import { getMessage, sendMessage } from '@/app/actions/assistant';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import Toaster from "@/app/utils/toast";
-import { getRefreshToken } from "@/app/lib/auth/token";
 
 
 export default function AssistantChat() {
@@ -20,7 +19,7 @@ export default function AssistantChat() {
     }, [message])
     
 
-    const { listening, transcript, onRecord, setTranscript, onRead } = useRecordVoice();
+    const { listening, transcript, onRecord, setTranscript, onReadMessage } = useRecordVoice();
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
     const [content, setContent] = useState('');
 
@@ -49,8 +48,10 @@ export default function AssistantChat() {
             });
         }
 
+        // 메시지 설정
         setAiMessage(res.content);
-        onRead(res.content);
+        // 메시지 읽어 주기
+        onReadMessage(res.content);
     }
 
     const setMessage = async (e: React.FormEvent<HTMLFormElement>) => {
