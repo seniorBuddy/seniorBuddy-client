@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { IoMdMail } from "react-icons/io";
 import { FaPhone } from "react-icons/fa";
 import EmailAuto from './emailAuto';
@@ -14,12 +14,28 @@ export default function LoginForm() {
     const [changeToggle, setChangeToggle] = useState(false);
     const { fetchUser } = useUserStore();
     const router = useRouter();
+    const [fcmToken, setFcmToken] = useState<string | null>(null);
 
     const onChangeToggle = () => {
         setChangeToggle(!changeToggle);
     }
+    
+    useEffect(() => {
+        // 쿠키에서 fcm_token 가져오기
+        const cookies = document.cookie.split('; ');
+        const fcmTokenCookie = cookies.find(row => row.startsWith('fcm_token='));
+        if (fcmTokenCookie) {
+            const tokenValue = fcmTokenCookie.split('=')[1];
+            setFcmToken(decodeURIComponent(tokenValue));
+        }
+    }, []);
 
     const handleSubmit = async (formData: FormData) => {
+        // fcm_token을 FormData에 추가
+        if (fcmToken) {
+            formData.append('fcm_token', fcmToken); // FCM 토큰 추가
+        }
+
         const result = await login(formData);
 
         if (result.success && result.redirectTo) {
@@ -61,6 +77,7 @@ return (
             />
         </div>
             
+
            
     <div className='pt-3 flex flex-col gap-3 items-center justify-center'>
         {/* 로그인 버튼 */}
