@@ -5,6 +5,7 @@ import useRecordVoice from '@/app/hooks/useRecordVoice';
 import { getMessage, sendMessage } from '@/app/actions/assistant';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
+import Toaster from "@/app/utils/toast";
 
 
 export default function AssistantChat() {
@@ -18,7 +19,7 @@ export default function AssistantChat() {
     }, [message])
     
 
-    const { listening, transcript, onRecord, setTranscript } = useRecordVoice();
+    const { listening, transcript, onRecord, setTranscript, onReadMessage } = useRecordVoice();
     const [aiMessage, setAiMessage] = useState('물어보세요, 어르신! 무엇이 궁금하신가요?');
     const [content, setContent] = useState('');
 
@@ -41,17 +42,22 @@ export default function AssistantChat() {
         const res = await getMessage();
 
         if(!res.success) {
-            toast.error(res.message, {
+            toast.success(res.message, {
                 autoClose: 2000,
                 icon: <span>❌</span>,
             });
         }
+
+        // 메시지 설정
         setAiMessage(res.content);
+        // 메시지 읽어 주기
+        onReadMessage(res.content);
     }
 
     const setMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault(); // 폼 기본 동작 방지
 
+        
         const formData = new FormData(e.currentTarget);
         const content = formData.get('content') as string;
 
@@ -61,25 +67,28 @@ export default function AssistantChat() {
         }
 
         setContent(content);
+        setAiMessage('메시지 생성 중...')
         setTranscript('');
-
+        
         await sendMessageHandler(formData);
 
     }
 
-    const sendMessageHandler = async (formData: FormData) => {
-        setAiMessage('...')
 
+
+    const sendMessageHandler = async (formData: FormData) => {
         const res = await sendMessage(formData);
+
         if(!res.success) {
-            toast.error(res.message, {
-                autoClose: 2000,
-                icon: <span>❌</span>,
-            });
-        } else {
-            getMessageHandler();
-        } 
+            if (res.status === 401) {
+                console.log("토큰 만료 후 재요청")
+                sendMessageHandler(formData);
+              }
+        }
+        // POST 후 메시지 GET
+        getMessageHandler();
     }
+    
 
     const onChangeInput = (e: { target: { value: any; }; }) => {
         setTranscript(e.target.value);
@@ -89,6 +98,7 @@ export default function AssistantChat() {
 
 return (
     <>
+    <Toaster />
     <div className='flex flex-col gap-4 min-w-full'>
     { /* Ai Message */}
     <div className="bg-slate-50/30 text-lg w-full rounded-2xl px-5 py-3">
@@ -132,48 +142,5 @@ return (
         </div>
     </div>
     </>
-//     } else {
-//     return (
-//     <>
-//     { /* Ai Message */}
-//     <div className='flex w-full'>
-//         <div className='bg-slate-100 text-darkblue text-sm rounded-lg px-4 py-2'>
-//                 {aiMessage}
-//         </div>
-//     </div>
-   
-//    {content !== '' && (
-//     <div className='flex w-full justify-end'>
-//         <div className='bg-slate-100 text-darkblue text-sm rounded-lg px-4 py-2'>
-//             {content}
-//     </div>
-//     </div>
-//    )}
-
-//     {/* 사용자 영역 */}
-//         <div className='flex items-center justify-end w-full '>
-//         {/* 음성 인식 시작을 위한 핸들러 */}
-//         <button 
-//             className="cursor-pointer pr-1 sm:pr-2 transition-transform duration-200 hover:text-darkblue" 
-//             onClick={onRecord}
-//             >
-//         <MdKeyboardVoice className="w-7 h-7 text-darkblue hover:text-white"/>
-//         </button>
-//         <form onSubmit={setMessage} className='flex gap-2'>
-//             <input
-//                 value={transcript}
-//                 onChange={onChangeInput}
-//                 placeholder={listening ? "..." : transcript ? transcript : '메시지를 입력하세요'}
-//                 name='content'
-//                 className='bg-darkblue text-white text-sm rounded-full px-7 py-2 max-w-72' />
-//             <button 
-//                 className='bg-white text-blue font-bold px-3 rounded-md' 
-//                 type='submit'>
-//                 <IoSend className='size-4 text-darkblue'/>
-//             </button>
-//         </form>
-//         </div>
-//     </>
-//     );}
     )
 }

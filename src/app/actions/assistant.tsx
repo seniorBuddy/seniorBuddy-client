@@ -1,13 +1,9 @@
 'use server';
-
 import { getAccessToken, getRefreshToken } from "../lib/auth/token";
 
 export async function sendMessage(formData: FormData) {
     const content = formData.get('content') as string;
     const token = getAccessToken();
-    
-    console.log("ai chat:POST 실행")
-
 
     if(!content) {
         return { success: false, message: '음성을 다시 시도하세요'}
@@ -26,16 +22,16 @@ export async function sendMessage(formData: FormData) {
 
         const resData = await res.json();
 
-        if(!res.ok) {
-            return { success: false, message: resData.detail || '메시지 전송 실패' };
-        }
-
         if (res.status === 401) {
-            console.log("토큰 만료");
             const newToken = await getRefreshToken();
-            await sendMessage(newToken);
+            console.log(newToken, '만료된 토큰 처리 후 새 토큰 생성 완료');
           }
-          console.log("ai chat:POST 완료", res)
+      
+        if(!res.ok) {
+            return { success: false, message: resData.detail || '메시지 전송 실패', status: res.status};
+        }
+        
+        console.log("ai chat:POST 완료")
 
         return {
             success: true, 
@@ -50,7 +46,6 @@ export async function getMessage() {
     const token = getAccessToken();
     console.log("ai chat:GET 실행")
 
-    // 토큰 확인
     try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/assistant/messages/latest`, {
             method: 'GET',
@@ -61,11 +56,6 @@ export async function getMessage() {
             credentials: 'same-origin',
         })
 
-        if (res.status === 401) {
-            console.log("토큰 만료");
-            await getRefreshToken();
-            await getMessage();
-          }
           console.log("ai chat:GET 완료")
 
         

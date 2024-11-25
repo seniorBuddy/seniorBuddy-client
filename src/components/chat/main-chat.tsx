@@ -43,7 +43,6 @@ export default function AiChatInput () {
         ))}
     </div>
         <div className="px-1 py-1.5 border-2 bg-gray-100 dark:bg-gray-700 text-gray-400 border-gray-300 dark:border-gray-600 rounded-md flex items-center">
-        <MdKeyboardVoice className="w-5 h-5"/>
           <div className="relative flex-1 text-md px-3">
             <input 
                 value={text}

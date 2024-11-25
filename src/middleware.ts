@@ -5,9 +5,19 @@ export function middleware(request: NextRequest) {
   // 쿠키에서 'access-token' 확인
   const token = request.cookies.get('access_token')?.value;
 
-  // 토큰이 없으면 로그인 페이지로 리다이렉트
+  const url = new URL(request.url);
+  const fcmToken = url.searchParams.get('token');
+
+  // 엑세스 토큰이 없으면 로그인 페이지로 리다이렉트
   if (!token) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    const redirectUrl = new URL("/auth/login", request.url);
+    const response = NextResponse.redirect(redirectUrl);
+
+    // fcmToken이 있을 경우 쿠키에 저장
+    if (fcmToken) {
+      response.cookies.set('fcm_token', fcmToken, { httpOnly: false }); // fcm_token을 쿠키에 저장
+    }
+    return response;
   }
 
   // 토큰이 있으면 요청을 그대로 통과시킴
