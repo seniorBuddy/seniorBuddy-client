@@ -42,6 +42,10 @@ const config: Config = {
       fontFamily: {
         pretendard: ["var(--font-pretendard)"],
       },
+      animation: {
+        slideDown: 'slideDown 0.5s ease-in-out',
+        slideUp: 'slideUp 0.5s ease-in-out',
+      },
     },
   },
   plugins: [],

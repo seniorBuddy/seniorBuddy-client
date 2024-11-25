@@ -38,6 +38,15 @@ export interface UserStore {
     fetchUser: (token: string) => Promise<void>;
 }
 
+export interface MedicineInfo {
+  id: number | null;
+  content: string;
+  additional_info: string;
+  frequency: string[];
+  start_date: string;
+  day: string;
+}
+
 type Mode = 'normal' | 'simple'
 
 export interface ModeStore {
