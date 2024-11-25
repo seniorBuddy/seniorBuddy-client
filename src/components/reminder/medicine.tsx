@@ -14,7 +14,7 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   const [updateMedicine, setUpdateMedicine] = useState<boolean>(false);  // 수정 버튼 선택 유무
   const [medicineId, setMedicineId] = useState<number | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(true);
 
   const medicines = useMedicineStore((state) => state.medicines);
 
@@ -63,9 +63,10 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
     <>
     {/* 약 알람 설정 */}
     <div className="flex flex-col justify-center gap-2 mb-4">
+      {/*
       <div className="flex flex-row gap-2 h-[50px] sm:h-[65px] w-[320px] sm:w-[600px] border-2 border-blue rounded-lg sm:rounded-l-lg flex items-center justify-center">
         <span className="text-blue text-3xl font-bold">알람 설정</span>
-      </div>
+      </div> */}
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-3 items-center">
           <TbTriangleInvertedFilled
@@ -76,10 +77,11 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
         </div>
         <div 
           className={
-            `w-[320px] sm:w-[600px] bg-blue rounded-lg sm:rounded-r-lg p-4 text-2xl duration-300 transition-all
-            ${toggle ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'}`}
+            `w-[320px] sm:w-[600px] bg-blue rounded-lg p-4 text-2xl duration-300 transition-all
+            ${toggle ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'}`
+          }
         >
-          <div className={`grid grid-cols-2 gap-2 ${toggle ? 'block' : 'hidden'}`}>
+          <div className="grid grid-cols-2 gap-2">
             {time.map((time, index) =>
               <label key={time} htmlFor={`time-${index}`}>
                 <input

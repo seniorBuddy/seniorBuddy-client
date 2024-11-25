@@ -16,6 +16,8 @@ interface MedicineModalProps {
   onResult: (result: {success: boolean, message: string}) => void;
 }
 
+
+
 export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult }: MedicineModalProps) {
   const [name, setName] = useState<string>('');  // 약 이름
   const [other, setOther] = useState<string>('');  // 기타 사항
@@ -39,11 +41,10 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   const [checkedItems, setCheckedItems] = useState<string[]>([]);  // 복용 시간 체크리스트
   const [chooseTime, setChooseTime] = useState<string>('before');  // 식전, 식후
   const [isOn, setIsOn] = useState<boolean>(false);  // 종료 시간 유무
-  const [updateFrequency, setUpdateFrequency] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<Date | null>(new Date());  // 시작 날짜
   const [showDateList, setShowDateList] = useState<boolean>(false);  // 달력
   const [selectedEndDate, setSelectedEndDate] = useState<string>();  // 종료 날짜
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(true);
   const [endDate] = useState([
     { id: 1, name: '3' },
     { id: 2, name: '5일' },
@@ -78,20 +79,26 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   }
 
   const takingTime = (e: React.ChangeEvent<HTMLInputElement>, timeLabel: string) => {
+    const times = `${timeLabel}${chooseTime === 'before' ? '식전' : '식후'}`;
     if (e.target.checked) {
       // 체크 항목 추가
-      setCheckedItems([...checkedItems, timeLabel]);
+      setCheckedItems([...checkedItems, times]);
     } else {
       // 체크 해제 항목 제거
-      setCheckedItems(checkedItems.filter(item => item !== timeLabel));
+      setCheckedItems(checkedItems.filter(item => item !== times));
     }
-
-    frequency(checkedItems, chooseTime);
   }
 
-  const frequency = (times: string[], time: string) => {
-    setUpdateFrequency([...times, time].filter(Boolean));
-  }
+  const handleChooseTime = (time: string) => {
+    setChooseTime(time);
+
+    setCheckedItems(prev =>
+      prev.map(item => {
+        const bsseTime = item.replace(/식전|식후/, '');
+        return `{baseTime}${time === 'before' ? '식전' : '식후'}`;
+      })
+    );
+  };
 
   /* 종료 날짜 선택 */
   const handleChooseEndDate = (endDate: string) => {
@@ -102,7 +109,8 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   }
 
   // 정보 전달
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     const formData = {
       'content': name,
       'additional_info': other || '',
@@ -181,7 +189,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                       type="checkbox"
                       id={`time-${index}`}
                       value={timeLabel}
-                      checked={checkedItems.includes(timeLabel)}
+                      checked={checkedItems.includes(`${timeLabel}${chooseTime === 'before' ? '식전' : '식후'}`)}
                       className="flex flex-col mr-2"
                       onChange={(e) => takingTime(e, timeLabel)}
                     />
@@ -196,7 +204,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                     type="radio"
                     value="before"
                     checked={chooseTime === 'before'}
-                    onChange={(e) => setChooseTime(e.target.value)}
+                    onChange={() => handleChooseTime('before')}
                   />
                   <span className="ml-3">식전</span>
                 </label>
@@ -205,7 +213,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                     type="radio"
                     value="after"
                     checked={chooseTime === 'after'}
-                    onChange={(e) => setChooseTime(e.target.value)}
+                    onChange={() => handleChooseTime('after')}
                   />
                   <span className="ml-3">식후</span>
                 </label>
