@@ -1,13 +1,13 @@
 'use server';
 
-import { getAccessToken } from '../lib/auth/token';
+import { getAccessToken, getRefreshToken } from '../lib/auth/token';
 
 export async function MedicineRegister(formData: any, onUpdate: boolean) {  
   if (!formData.content || formData.frequency.length < 0) {
     return {success: false, message: '모든 필드를 입력해주세요.'};
   }
 
-  const token = getAccessToken();
+  let token = getAccessToken();
   
   try {
     console.log("api 전송 id : ", formData.id);
@@ -17,7 +17,7 @@ export async function MedicineRegister(formData: any, onUpdate: boolean) {
 
     const methods = onUpdate ? 'PUT' : 'POST';
 
-    const res = await fetch(url, {
+    let res = await fetch(url, {
       method: methods,
       headers: {
         'Content-Type': 'application/json',
@@ -26,6 +26,27 @@ export async function MedicineRegister(formData: any, onUpdate: boolean) {
       body: JSON.stringify(formData),
       credentials: 'include',
     });
+
+    if (res.status === 401) {
+      console.log("토큰 만료");
+      const newToken = await getRefreshToken();
+
+      if (newToken) {
+        token = newToken;
+
+        res = await fetch(url, {
+          method: methods,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(formData),
+          credentials: 'include',
+        });
+      } else {
+        console.log("토큰 요청 실패");
+      }
+    }
 
     const resData = await res.json();
     console.log("실패 테스트 : ", resData);
