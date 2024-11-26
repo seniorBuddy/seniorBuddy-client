@@ -1,14 +1,18 @@
 import { create } from 'zustand';
 import { MedicineInfo } from '@/types';
-import { MedicineRegister } from '@/app/actions/medicine-information';
+import { MedicineRegister, getMedicine } from '@/app/actions/medicine-information';
 
 interface medicineListState {
   medicines: MedicineInfo[];  // 약 정보 배열
   result: {success: boolean, message: string} | null;  // API 요청 결과
-  addMedicine: (newMedicine: Omit<MedicineInfo, 'id'>, onUpdate: boolean) =>
+
+  addMedicine: (newMedicine: MedicineInfo, onUpdate: boolean) =>
     Promise<{ success: boolean; message: string }>;  // 약 추가 메서드
+
   updateMedicine: (updateMedicine: MedicineInfo, onUpdate: boolean) =>
     Promise<{ success: boolean; message: string }>;
+
+  fetchMedicine: () => Promise<void>;
 }
 
 export const useMedicineStore = create<medicineListState>((set) => ({
@@ -16,20 +20,23 @@ export const useMedicineStore = create<medicineListState>((set) => ({
   result: null,
 
   addMedicine: async (newMedicine, onUpdate) => {
-    const medicineId = { id: Date.now(), ...newMedicine };  // 새로운 약 정보에 고유 id 추가
+    const newMedicines = { ...newMedicine };  // 새로운 약 정보 추가
     try {
-      const results = await MedicineRegister(medicineId, onUpdate);  // 서버에 약 정보 저장
+      const results = await MedicineRegister(newMedicines, onUpdate);  // 서버에 약 정보 저장
       set({result: results});
+
       if (results.success) {
         set((state) => ({
-          medicines: [...state.medicines, medicineId],
+          medicines: [...state.medicines, newMedicines],
         }));
+
         console.log("API 저장 성공");
-        console.log("생성된 id : ", medicineId.id);
+        
       } else {
         console.error("API 저장 실패");
       }
       return(results);
+      
     } catch (error) {
       console.error("API 저장 중 에러 발생");
       return { success: false, message: "저장 중 오류 발생" };
@@ -43,16 +50,49 @@ export const useMedicineStore = create<medicineListState>((set) => ({
       if (results.success) {
         set((state) => ({
           medicines: state.medicines.map((medicine) =>
-            medicine.id === updateMedicine.id ? updateMedicine : medicine
+            medicine.reminder_id === updateMedicine.reminder_id ? updateMedicine : medicine
           ),
         }));
       }
       console.log("업데이트할 내용 : ", updateMedicine);
-      console.log("저장 되어 있는 id : ", updateMedicine.id);
+
       return(results);
     } catch (error) {
       console.error("API 수정 중 에러 발생");
       return { success: false, message: "수정 중 오류 발생" };
+    }
+  },
+
+  fetchMedicine: async () => {
+    try {
+      const response = await getMedicine();
+      console.log("api 응답 : ", response);
+
+      if (response.success) {
+        set((state) => {
+          const updateMedicines = state.medicines.map((medicine: MedicineInfo) => {
+            const reminderId = response.message.find(
+              (apiMedicine: MedicineInfo) => apiMedicine.content === medicine.content
+            );
+
+            if (reminderId && !medicine.reminder_id) {
+              return { ...medicine, reminder_id: reminderId.reminder_id };
+            }
+
+            return medicine;
+          });
+
+          console.log("업데이트된 정보 : ", updateMedicines);
+          return({ medicines: updateMedicines });
+        })
+
+        console.log("정보 받아오기 성공");
+        
+      } else {
+        console.error("정보 받아오기 실패");
+      }
+    } catch (error) {
+      console.error("정보 받아오기 오류");
     }
   },
 }));

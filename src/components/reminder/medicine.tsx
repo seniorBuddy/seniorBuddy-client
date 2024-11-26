@@ -1,6 +1,6 @@
 import RegisterModal from './modal/reminder-modal';
 import { FaPlusCircle } from "react-icons/fa";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Toaster, toast } from '@/app/utils/toast';
 import { useMedicineStore } from '@/app/lib/store/useMedicineStore';
 import { TbTriangleInvertedFilled } from 'react-icons/tb';
@@ -17,6 +17,14 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   const [toggle, setToggle] = useState<boolean>(true);
 
   const medicines = useMedicineStore((state) => state.medicines);
+  const fetchMedicine = useMedicineStore((state) => state.fetchMedicine);
+
+  useEffect(() => {
+    if (!addMedicine || !updateMedicine) {
+      fetchMedicine();
+    }
+    console.log("가져오는 약 정보 테스트 : ", medicines);
+  }, [setAddmedicine, setUpdateMedicine]);
 
   const time = ['기상', '취침전', '아침 식전', '아침 식후', '점심 식전', '점심 식후', '저녁 식전', '저녁 식후'];
 
@@ -101,11 +109,11 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
     <div className="bg-blue h-full w-[320px] sm:w-[600px] rounded-lg">
       <div className="flex flex-col gap-2 p-[15px]">
         {/* 새로 등록된 약 정보 */}
-        {medicines.map((medicine) => (
+        {medicines.map((medicine, index) => (
           <div 
-            key={medicine.id}
+            key={index}
             className="relative w-full bg-white rounded-lg flex flex-row text-black py-2"
-            onMouseEnter={() => handleMouseEnter(medicine.id)}
+            onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
           >
             <div className="flex flex-row justify-between w-full gap-3 mx-4 font-bold text-2xl sm:text-3xl">
@@ -134,11 +142,11 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
               </div>
             </div>
             {/* 수정/삭제 버튼 */}
-            {hoveredIndex === medicine.id && (
+            {hoveredIndex === index && (
               <div className="flex gap-[60px] absolute inset-0 items-center justify-center text-2xl">
                 <button
                   onClick={() => {
-                    setMedicineId(medicine.id);  // 선택 약 정보 id
+                    setMedicineId(medicine.reminder_id);  // 선택 약 정보 id
                     setAddmedicine(true);  // 모달 열기
                     setUpdateMedicine(true);
                   }}

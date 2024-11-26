@@ -10,9 +10,9 @@ export async function MedicineRegister(formData: any, onUpdate: boolean) {
   let token = getAccessToken();
   
   try {
-    console.log("api 전송 id : ", formData.id);
+    console.log("api 전송 id : ", formData.reminder_id);
     const url = onUpdate ?
-      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication/${formData.id}` :
+      `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication/${formData.reminder_id}` :
       `${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication`;
 
     const methods = onUpdate ? 'PUT' : 'POST';
@@ -58,5 +58,32 @@ export async function MedicineRegister(formData: any, onUpdate: boolean) {
     }
   } catch (error) {
     return { success: false, message: '오류가 발생했습니다.' };
+  }
+}
+
+export async function getMedicine() {
+  const token = getAccessToken();
+  console.log("GET으로 약 정보 받아오기");
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+    })
+    console.log("GET 완료");
+    const getData = await res.json();
+    console.log("가져온 정보 : ", getData);
+
+    if(!res.ok) {
+      return { success: false, message: "정보 불러오기 실패"};
+    }
+    
+    return {success: true, message: getData};
+  } catch(error) {
+    return { success: false, message: "GET: 서버 오류 발생"};
   }
 }
