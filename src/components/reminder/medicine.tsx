@@ -20,11 +20,11 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
   const fetchMedicine = useMedicineStore((state) => state.fetchMedicine);
 
   useEffect(() => {
-    if (!addMedicine || !updateMedicine) {
+    if (!addMedicine && !updateMedicine) {
       fetchMedicine();
     }
     console.log("가져오는 약 정보 테스트 : ", medicines);
-  }, [setAddmedicine, setUpdateMedicine]);
+  }, [addMedicine, updateMedicine]);
 
   const time = ['기상', '취침전', '아침 식전', '아침 식후', '점심 식전', '점심 식후', '저녁 식전', '저녁 식후'];
 

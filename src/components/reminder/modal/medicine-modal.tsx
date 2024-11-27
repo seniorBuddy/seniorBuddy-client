@@ -7,7 +7,6 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
 import { useMedicineStore } from '@/app/lib/store/useMedicineStore';
 import { TbTriangleInvertedFilled } from 'react-icons/tb';
-import { MedicineRegister } from '@/app/actions/medicine-information';
 
 interface MedicineModalProps {
   onCancel: () => void;
@@ -16,21 +15,9 @@ interface MedicineModalProps {
   onResult: (result: {success: boolean, message: string}) => void;
 }
 
-
-
 export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult }: MedicineModalProps) {
   const [name, setName] = useState<string>('');  // 약 이름
   const [other, setOther] = useState<string>('');  // 기타 사항
-  // const time  = [
-  //   "기상",
-  //   "아침식전",
-  //   "아침식후",
-  //   "점심식전",
-  //   "점심식후",
-  //   "저녁식전",
-  //   "저녁식후",
-  //   "취침전"
-  // ];
   const time  = [
     "기상",
     "아침",
@@ -122,7 +109,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
       'frequency': checkedItems,
       'start_date': startDate?.toISOString().split('T')[0] || '',
       'day': selectedEndDate || '',
-      'reminder_id': medicineId,
+      'reminder_id': medicineId, undefined,
     };
 
     if (!onUpdate) {

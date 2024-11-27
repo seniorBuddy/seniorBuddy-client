@@ -79,11 +79,11 @@ export async function getMedicine() {
     console.log("가져온 정보 : ", getData);
 
     if(!res.ok) {
-      return { success: false, message: "정보 불러오기 실패"};
+      return { success: false, message: "정보 불러오기 실패" };
     }
     
-    return {success: true, message: getData};
+    return { success: true, message: getData };
   } catch(error) {
-    return { success: false, message: "GET: 서버 오류 발생"};
+    return { success: false, message: "GET: 서버 오류 발생" };
   }
 }
