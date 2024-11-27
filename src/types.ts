@@ -47,6 +47,13 @@ export interface MedicineInfo {
   reminder_id?: number;
 }
 
+export interface HospitalInfo {
+  content: string;
+  additional_info: string;
+  start_date_time: string;
+  reminder_id?: number;
+}
+
 type Mode = 'normal' | 'simple'
 
 export interface ModeStore {

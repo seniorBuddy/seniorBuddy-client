@@ -1,50 +1,74 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CiCalendar } from 'react-icons/ci';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { ko } from 'date-fns/locale';
-import { HospitalRegister } from '@/app/actions/hospital-information';
-//import useTokenStore from '@/app/lib/store/useTokenStore';
 import { format } from 'date-fns';
-
-interface Hospital {
-  content: string;  // 병원 이름
-  additional_info: string;  // 기타 사항
-  start_date: string;  // 예약 일정
-}
+import { useHospitalStore } from '@/app/lib/store/useHospitalStore';
 
 interface HospitalModalProps {
   onCancel: () => void;
+  onUpdate: boolean;
+  hospitalId: number | null;
   onResult: (result: {success: boolean, message: string}) => void;
-  onRegister: (newHospital: Hospital) => void;
 }
 
-export default function HospitalModal({ onCancel, onResult, onRegister }: HospitalModalProps) {
+export default function HospitalModal({ onCancel, onUpdate, hospitalId, onResult }: HospitalModalProps) {
   const [name, setName] = useState<string>('');  // 병원 이름
   const [other, setOther] = useState<string>('');  // 기타 정보
   const [reservationDate, setReservationDate] = useState<Date | null>(new Date());  // 예약 날짜
 
   //const token = useTokenStore((state) => state.token) as string;
 
+  const addHospital = useHospitalStore((state) => state.addHospital);
+  const updateHospital = useHospitalStore((state) => state.updateHospital);
+  const getHospital = useHospitalStore((state) => state.hospitals.find((hospital) => hospital.reminder_id === hospitalId));
+
+  useEffect(() => {
+    if (onUpdate && getHospital) {
+      const parseDate = new Date(getHospital.start_date_time);
+      setName(getHospital.content);
+      setOther(getHospital.additional_info);
+      setReservationDate(parseDate);
+    }
+  }, [onUpdate, getHospital]);
+
   // 정보 전달
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!hospitalId && onUpdate) {
+      onResult({ success: false, message: "병원 정보가 없습니다." });
+      return;
+    }
+
     const formData = {
       'content': name,
       'additional_info': other,
-      'start_date': reservationDate ? format(reservationDate, 'yyyy-MM-dd HH:mm:00') : '',
+      'start_date_time': reservationDate ? format(reservationDate, 'yyyy-MM-dd HH:mm:00') : '',
+      'reminder_id': hospitalId, undefined,
     };
 
-    console.log(formData);
+    if (!onUpdate) {
+      console.log("저장할 내용 : ", formData);
+      const result = await addHospital(formData, onUpdate);
+      onResult(result);
 
-    const result = await HospitalRegister(formData);
-    console.log('Result from hospitalRegister:', result);
+      if (result.success) {
+        onCancel();
+      }
+    } else {
+      const update = { ...formData };
 
-    onResult(result);
-    if (result.success) {
-      onCancel();
-      onRegister(formData);
+      console.log("수정된 내용 : ", update);
+
+      const result = await updateHospital(update, onUpdate);
+      onResult(result);
+
+      if (result.success) {
+        onCancel();
+      }
     }
   }
 
@@ -55,22 +79,22 @@ export default function HospitalModal({ onCancel, onResult, onRegister }: Hospit
         <div className="flex flex-row items-center w-full gap-1">
           <span className="w-[60px]">이름</span>
           <input
+            onChange={(e) => setName(e.target.value)}
             type="text"
             placeholder="병원 이름 입력"
-            className="text-black"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            className="text-black"
           />
         </div>
         {/* 기타 사항 */}
         <div className="flex flex-row items-center w-full gap-1">
           <span className="w-[60px]">기타</span>
           <input
+            onChange={(e) => setOther(e.target.value)}
             type="text"
             placeholder="방문 목적"
-            className="text-black"
             value={other}
-            onChange={(e) => setOther(e.target.value)}
+            className="text-black"
           />
         </div>
         {/* 예약 일정 */}

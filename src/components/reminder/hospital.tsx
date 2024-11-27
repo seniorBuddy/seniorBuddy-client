@@ -1,13 +1,8 @@
 import RegisterModal from './modal/reminder-modal';
 import { FaPlusCircle } from "react-icons/fa";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Toaster, toast } from '@/app/utils/toast';
-
-interface Hospital {
-  content: string;  // 병원 이름
-  additional_info: string;  // 기타 사항
-  start_date: string;  // 예약 일정
-}
+import { useHospitalStore } from '@/app/lib/store/useHospitalStore';
 
 interface HospitalProps {
   chooseOne: string;
@@ -15,24 +10,42 @@ interface HospitalProps {
 
 export default function Hospital({ chooseOne }: HospitalProps) {
   const [addHospital, setAddHospital] = useState<boolean>(false);
-  const [hospitals, setHospitals] = useState<Hospital[]>([]);
+  const [updateHospital, setUpdateHospital] = useState<boolean>(false);
+  const [hospitalId, setHospitalId] = useState<number | null>(null);
+  //const [hospitals, setHospitals] = useState<Hospital[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
+  const hospitals = useHospitalStore((state) => state.hospitals);
+  const fetchHospital = useHospitalStore((state) => state.fetchHospital);
+
+  useEffect(() => {
+    if (!addHospital && !updateHospital) {
+      fetchHospital();
+    }
+    console.log("가져오는 병원 정보 리스트 : ", hospitals);
+  }, [addHospital, updateHospital]);
 
   // 모달 외부를 클릭 시 모달 종료
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setAddHospital(false);
+      setUpdateHospital(false);
     }
   }
 
-  // 새로운 병원 정보 등록
-  const handleRegister = (newData: Hospital) => {
-    setHospitals([...hospitals, newData]);
+  const handleCancel = () => {
     setAddHospital(false);
+    setUpdateHospital(false);
   }
 
+  // 새로운 병원 정보 등록
+  // const handleRegister = (newData: Hospital) => {
+  //   setHospitals([...hospitals, newData]);
+  //   setAddHospital(false);
+  // }
+
   // 수정, 삭제 버튼 나타내기
-  const handleMouseEnter = (index: number) => {
+  const handleMouseEnter = (index: number | null) => {
     setHoveredIndex(index);
   }
 
@@ -83,6 +96,11 @@ export default function Hospital({ chooseOne }: HospitalProps) {
                   className="flex gap-[60px] absolute inset-0 items-center justify-center text-2xl"
                 >
                   <button
+                  onClick={() => {
+                    setHospitalId(hospital.reminder_id);
+                    setAddHospital(true);
+                    setUpdateHospital(true);
+                  }}
                     className="h-[100px] w-[100px] bg-yellow-500 opacity-85 text-white px-2 py-1 rounded-2xl hover:bg-yellow-600"
                   >
                     수정
@@ -106,16 +124,18 @@ export default function Hospital({ chooseOne }: HospitalProps) {
           </div>
         </div>
       </div>
-      {addHospital === true && (
+      {addHospital && (
         <div
           onClick={handleClick}
           className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50"
         >
           <RegisterModal
             division={chooseOne}
-            onCancel={() => setAddHospital(false)}
-            onResult={handleResult}
-            onHospitalRegister={handleRegister} onUpdate={false} medicineId={0}          />
+            onCancel={handleCancel}
+            onUpdate={updateHospital}
+            hospitalId={hospitalId}
+            onResult={handleResult}       
+          />
         </div>
       )}
     <Toaster />

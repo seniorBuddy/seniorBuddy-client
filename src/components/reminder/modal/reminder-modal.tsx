@@ -11,20 +11,14 @@ interface RegisterModalProps {
   division: string;
   onCancel: () => void;
   onUpdate: boolean;
-  medicineId: number | null;
+  medicineId?: number | null;
+  hospitalId?: number | null;
   onResult: (result: {success: boolean, message: string}) => void;
-  onHospitalRegister?: (newData: Hospital) => void;
 }
 
 export default function ReminderModal(
-    { division, onCancel, onUpdate, medicineId, onResult, onHospitalRegister } : RegisterModalProps
+    { division, onCancel, onUpdate, medicineId, hospitalId, onResult } : RegisterModalProps
   ) {
-
-  const handleHospitalRegister = (newData: Hospital) => {
-    if (onHospitalRegister) {
-      onHospitalRegister(newData);
-    }
-  };
 
   return (
     <div>
@@ -36,7 +30,7 @@ export default function ReminderModal(
         <div className="flex justify-center">
           {division === 'medicine' ?
             <MedicineModal onCancel={onCancel} onUpdate={onUpdate} medicineId={medicineId} onResult={onResult} /> : 
-            <HospitalModal onCancel={onCancel} onResult={onResult} onRegister={handleHospitalRegister} />
+            <HospitalModal onCancel={onCancel} onUpdate={onUpdate} hospitalId={hospitalId} onResult={onResult} />
           }
         </div>
       </div>
