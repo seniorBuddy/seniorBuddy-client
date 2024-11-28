@@ -17,6 +17,7 @@ export default function Hospital({ chooseOne }: HospitalProps) {
 
   const hospitals = useHospitalStore((state) => state.hospitals);
   const fetchHospital = useHospitalStore((state) => state.fetchHospital);
+  const deleteHospital = useHospitalStore((state) => state.deleteHospital);
 
   useEffect(() => {
     if (!addHospital && !updateHospital) {
@@ -106,6 +107,7 @@ export default function Hospital({ chooseOne }: HospitalProps) {
                     수정
                   </button>
                   <button
+                    onClick={() => deleteHospital(hospital.reminder_id)}
                     className="h-[100px] w-[100px] bg-yellow-500 opacity-85 text-white px-2 py-1 rounded-2xl hover:bg-yellow-600"
                   >
                     삭제

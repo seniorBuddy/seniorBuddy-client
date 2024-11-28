@@ -18,6 +18,7 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
 
   const medicines = useMedicineStore((state) => state.medicines);
   const fetchMedicine = useMedicineStore((state) => state.fetchMedicine);
+  const deleteMedicine = useMedicineStore((state) => state.deleteMedicine);
 
   useEffect(() => {
     if (!addMedicine && !updateMedicine) {
@@ -155,6 +156,7 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
                   수정
                 </button>
                 <button
+                  onClick={() => deleteMedicine(medicine.reminder_id)}
                   className="h-[100px] w-[100px] bg-yellow-500 opacity-85 text-white px-2 py-1 rounded-2xl hover:bg-yellow-600"
                 >
                   삭제
