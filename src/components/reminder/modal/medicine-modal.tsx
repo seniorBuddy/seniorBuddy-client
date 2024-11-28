@@ -15,21 +15,9 @@ interface MedicineModalProps {
   onResult: (result: {success: boolean, message: string}) => void;
 }
 
-
-
 export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult }: MedicineModalProps) {
   const [name, setName] = useState<string>('');  // 약 이름
   const [other, setOther] = useState<string>('');  // 기타 사항
-  // const time  = [
-  //   "기상",
-  //   "아침식전",
-  //   "아침식후",
-  //   "점심식전",
-  //   "점심식후",
-  //   "저녁식전",
-  //   "저녁식후",
-  //   "취침전"
-  // ];
   const time  = [
     "기상",
     "아침",
@@ -42,7 +30,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   const [isOn, setIsOn] = useState<boolean>(false);  // 종료 시간 유무
   const [startDate, setStartDate] = useState<Date | null>(new Date());  // 시작 날짜
   const [showDateList, setShowDateList] = useState<boolean>(false);  // 달력
-  const [selectedEndDate, setSelectedEndDate] = useState<string>();  // 종료 날짜
+  const [selectedEndDate, setSelectedEndDate] = useState<string>('');  // 종료 날짜
   const [toggle, setToggle] = useState<boolean>(true);
   const [endDate] = useState([
     { id: 1, name: '3' },
@@ -59,7 +47,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   //const token = useTokenStore((state) => state.token) as string;
   const addMedicine = useMedicineStore((state) => state.addMedicine);
   const updateMedicine = useMedicineStore((state) => state.updateMedicine);
-  const getMedicine = useMedicineStore((state) => state.medicines.find((medicine) => medicine.id === medicineId));
+  const getMedicine = useMedicineStore((state) => state.medicines.find((medicine) => medicine.reminder_id === medicineId));
 
   useEffect(() => {
     if (onUpdate && getMedicine) {
@@ -93,8 +81,8 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
 
     setCheckedItems(prev =>
       prev.map(item => {
-        const bsseTime = item.replace(/식전|식후/, '');
-        return `{baseTime}${time === 'before' ? '식전' : '식후'}`;
+        const baseTime = item.replace(/식전|식후/, '');
+        return `${baseTime}${time === 'before' ? '식전' : '식후'}`;
       })
     );
   };
@@ -110,17 +98,21 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   // 정보 전달
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!medicineId && onUpdate) {
+      onResult({ success: false, message: "약 정보가 없습니다."});
+      return ;
+    }
+
     const formData = {
       'content': name,
       'additional_info': other || '',
       'frequency': checkedItems,
-      //'timing': chooseTime,
       'start_date': startDate?.toISOString().split('T')[0] || '',
       'day': selectedEndDate || '',
+      'reminder_id': medicineId, undefined,
     };
 
     if (!onUpdate) {
-      console.log("초반 id : ", medicineId);
       console.log("저장할 내용 : ", formData);
       const result = await addMedicine(formData, onUpdate);
       onResult(result);
@@ -129,16 +121,18 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
         onCancel();
       }
     } else {
-      const update = { ...formData, id: medicineId };
+      const update = { ...formData };
+
       console.log("수정된 내용 : ", update);
       console.log("현재 id : ", medicineId);
+
       const result = await updateMedicine(update, onUpdate);
       onResult(result);
 
       if (result.success) {
         onCancel();
       }
-    } 
+    }
   }
 
 
@@ -188,7 +182,6 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
                       type="checkbox"
                       id={`time-${index}`}
                       value={timeLabel}
-                      checked={checkedItems.includes(`${timeLabel}${chooseTime === 'before' ? '식전' : '식후'}`)}
                       className="flex flex-col mr-2"
                       onChange={(e) => takingTime(e, timeLabel)}
                     />

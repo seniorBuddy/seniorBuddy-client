@@ -39,12 +39,19 @@ export interface UserStore {
 }
 
 export interface MedicineInfo {
-  id: number | null;
   content: string;
   additional_info: string;
   frequency: string[];
   start_date: string;
   day: string;
+  reminder_id?: number;
+}
+
+export interface HospitalInfo {
+  content: string;
+  additional_info: string;
+  start_date_time: string;
+  reminder_id?: number;
 }
 
 type Mode = 'normal' | 'simple'
