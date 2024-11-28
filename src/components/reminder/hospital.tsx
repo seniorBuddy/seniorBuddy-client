@@ -87,7 +87,7 @@ export default function Hospital({ chooseOne }: HospitalProps) {
                   {/* 추가 설명 */}
                   <span className="text-xl sm:text-2xl">{hospital.additional_info}</span>
                   {/* 예약 시간 */}
-                  {hospital.start_date}
+                  {hospital.start_date_time}
                 </div>
               </div>
               {/* 수정/삭제 버튼 */}
