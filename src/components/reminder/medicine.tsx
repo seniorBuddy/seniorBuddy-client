@@ -84,10 +84,13 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
           />
           <span className="text-darkblue text-2xl font-bold">약 알람 설정</span>
         </div>
+        <div>
+
+    <div className='w-[320px] sm:w-[600px]'>
         <div 
           className={
-            `w-[320px] sm:w-[600px] bg-blue rounded-lg p-4 text-2xl duration-300 transition-all
-            ${toggle ? 'max-h-full opacity-100' : 'max-h-0 opacity-0'}`
+            ` bg-blue rounded-lg p-4 text-2xl duration-300 transition-all
+            ${toggle ? 'block' : 'hidden'}`
           }
         >
           <div className="grid grid-cols-2 gap-2">
@@ -103,6 +106,8 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
             )}
           </div>
         </div>
+        </div>
+      </div>
       </div>
     </div>
     
@@ -142,13 +147,15 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
                 {medicine.day}
               </div>
             </div>
+            
             {/* 수정/삭제 버튼 */}
             {hoveredIndex === index && (
               <div className="flex gap-[60px] absolute inset-0 items-center justify-center text-2xl">
                 <button
                   onClick={() => {
+                    console.log('clicked');
                     setMedicineId(medicine.reminder_id);  // 선택 약 정보 id
-                    setAddmedicine(true);  // 모달 열기
+                    setAddmedicine(!addMedicine);  // 모달 열기
                     setUpdateMedicine(true);
                   }}
                   className="h-[100px] w-[100px] bg-yellow-500 opacity-85 text-white px-2 py-1 rounded-2xl hover:bg-yellow-600"
