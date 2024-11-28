@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { HospitalInfo } from '@/types';
-import { HospitalRegister, getHospital } from '@/app/actions/hospital-information';
+import { HospitalRegister, getHospital, deleteHospital } from '@/app/actions/hospital-information';
 
 interface hospitalListState {
   hospitals: HospitalInfo[];
@@ -13,6 +13,8 @@ interface hospitalListState {
     Promise<{ success: boolean, message: string }>;
 
   fetchHospital: () => Promise<void>;
+
+  deleteHospital: (reminderId: number) => Promise<void>;
 }
 
 export const useHospitalStore = create<hospitalListState>((set) => ({
@@ -91,6 +93,29 @@ export const useHospitalStore = create<hospitalListState>((set) => ({
       }
     } catch (error) {
       console.log("정보 받아오기 오류");
+    }
+  },
+
+  deleteHospital: async (reminderId) => {
+    try {
+      const response = await deleteHospital(reminderId);
+
+      if (response.success) {
+        set((state) => {
+          const removeHospital = state.hospitals.filter((medicine: HospitalInfo) => 
+            medicine.reminder_id !== reminderId
+          );
+
+          console.log("삭제된 후 정보 : ", removeHospital);
+          return { hospitals: removeHospital };
+        });
+
+        console.log("삭제 성공");
+      } else {
+        console.error("삭제 실패 : ", response.message);
+      }
+    } catch (error) {
+      console.error("삭제 오류");
     }
   },
 }));

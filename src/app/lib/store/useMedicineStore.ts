@@ -104,12 +104,12 @@ export const useMedicineStore = create<medicineListState>((set) => ({
 
       if (response.success) {
         set((state) => {
-          const deleteInformation = state.medicines.filter((medicine: MedicineInfo) => 
+          const removeMedicine = state.medicines.filter((medicine: MedicineInfo) => 
             medicine.reminder_id !== reminderId
           );
 
-          console.log("삭제된 후 정보 : ", deleteInformation);
-          return { medicines: deleteInformation };
+          console.log("삭제된 후 정보 : ", removeMedicine);
+          return { medicines: removeMedicine };
         });
 
         console.log("삭제 성공");
