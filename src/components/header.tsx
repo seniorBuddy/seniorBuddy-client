@@ -17,13 +17,12 @@ export default function Header () {
                     <div className='w-full bg-'>
                         <Image
                             onClick={() => router.push('/')} 
-                            src={LogoSvg} alt="logo" className="right-0 my-3 max-w-10 m-auto cursor-pointer"/>
+                            src={LogoSvg} alt="logo" className="right-0 my-3 max-w-10 m-auto translate-x-6 cursor-pointer"/>
                     </div>
                          <CgArrowsExchange 
                          onClick={toggleMode}
                          className='size-10 text-blue dark:text-white cursor-pointer' />
                     </div>
-                   
                 </div>
             </header>
         ) 
