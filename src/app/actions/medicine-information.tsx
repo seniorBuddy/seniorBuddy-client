@@ -87,3 +87,30 @@ export async function getMedicine() {
     return { success: false, message: "GET: 서버 오류 발생" };
   }
 }
+
+export async function deleteMedicine(reminderId: number) {
+  const token = getAccessToken();
+  console.log("약 삭제하기");
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/reminder/medication/${reminderId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include',
+    })
+    console.log("DELETE 완료");
+    const getData = await res.json();
+    console.log("가져온 정보 : ", getData);
+
+    if(!res.ok) {
+      return { success: false, message: "정보 불러오기 실패" };
+    }
+    
+    return { success: true, message: getData };
+  } catch(error) {
+    return { success: false, message: "DELETE: 서버 오류 발생" };
+  }
+}

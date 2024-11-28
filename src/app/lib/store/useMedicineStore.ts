@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { MedicineInfo } from '@/types';
-import { MedicineRegister, getMedicine } from '@/app/actions/medicine-information';
+import { MedicineRegister, getMedicine, deleteMedicine } from '@/app/actions/medicine-information';
 
 interface medicineListState {
   medicines: MedicineInfo[];  // 약 정보 배열
@@ -13,6 +13,8 @@ interface medicineListState {
     Promise<{ success: boolean; message: string }>;
 
   fetchMedicine: () => Promise<void>;
+
+  deleteMedicine: (reminderId: number) => Promise<void>;
 }
 
 export const useMedicineStore = create<medicineListState>((set) => ({
@@ -93,6 +95,29 @@ export const useMedicineStore = create<medicineListState>((set) => ({
       }
     } catch (error) {
       console.error("정보 받아오기 오류");
+    }
+  },
+
+  deleteMedicine: async (reminderId) => {
+    try {
+      const response = await deleteMedicine(reminderId);
+
+      if (response.success) {
+        set((state) => {
+          const deleteInformation = state.medicines.filter((medicine: MedicineInfo) => 
+            medicine.reminder_id !== reminderId
+          );
+
+          console.log("삭제된 후 정보 : ", deleteInformation);
+          return { medicines: deleteInformation };
+        });
+
+        console.log("삭제 성공");
+      } else {
+        console.error("삭제 실패 : ", response.message);
+      }
+    } catch (error) {
+      console.error("삭제 오류");
     }
   },
 }));
