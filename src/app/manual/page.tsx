@@ -10,51 +10,46 @@ const ManualPage: React.FC = () => {
   const { mode } = useModeStore();
   console.log(mode);
 
-  if(mode === 'normal') {
+  if(mode === 'simple') {
     return (
-      <section className="mx-5">
+      <section className="mx-5 sm:mx-36">
         <div className="border border-gray-300 rounded-lg p-5 shadow-md dark:border-gray-600">
           <div className="flex items-center text-left text-[#136BFF] text-3xl font-bold mb-5">
             <BiSolidFoodMenu className="mr-2 text-3xl" /> 
             설명서
           </div>
-  
-          <div className="flex flex-col justify-center items-stretch">
-            {/* 카카오톡 항목 */}
-            <div className="grid items-start mb-5 h-full bg-slate-100 rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
-              <p className="mt-2 text-2xl text-[#136BFF] font-bold">카카오톡</p>
-              <div className="flex flex-wrap justify-center w-full mb-2">
-                {manualItems.filter(item => item.category === '카카오톡').map(item => (
-                  <Link key={item.id} href={`/manual/${item.id}`} className="w-full md:w-72 mt-2 mx-1">
-                    <div className="h-10 bg-gradient-to-r from-yellow-400 to-yellow-500 dark:from-yellow-500 dark:to-yellow-600 text-darkblue rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5]">
-                      {item.title}
-                    </div>
-                  </Link>
-                ))}
+          <div className='grid grid-cols-2 gap-3 sm:gap-10 items-center justify-center'>
+          {manualItems.filter(item => item.category === '카카오톡').map(item => (
+            <Link key={item.id} href={`/manual/${item.id}`} className="
+            transform hover:scale-105 hover:bg-[#005bb5] duration-300
+            w-full h-16 py-16 bg-blue flex items-center justify-center rounded-xl">
+              <div className=" text-white text-xl font-bold text-center px-2">
+                {item.title}
               </div>
-            </div>
+            </Link>
+          ))}
   
-            {/* 일상 항목 */}
-            <div className="flex flex-col items-start mt-5 h-full bg-slate-100 rounded-lg shadow-md p-4 transition-transform duration-300 transform hover:shadow-lg dark:bg-gray-900">
-              <p className="mt-2 text-2xl text-[#136BFF] font-bold">일상</p>
-              <div className="flex flex-wrap justify-center w-full">
-                {manualItems.filter(item => item.category === '일상').map(item => (
-                  <Link key={item.id} href={`/manual/${item.id}`} className="w-full md:w-72 mt-2 mx-1">
-                    <div className="h-10 bg-gradient-to-r from-green-400 to-green-500 dark:from-green-500 dark:to-green-600 text-darkblue rounded-lg text-lg flex items-center justify-center transition-transform duration-300 transform hover:scale-105 hover:bg-[#005bb5] hover:text-white">
-                      {item.title}
-                    </div>
-                  </Link>
-                ))}
+          {/* 일상 항목 */}
+          {manualItems.filter(item => item.category === '일상').map(item => (
+            <Link key={item.id} href={`/manual/${item.id}`} className="
+            transform hover:scale-105 hover:bg-[#005bb5] duration-300
+            w-full h-16 py-16 bg-blue flex items-center justify-center rounded-xl">
+              <div className="text-white rounded-lg text-xl px-2 text-center font-bold" >
+                <div className=''>
+                {item.title}
+                </div>
               </div>
-            </div>
+            </Link>
+          ))}
           </div>
+          
         </div>
       </section>
     );
   } else {
     return (
       <section className="mx-5">
-        <div className="border border-gray-300 rounded-lg p-5 shadow-md dark:border-gray-600 simple-mode">
+        <div className="border border-gray-300 rounded-lg p-5 shadow-md dark:border-gray-600 ">
           <div className="flex items-center text-left text-[#136BFF] text-3xl font-bold mb-5">
             <BiSolidFoodMenu className="mr-2 text-3xl" />
             설명서
@@ -70,10 +65,11 @@ const ManualPage: React.FC = () => {
                 <div className="mt-2 flex flex-col space-y-2 sm:space-y-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
                   {manualItems.filter(item => item.category === category).map(item => (
                     <Link key={item.id} href={`/manual/${item.id}`} className="w-full">
-                      <span className="block px-4 py-2 bg-blue-100 text-black rounded-lg hover:bg-blue-200 dark:bg-gray-700 transition-transform duration-300 transform hover:scale-105">
-                        {item.title}
+                      <span className="block px-4 py-2 bg-blue-100 text-slate-600 text-lg font-bold rounded-lg hover:bg-blue-200 dark:bg-gray-700 transition-transform duration-300 transform hover:scale-105">
+                      ↪ {item.title}
                       </span>
                     </Link>
+                   
                   ))}
                 </div>
               </details>
