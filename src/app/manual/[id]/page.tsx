@@ -1,14 +1,14 @@
-"use client"; 
+"use client";
 import React from "react";
-import { usePathname } from "next/navigation"; 
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ImageSlider from "@/components/ImageSlider";
-import { manualItems } from "@/app/manual/mock/manual-item"; 
+import { manualItems } from "@/app/manual/mock/manual-item";
 import { StaticImageData } from "next/image";
 
 const ManualPage: React.FC = () => {
     const pathname = usePathname();
-    const id = pathname ? pathname.split("/").slice(-2).pop() : null; 
+    const id = pathname ? pathname.split("/").slice(-2).pop() : null;
     const item = id ? manualItems.find((item) => item.id === id) : null;
 
     if (!item) {
@@ -26,12 +26,12 @@ const ManualPage: React.FC = () => {
             </div>
 
             <div className="flex flex-col lg:flex-row justify-between mt-4">
-                <div className="p-4 bg-white dark:bg-gray-900 shadow-md mb-4 lg:mb-0 flex flex-col items-center lg:px-4 lg:w-2/5">
-                    <h2 className="font-bold text-lg text-[#136BFF] dark:text-[#0E4BFF] text-center mb-4">목차</h2>
+                <div className="p-6 bg-white dark:bg-gray-900 shadow-md mb-4 lg:mb-0 flex flex-col items-center lg:px-4 lg:w-2/3">
+                    <h2 className="font-bold text-3xl text-[#136BFF] dark:text-[#0E4BFF] text-center mb-4">목차</h2>
                     <ul className="space-y-3 w-full">
                         <li className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg shadow transition duration-300 cursor-pointer">
-                            <span className="text-[#136BFF] font-bold dark:text-[#0E4BFF]">카카오톡</span>
-                            <ul className="pl-4 text-sm">
+                            <span className="text-[#136BFF] text-xl font-bold dark:text-[#0E4BFF]">카카오톡</span>
+                            <ul className="pl-4 text-lg">
                                 <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/picture">1. 사진 보내기</Link>
                                 </li>
@@ -41,8 +41,8 @@ const ManualPage: React.FC = () => {
                             </ul>
                         </li>
                         <li className="bg-gray-100 dark:bg-gray-700 p-3 rounded-lg shadow transition duration-300 cursor-pointer">
-                            <span className="text-[#136BFF] font-bold dark:text-[#0E4BFF]">일상</span>
-                            <ul className="pl-4 text-sm">
+                            <span className="text-[#136BFF] text-xl font-bold dark:text-[#0E4BFF]">일상</span>
+                            <ul className="pl-4 text-lg">
                                 <li className="text-black dark:text-gray-200 transition-transform duration-300 transform hover:scale-105 hover:text-[#0E4BFF]">
                                     <Link href="/manual/number">1. 전화번호 등록하기</Link>
                                 </li>
@@ -60,7 +60,7 @@ const ManualPage: React.FC = () => {
                     </ul>
                 </div>
 
-                <div className="mx-2 lg:px-4 w-full">
+                <div className="mx-2 lg:px-4 w-full text-2xl">
                     <ImageSlider images={allImages} />
                 </div>
             </div>
