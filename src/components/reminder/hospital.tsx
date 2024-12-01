@@ -3,6 +3,7 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useState, useEffect } from 'react';
 import { Toaster, toast } from '@/app/utils/toast';
 import { useHospitalStore } from '@/app/lib/store/useHospitalStore';
+import useModeStore from '@/app/lib/store/useModeStore';
 
 interface HospitalProps {
   chooseOne: string;
@@ -39,12 +40,6 @@ export default function Hospital({ chooseOne }: HospitalProps) {
     setUpdateHospital(false);
   }
 
-  // 새로운 병원 정보 등록
-  // const handleRegister = (newData: Hospital) => {
-  //   setHospitals([...hospitals, newData]);
-  //   setAddHospital(false);
-  // }
-
   // 수정, 삭제 버튼 나타내기
   const handleMouseEnter = (index: number | null) => {
     setHoveredIndex(index);
@@ -68,6 +63,9 @@ export default function Hospital({ chooseOne }: HospitalProps) {
       });
     }
   }
+
+  const { mode } = useModeStore();
+  console.log(mode);
 
   return(
     <>
@@ -122,7 +120,10 @@ export default function Hospital({ chooseOne }: HospitalProps) {
             onClick={() => setAddHospital(true)}
             className="min-h-[100px] w-full bg-white rounded-lg flex flex-col items-center justify-center"
           >
-            <FaPlusCircle size="70" className="text-blue" />
+            {mode==='simple' ?
+              <span className="font-bold text-darkblue text-4xl">병원 등록하기</span> :
+              <FaPlusCircle size="70" className="text-blue" />
+            }
           </div>
         </div>
       </div>
