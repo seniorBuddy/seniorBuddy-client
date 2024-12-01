@@ -34,14 +34,12 @@ export default function MadicineMain({ chooseOne }: MedicineProps) {
     if (e.target === e.currentTarget) {
       setAddmedicine(false);
       setUpdateMedicine(false);
-      //setMedicineId(0);
     }
   }
 
   const handleCancel = () => {
     setAddmedicine(false);
     setUpdateMedicine(false);
-    //setMedicineId(0);
   }
 
   // 수정, 삭제 버튼 나타내기
