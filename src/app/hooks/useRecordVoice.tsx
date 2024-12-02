@@ -1,9 +1,25 @@
 import { useState } from "react";
 
+
+export interface PostMessagePayload {
+    message: string;
+    assistantResponse?: string;
+}
+
 const useRecordVoice = () => {
     const [listening, setListening] = useState(false);
     const [transcript, setTranscript] = useState('');
 
+    const postMessageToRN = (payload: PostMessagePayload) => {
+        // Next.js의 경우 Window 객체가 존재하지 않는 환경 (서버)의 경우
+        // 혹은 웹뷰가 아닌 브라우저로 접근 시 아무것도 하지 않음
+        if (typeof window === "undefined" || !window.ReactNativeWebView) {
+            return;
+        }
+        
+        // React Native WebView가 존재할 경우 메시지 전송
+        window.ReactNativeWebView.postMessage(JSON.stringify(payload));
+    };
 
     const onReadMessage = (text: string) => {
         console.log(text, '실행')
@@ -45,6 +61,8 @@ const useRecordVoice = () => {
     
             // voices 로드 트리거
             window.speechSynthesis.getVoices();
+        } else {
+            postMessageToRN({ message: 'speechSynthesis을 지원하지 않습니다.', assistantResponse: text });
         }
     };
 
