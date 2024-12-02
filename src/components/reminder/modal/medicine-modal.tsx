@@ -44,7 +44,6 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
     { id: 9, name: '1년 이상' },
   ]);  // 종료 기간 리스트 요소
 
-  //const token = useTokenStore((state) => state.token) as string;
   const addMedicine = useMedicineStore((state) => state.addMedicine);
   const updateMedicine = useMedicineStore((state) => state.updateMedicine);
   const getMedicine = useMedicineStore((state) => state.medicines.find((medicine) => medicine.reminder_id === medicineId));
@@ -139,7 +138,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
   return (
     <>
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col gap-4 justify-center sm:gap-8 font-bold text-darkblue text-2xl px-3">
+      <div className="flex flex-col justify-center gap-4 sm:gap-8 font-bold text-darkblue text-2xl px-3">
         {/* 약 이름 */}
         <div className="flex flex-row justify-center sm:justify-start items-center w-full gap-1">
           <span className="hidden sm:block sm:w-[60px]">이름</span>
@@ -281,7 +280,7 @@ export default function MedicineModal({ onCancel, onUpdate, medicineId, onResult
         </div>
         <div
           onClick={handleSubmit}
-          className="w-[130px] sm:w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded\
+          className="w-[130px] sm:w-[180px] h-[45px] p-2 flex justify-center items-center border-2 border-gray-400 rounded-xl\
           hover:bg-blue hover:text-white hover:scale-[1.1] transition-transform duration-200"
         >
             등록
